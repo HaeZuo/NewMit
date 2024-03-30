@@ -11,21 +11,17 @@
 ### 종속성
 
 * Developer Tools
-  - Spring Boot DevTools
-  - Lombok
-
+ - Spring Boot DevTools
+ - Lombok
 * Web
-  - Spring Web
-  - Spring Session
-  - Spring Web Services
-
+ - Spring Web
+ - Spring Session
+ - Spring Web Services
 * Template Engines
-  - Thymeleaf
-
- * Security
-  - Spring Security
-  - OAuth2 Client
-
+ - Thymeleaf
+* Security
+ - Spring Security
+ - OAuth2 Client
 * SQL
-  - MyBatis Framework
-  - MySQL Driver
+ - MyBatis Framework
+ - MySQL Driver
