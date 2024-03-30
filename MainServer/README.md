@@ -6,13 +6,14 @@
 * Type : Gradle - Groovy
 * JDK : Oracle OpenJDK VERSION 17.0.9
 * Java : 17
-* Package Create : Jar
+* Package Create : War
 
 ### 종속성
 
 * Developer Tools
   - Spring Boot DevTools
   - Lombok
+  - Spring Modulith
 * Web
   - Spring Web
   - Spring Session
