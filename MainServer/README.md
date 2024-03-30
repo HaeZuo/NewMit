@@ -20,9 +20,8 @@
   - Spring Session
   - Spring Web Services
 
-~~* Template Engines~~
+* Template Engines
   - ~~Thymeleaf~~
-
 
 * Template
   - Tiles or SiteMesh
