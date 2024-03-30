@@ -19,7 +19,7 @@
   - Spring Session
   - Spring Web Services
 * Template Engines
-  - Thymeleaf
+  - ~~Thymeleaf~~
 * Security
   - Spring Security
   - OAuth2 Client
