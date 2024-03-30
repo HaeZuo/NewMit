@@ -14,6 +14,7 @@
   - Spring Boot DevTools
   - Lombok
   - Spring Modulith
+
 * Web
   - Spring Web
   - Spring Session
@@ -22,11 +23,14 @@
 ~~* Template Engines~~
   - ~~Thymeleaf~~
 
+
 * Template
   - Tiles or SiteMesh
+
 * Security
   - Spring Security
   - OAuth2 Client
+
 * SQL
   - MyBatis Framework
   - MySQL Driver
