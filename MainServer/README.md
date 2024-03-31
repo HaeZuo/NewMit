@@ -38,8 +38,7 @@
 ## 02. 설정
 
 * JSP 사용
-  - Spring Boot는 기본적으로 jsp를 지원하지 않으며, 대체로 Template Engines 사용을 권장한다. 하지만 사용했다.
-
+  - Spring Boot는 기본적으로 jsp를 지원하지 않으며, 대체로 Spring Boot에서 제공하는 Template Engines 사용을 권장한다. 하지만 사용했다.
 ```
     // -- JSP Begin --
     // implementation 'javax.servlet:jstl' // 스프링 3.0 미만
@@ -49,4 +48,13 @@
     implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
     implementation "org.apache.tomcat.embed:tomcat-embed-jasper"
     // -- JSP End --
+```
+ - 템플릿 엔진은 SiteMesh를 사용했다.
+```
+    // -- sitemesh Begin --
+    // Template
+    // 설정파일 : webapp/WEB-INF/decorators
+    // application.java에 bean 추가
+    implementation 'org.sitemesh:sitemesh:3.2.1'
+    // -- sitemesh End
 ```
