@@ -34,3 +34,19 @@
 * SQL
   - MyBatis Framework
   - MySQL Driver
+
+## 02. 설정
+
+* JSP 사용
+  - Spring Boot는 기본적으로 jsp를 지원하지 않으며, 대체로 Template Engines 사용을 권장한다. 하지만 사용했다.
+
+```
+    // -- JSP Begin --
+    // implementation 'javax.servlet:jstl' // 스프링 3.0 미만
+    // ref : https://velog.io/@jjungyu12/JSP-JSTL-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EB%B2%84%EC%A0%84%EA%B3%BC-%EC%82%AC%EC%9A%A9%EB%B2%95
+    implementation 'jakarta.servlet:jakarta.servlet-api'
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
+    implementation "org.apache.tomcat.embed:tomcat-embed-jasper"
+    // -- JSP End --
+```
