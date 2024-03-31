@@ -25,7 +25,7 @@
   - ~~Thymeleaf~~
 
 * Template
-  - Tiles or SiteMesh
+  - ~Tiles or~ SiteMesh
 
 * Security
   - Spring Security
