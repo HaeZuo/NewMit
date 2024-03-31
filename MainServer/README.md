@@ -39,4 +39,4 @@
 
 * JSP 사용
   - Spring Boot는 기본적으로 jsp를 지원하지 않으며, 대체로 Spring Boot에서 제공하는 Template Engines 사용을 권장한다. 하지만 사용했다.
-  - 템플릿 엔진은 SiteMesh를 사용했다.
+  - 템플릿 엔진은 SiteMesh를 사용.
