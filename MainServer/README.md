@@ -49,7 +49,7 @@
     implementation "org.apache.tomcat.embed:tomcat-embed-jasper"
     // -- JSP End --
 ```
- - 템플릿 엔진은 SiteMesh를 사용했다.
+  - 템플릿 엔진은 SiteMesh를 사용했다.
 ```
     // -- sitemesh Begin --
     // Template
