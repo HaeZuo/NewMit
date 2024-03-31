@@ -7,6 +7,7 @@
 * JDK : Oracle OpenJDK VERSION 17.0.9
 * Java : 17
 * Package Create : War
+* Spring Boot 3.2.4
 
 ### 종속성
 
