@@ -1,6 +1,3 @@
-# 물리적설계
-
-```
 
 
 -- 공통코드 테이블
@@ -67,4 +64,3 @@ CREATE TABLE TB_RECIPE (
     RECIPE_UPDATE_IP VARCHAR(15) COMMENT '레시피 업데이트 아이피' NOT NULL,
     PRIMARY KEY(MB_NO, RECIPE_NO)
 );
-```
