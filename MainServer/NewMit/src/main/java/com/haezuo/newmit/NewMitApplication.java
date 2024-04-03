@@ -1,6 +1,6 @@
 package com.haezuo.newmit;
 
-import com.haezuo.newmit.config.SiteMeshFilter;
+import com.haezuo.newmit.config.layout.SiteMeshFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;

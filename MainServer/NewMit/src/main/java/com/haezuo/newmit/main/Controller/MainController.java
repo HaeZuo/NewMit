@@ -10,7 +10,7 @@ public class MainController extends BaseController {
 
     @RequestMapping(value = {"/", "/main"}, method= RequestMethod.GET)
     public String main() {
-        return "/layoutViews/main";
+        return "/main";
     }
 
 }
