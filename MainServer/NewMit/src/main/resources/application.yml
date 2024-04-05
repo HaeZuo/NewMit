@@ -16,24 +16,8 @@ spring:
     password: 1Q2W3e4r!!
     driver-class-name: com.mysql.jdbc.Driver
 
-    jpa:
-      properties:
-        hibernate:
-          show_sql: true
-
   profiles:
     include: oauth
-
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: 21475556791-2cgd5ot9k19ko12ucvosjsabhj0peova.apps.googleusercontent.com
-            client-secret: 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
-          scope:
-            -email
-            -profile
 
 # Server Info
 server:
