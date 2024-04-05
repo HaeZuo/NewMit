@@ -1,0 +1,10 @@
+# -- OAuth 2.0 Begin --
+# Kakao API
+kakao:
+  client:
+    id: 42090dbb9596451f03380f2eafde2fbd  # Kakao client ID
+    secret: m1BvtRyx66IieWjK5OgWfh0vWalvy3N1  # Kakao client secret
+  redirect:
+    url: http://localhost:8080/login/oauth2/code/kakao  # Redirect URL for Kakao OAuth authentication
+
+# -- OAuth 2.0 End --
