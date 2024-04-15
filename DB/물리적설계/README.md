@@ -3,8 +3,6 @@
 ```
 
 
-
-
 -- 공통코드 테이블
 CREATE TABLE TB_COMMON_CODE (
     COMMON_CODE_CD VARCHAR(6) COMMENT '공통코드' PRIMARY KEY,
@@ -12,6 +10,7 @@ CREATE TABLE TB_COMMON_CODE (
 );
 
 -- 회원정보 테이블
+DROP TABLE TB_MEMBERS_INFO;
 CREATE TABLE TB_MEMBERS_INFO (
     MB_NO INT(10) COMMENT '회원 넘버' PRIMARY KEY,
     MB_EMAIL VARCHAR(30) COMMENT '회원 이메일' NOT NULL,
@@ -105,13 +104,15 @@ CREATE TABLE TB_RECIPE_HISTORY (
     PRIMARY KEY(MB_NO, RECIPE_NO)
 );
 
-CREATE TABLE MEMBER(
-    ID VARCHAR(10),
-    NAME VARCHAR(30)
+create table refresh_token (
+    id int(10) primary key,
+    refresh_token VARCHAR(500),
+    user_id VARCHAR(500)
 );
-
-select * from MEMBER;
+alter table refresh_token modify column id int NOT NULL AUTO_INCREMENT;
+ALTER TABLE refresh_token CONVERT TO CHARSET utf8;
 
 COMMIT;
+
 
 ```
