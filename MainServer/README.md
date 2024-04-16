@@ -31,10 +31,23 @@
 * Security
   - Spring Security
   - OAuth2 Client
+  - jaxb-api
+  - jjwt
 
 * SQL
   - MyBatis Framework
   - MySQL Driver
+ 
+* Util
+  - json-simple
+  
+* JPA
+
+* JSP
+  - jakarta.servlet-api
+  - jakarta.servlet.jsp.jstl-api
+  - jakarta.servlet.jsp.jstl
+  - tomcat-embed-jasper
 
 ## 02. 설정
 
