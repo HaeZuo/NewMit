@@ -60,7 +60,7 @@ public class WebOAuthSecurityConfig {
 
         http.oauth2Login()
                 .loginPage("/login") // 로그인 페이지 설정
-                .authorizationEndpoint()
+                .authorizationEndpoint() // OAuth 인증 엔드포인트 설정 [ ex) /oauth2/authorization/google ]
                 .authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository()) // OAuth2 권한 부여 요청 저장소 설정
                 .and()
                 .successHandler(oAuth2SuccessHandler()) // OAuth2 로그인 성공 핸들러 설정
