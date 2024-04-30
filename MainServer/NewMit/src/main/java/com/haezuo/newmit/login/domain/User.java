@@ -63,13 +63,15 @@ public class User implements UserDetails {
         this.mbGender = mbGender;
         this.mbPhoneNumber = mbPhoneNumber;
         this.mbRegisterDate = mbRegisterDate;
-        this.mbRegisterIp = "1.1.1.1";
+        this.mbRegisterIp = mbRegisterIp;
         this.mbUpdateDate = mbUpdateDate;
-        this.mbUpdateIp = "1.1.1.1";
+        this.mbUpdateIp = mbUpdateIp;
     }
 
-    public User update(String nickname) {
+    public User update(String nickname, String mbUpdateIp, String mbUpdateDate) {
         this.mbNm = nickname;
+        this.mbUpdateDate = mbUpdateDate;
+        this.mbUpdateIp = mbUpdateIp;
 
         return this;
     }

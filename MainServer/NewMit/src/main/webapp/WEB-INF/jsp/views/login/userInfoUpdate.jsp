@@ -19,35 +19,51 @@
             }, function(fail) {
                 alert('회원정보를 불러오는데 실패했습니다.');
             });
+
+            document.getElementById("saveBtn").onclick = function() {
+                const data = commonUtil.formToJson(document.getElementById("userInfoForm"));
+
+                httpRequest('POST', '/api/userInfoUpdate', data, async function(success) {
+
+                }, function(fail) {
+
+                });
+            }
+
         }
     </script>
 </head>
 <body>
-    <table>
-        <tr>
-            <th>회원 이메일</th>
-            <td><input type="text" id="userMail" disabled></td>
-        </tr>
-        <tr>
-            <th>OAUTH 인증기관</th>
-            <td><input type="text" id="userOAuthProvider" disabled></td>
-        </tr>
-        <tr>
-            <th>회원 이름</th>
-            <td><input type="text" id="userNm" disabled></td>
-        </tr>
-        <tr>
-            <th>회원 생년월일</th>
-            <td><input type="text" id="userBirthDate"></td>
-        </tr>
-        <tr>
-            <th>회원 성별</th>
-            <td><input type="text" id="userGender"></td>
-        </tr>
-        <tr>
-            <th>회원 전화번호</th>
-            <td><input type="text" id="userPhoneNumber"></td>
-        </tr>
-    </table>
+    <form id="userInfoForm" onsubmit="return false;">
+        <table>
+            <tr>
+                <th>회원 이메일</th>
+                <td><input type="text" id="userMail" readonly></td>
+            </tr>
+            <tr>
+                <th>OAUTH 인증기관</th>
+                <td><input type="text" id="userOAuthProvider" readonly></td>
+            </tr>
+            <tr>
+                <th>회원 이름</th>
+                <td><input type="text" id="userNm" readonly></td>
+            </tr>
+            <tr>
+                <th>회원 생년월일</th>
+                <td><input type="text" id="userBirthDate"></td>
+            </tr>
+            <tr>
+                <th>회원 성별</th>
+                <td><input type="text" id="userGender"></td>
+            </tr>
+            <tr>
+                <th>회원 전화번호</th>
+                <td><input type="text" id="userPhoneNumber"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="button" value="저장" id="saveBtn"></td>
+            </tr>
+        </table>
+    </form>
 </body>
 </html>

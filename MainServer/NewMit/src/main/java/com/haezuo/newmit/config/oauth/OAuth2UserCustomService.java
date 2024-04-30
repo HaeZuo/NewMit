@@ -1,14 +1,19 @@
 package com.haezuo.newmit.config.oauth;
 
+import com.haezuo.newmit.common.Util.CommonUtil;
+import com.haezuo.newmit.common.Util.ntp;
 import com.haezuo.newmit.login.domain.User;
 import com.haezuo.newmit.login.dto.UserInfo;
 import com.haezuo.newmit.login.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @RequiredArgsConstructor
 @Service
@@ -31,15 +36,22 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
 
         UserInfo userInfo = new UserInfo(userRequest, oAuth2User);
 
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        String userIp = CommonUtil.getRemoteAddr(request);
+        String currentDate = ntp.getCurrentTime();
+
         User user = userRepository.findByEmailAndOauthProvider(userInfo.getEmail(), userInfo.getOauthProvider())
-                .map(entity -> entity.update(userInfo.getName()))
+                .map(entity -> entity.update(userInfo.getName(), userIp, currentDate))
                 .orElse(User.builder()
                         .email(userInfo.getEmail())
                         .nickname(userInfo.getName())
                         .oauthProvider(userInfo.getOauthProvider())
+                        .mbRegisterIp(userIp)
+                        .mbRegisterDate(currentDate)
+                        .mbUpdateIp(userIp)
+                        .mbUpdateDate(currentDate)
                         .build());
 
         return userRepository.save(user);
     }
 }
-
