@@ -1,12 +1,9 @@
 const commonUtil = {};
 
-commonUtil.getObjectData = function(object, key) {
-    return (object[key] != null && object[key] != "") ? object[key] : "";
-}
-
-commonUtil.formToJson = function(dom) {
+commonUtil.formToObject = function(dom) {
     const formData = new FormData(dom);
     const jsonObject = {};
+
     formData.forEach(function(value, key) {
         // 중복된 키 처리
         if (jsonObject.hasOwnProperty(key)) {
@@ -18,6 +15,10 @@ commonUtil.formToJson = function(dom) {
             jsonObject[key] = value;
         }
     });
-    
-    return JSON.stringify(jsonObject);
+
+    return jsonObject;
+}
+
+commonUtil.getObjectData = function(object, key) {
+    return (object[key] != null && object[key] != "") ? object[key] : "";
 }

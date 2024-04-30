@@ -21,9 +21,9 @@
             });
 
             document.getElementById("saveBtn").onclick = function() {
-                const data = commonUtil.formToJson(document.getElementById("userInfoForm"));
-
-                httpRequest('POST', '/api/userInfoUpdate', data, async function(success) {
+                const data = commonUtil.formToObject(document.getElementById("userInfoForm"));
+                
+                httpRequest('POST', '/api/userInfoUpdate', JSON.stringify(data), async function(success) {
 
                 }, function(fail) {
 
@@ -38,27 +38,27 @@
         <table>
             <tr>
                 <th>회원 이메일</th>
-                <td><input type="text" id="userMail" readonly></td>
+                <td><input type="text" id="userMail" name="userMail" readonly></td>
             </tr>
             <tr>
                 <th>OAUTH 인증기관</th>
-                <td><input type="text" id="userOAuthProvider" readonly></td>
+                <td><input type="text" id="userOAuthProvider" name="userOAuthProvider" readonly></td>
             </tr>
             <tr>
                 <th>회원 이름</th>
-                <td><input type="text" id="userNm" readonly></td>
+                <td><input type="text" id="userNm" name="userNm" readonly></td>
             </tr>
             <tr>
                 <th>회원 생년월일</th>
-                <td><input type="text" id="userBirthDate"></td>
+                <td><input type="text" id="userBirthDate" name="userBirthDate"></td>
             </tr>
             <tr>
                 <th>회원 성별</th>
-                <td><input type="text" id="userGender"></td>
+                <td><input type="text" id="userGender" name="userGender"></td>
             </tr>
             <tr>
                 <th>회원 전화번호</th>
-                <td><input type="text" id="userPhoneNumber"></td>
+                <td><input type="text" id="userPhoneNumber" name="userPhoneNumber"></td>
             </tr>
             <tr>
                 <td colspan="2"><input type="button" value="저장" id="saveBtn"></td>
