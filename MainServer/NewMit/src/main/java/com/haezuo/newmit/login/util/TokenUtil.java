@@ -1,6 +1,9 @@
 package com.haezuo.newmit.login.util;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+
+import java.util.Arrays;
 
 public class TokenUtil {
     private static final String HEADER_AUTHORIZATION = "Authorization";
@@ -12,6 +15,15 @@ public class TokenUtil {
         String token = getAccessToken(authorizationHeader);
 
         return token;
+    }
+
+    public String getTokenByCookies(HttpServletRequest request) {
+        if("refresh_token".equals(request.getCookies()[0].getName())) {
+            return request.getCookies()[0].getValue();
+        } else {
+            Cookie token = (Cookie) Arrays.stream(request.getCookies()).filter(cookie -> cookie.getName().equals("refresh_token")).toArray()[0];
+            return token.getValue();
+        }
     }
 
     // 인증 헤더에서 토큰 부분을 추출함

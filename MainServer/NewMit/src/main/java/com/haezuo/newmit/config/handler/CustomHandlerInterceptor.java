@@ -25,6 +25,7 @@ public class CustomHandlerInterceptor implements org.springframework.web.servlet
         //log.debug("===============================================");
         //log.debug("==================== BEGIN ====================");
         //log.debug("Request URI ===> " + request.getRequestURI());
+
         return org.springframework.web.servlet.HandlerInterceptor.super.preHandle(request, response, handler);
     }
 
@@ -34,11 +35,18 @@ public class CustomHandlerInterceptor implements org.springframework.web.servlet
         //log.debug("==================== END ======================");
         //log.debug("===============================================");
 
-        if(modelAndView != null) {
+        if(modelAndView == null) {
             // HTTP 요청 헤더에서 인증 토큰을 추출함
             String token = new TokenUtil().getRequestToken(request);
 
             if(token != null) {
+
+            }
+        } else {
+            // HTTP 요청 헤더에 존재하는 쿠키에서 인증 토큰을 추출함
+            String token = new TokenUtil().getTokenByCookies(request);
+
+            if(token != null && "".equals(token)) {
 
             }
         }

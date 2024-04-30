@@ -6,12 +6,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
+@EnableScheduling // 스케줄링 Enable
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 public class NewMitApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(NewMitApplication.class, args);
+        SpringApplication app = new SpringApplication(NewMitApplication.class);
+        //app.addListeners();
+        app.run(args);
     }
 
     @Bean
