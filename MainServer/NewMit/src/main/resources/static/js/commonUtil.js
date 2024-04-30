@@ -18,6 +18,6 @@ commonUtil.formToJson = function(dom) {
             jsonObject[key] = value;
         }
     });
-    debugger;
+    
     return JSON.stringify(jsonObject);
 }
