@@ -8,9 +8,11 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import com.haezuo.newmit.common.constants.*;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 @Table(name = "TB_MEMBERS_INFO")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -68,10 +70,20 @@ public class User implements UserDetails {
         this.mbUpdateIp = mbUpdateIp;
     }
 
-    public User update(String nickname, String mbUpdateIp, String mbUpdateDate) {
+    public User nmUpdate(String nickname, String mbUpdateIp, String mbUpdateDate) {
         this.mbNm = nickname;
         this.mbUpdateDate = mbUpdateDate;
         this.mbUpdateIp = mbUpdateIp;
+
+        return this;
+    }
+
+    public User userInfoUpdate(Map<String, Object> info) {
+        this.mbBirthDate = (String) info.get(userInfo.KEY_USER_BIRTH_DATE);
+        this.mbGender = (String) info.get(userInfo.KEY_USER_GENDER);
+        this.mbPhoneNumber = (String) info.get(userInfo.KEY_USER_PHONE_NUMBER);
+        this.mbUpdateIp = (String) info.get(userInfo.KEY_USER_INFO_UPDATE_IP);
+        this.mbUpdateDate = (String) info.get(userInfo.KEY_USER_INFO_UPDATE_DATE);
 
         return this;
     }

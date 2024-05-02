@@ -12,15 +12,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-@RequiredArgsConstructor
 public class BaseService {
 
     @Resource(name="commonDao")
     private CommonDao commonDao;
 
-    private final TokenProvider tokenProvider;
 
-    public String selectSystemDate() {
+    public String selectDataBaseDate() {
         String result = "";
 
         result = commonDao.selectOne("mappers.common.selectSystemDate");
@@ -28,15 +26,8 @@ public class BaseService {
         return result;
     }
 
-    public Map<String, Object> GetUserInfo(HttpServletRequest request) {
-        Map<String, Object> result = new HashMap<>();
 
-        // HTTP 요청 헤더에서 인증 토큰을 추출함
-        String token = new TokenUtil().getRequestToken(request);
-
-        result.put("userNm", tokenProvider.getUserNm(token));
-        result.put("userMail", tokenProvider.getUserMail(token));
-
-        return result;
+    public String getString(Map<String, Object> map, String key) {
+        return map.get(key) == null ? "" : (String) map.get(key);
     }
 }

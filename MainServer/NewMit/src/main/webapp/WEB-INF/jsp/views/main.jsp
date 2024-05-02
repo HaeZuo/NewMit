@@ -24,7 +24,7 @@
 
                 document.getElementById("userInfoUpdate").style.display = "";
                 document.getElementById("userInfoUpdate").onclick = function () {
-                    window.location.href = "/userInfoUpdate";
+                    window.location.href = "/user/userInfoUpdate";
                 }
             } else {
                 document.getElementById("login").style.display = "";

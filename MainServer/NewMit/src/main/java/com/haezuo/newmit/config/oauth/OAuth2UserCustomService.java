@@ -41,7 +41,7 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
         String currentDate = ntp.getCurrentTime();
 
         User user = userRepository.findByEmailAndOauthProvider(userInfo.getEmail(), userInfo.getOauthProvider())
-                .map(entity -> entity.update(userInfo.getName(), userIp, currentDate))
+                .map(entity -> entity.nmUpdate(userInfo.getName(), userIp, currentDate))
                 .orElse(User.builder()
                         .email(userInfo.getEmail())
                         .nickname(userInfo.getName())

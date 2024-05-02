@@ -15,7 +15,7 @@
 
         let userInfo = "";
         (async function() {
-            await Async.httpRequest('POST', '/api/getUserInfo', null, async function (success) {
+            await Async.httpRequest('POST', '/api/user/currentUserName', null, async function (success) {
                 userInfo = await JSON.parse(success.response);
                 document.getElementById("userInfo").setAttribute("value", JSON.stringify(userInfo));
             }, function (fail) {

@@ -24,10 +24,6 @@ public class LoginController {
 
     private final RefreshTokenService refreshTokenService;
 
-    private final UserDetailService userDetailService;
-
-    private final LoginService loginService;
-
     @DeleteMapping("/api/refresh-token")
     @ResponseBody
     public ResponseEntity deleteRefreshToken() {
@@ -57,22 +53,5 @@ public class LoginController {
 
         return "/login/index";
     }
-
-    @GetMapping("/userInfoUpdate")
-    public String userInfoUpdate() {
-
-        return "/login/userInfoUpdate";
-    }
-
-    @PostMapping("/api/currentUserInfo")
-    @ResponseBody
-    public Map<String, Object> currentUserInfo(HttpServletRequest request) {
-        Map<String, Object> result;
-
-        result = loginService.ConnectUserInfo(request);
-
-        return result;
-    }
-
 
 }
