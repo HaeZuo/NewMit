@@ -3,8 +3,10 @@ package com.haezuo.newmit.login.service;
 import com.haezuo.newmit.common.CommonService.BaseService;
 import com.haezuo.newmit.common.Util.CommonUtil;
 import com.haezuo.newmit.common.Util.ntp;
+import com.haezuo.newmit.config.jwt.TokenProvider;
 import com.haezuo.newmit.login.domain.User;
 import com.haezuo.newmit.login.repository.UserRepository;
+import com.haezuo.newmit.login.util.TokenUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,8 @@ public class UserService extends BaseService{
     private final UserRepository userRepository;
 
     private final LoginService loginService;
+
+    private final TokenProvider tokenProvider;
 
     public User findById(Long userId) {
         return userRepository.findById(userId)
@@ -63,6 +67,11 @@ public class UserService extends BaseService{
         userOptional.ifPresent(user -> {
             User updatedUser = user.userInfoUpdate(updatedUserInfo);
             userRepository.save(updatedUser);
+
+            String token = new TokenUtil().getRequestToken(request);
+            // 토큰 클레임을 수정한다.
+
+
         });
 
         return result;

@@ -1,6 +1,7 @@
 package com.haezuo.newmit.config.jwt;
 
 import com.haezuo.newmit.login.domain.User;
+import com.haezuo.newmit.common.constants.*;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;
@@ -38,13 +39,10 @@ public class TokenProvider {
                 .setIssuedAt(now)
                 .setExpiration(expiry)
                 .setSubject(user.getEmail())
-                .claim("id", user.getId())
-                .claim("nm", user.getMbNm())
-                .claim("mail", user.getEmail())
-                .claim("oAuthProvider", user.getOauthProvider())
-                .claim("birthDate", user.getMbBirthDate())
-                .claim("gender", user.getMbGender())
-                .claim("phoneNumber", user.getMbPhoneNumber())
+                .claim(userInfo.KEY_USER_ID, user.getId())
+                .claim(userInfo.KEY_USER_NM, user.getMbNm())
+                .claim(userInfo.KEY_USER_MAIL, user.getEmail())
+                .claim(userInfo.KEY_USER_O_AUTH_PROVIDER, user.getOauthProvider())
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
                 .compact();
     }
@@ -74,39 +72,23 @@ public class TokenProvider {
     // 토큰에서 사용자 아이디 가져오기
     public Long getUserId(String token) {
         Claims claims = getClaims(token);
-        return claims.get("id", Long.class);
+        return claims.get(userInfo.KEY_USER_ID, Long.class);
     }
 
     // 토큰에서 사용자 아이디 가져오기
     public String getUserNm(String token) {
         Claims claims = getClaims(token);
-        return claims.get("nm", String.class);
+        return claims.get(userInfo.KEY_USER_NM, String.class);
     }
 
     public String getUserMail(String token) {
         Claims claims = getClaims(token);
-        return claims.get("mail", String.class);
+        return claims.get(userInfo.KEY_USER_MAIL, String.class);
     }
 
     public String getUserOAuthProvider(String token) {
         Claims claims = getClaims(token);
-        return claims.get("oAuthProvider", String.class);
-    }
-
-    public String getUserBirthDate(String token) {
-        Claims claims = getClaims(token);
-        return claims.get("birthDate", String.class);
-    }
-
-
-    public String getUserGender(String token) {
-        Claims claims = getClaims(token);
-        return claims.get("gender", String.class);
-    }
-
-    public String getUserPhoneNumber(String token) {
-        Claims claims = getClaims(token);
-        return claims.get("phoneNumber", String.class);
+        return claims.get(userInfo.KEY_USER_O_AUTH_PROVIDER, String.class);
     }
 
     // 토큰에서 클레임 가져오기

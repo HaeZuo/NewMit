@@ -1,5 +1,7 @@
 package com.haezuo.newmit.login.domain;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -11,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.haezuo.newmit.common.constants.*;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -86,6 +89,12 @@ public class User implements UserDetails {
         this.mbUpdateDate = (String) info.get(userInfo.KEY_USER_INFO_UPDATE_DATE);
 
         return this;
+    }
+
+    public Map<String, Object> GetUserInfoObject() {
+        Map<String, Object> result = new HashMap<>();
+
+        return result;
     }
 
     @Override

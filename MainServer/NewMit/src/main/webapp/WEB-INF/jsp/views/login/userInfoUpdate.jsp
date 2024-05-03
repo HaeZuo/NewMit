@@ -14,22 +14,26 @@
                 document.getElementById("userBirthDate").setAttribute("value", commonUtil.getObjectData(data, 'userBirthDate'));
                 document.getElementById("userMail").setAttribute("value", commonUtil.getObjectData(data, 'userMail'));
                 document.getElementById("userPhoneNumber").setAttribute("value", commonUtil.getObjectData(data, 'userPhoneNumber'));
-                if(commonUtil.getObjectData(data, 'userGender')) {
-                    document.querySelector('input[name="userGender"][value=' + commonUtil.getObjectData(data, 'userGender') + ']').checked = true;
-                }
                 document.getElementById("userOAuthProvider").setAttribute("value", commonUtil.getObjectData(data, 'userOAuthProvider'));
+                if(commonUtil.getObjectData(data, 'userGender'))
+                    document.querySelector('input[name="userGender"][value="' + commonUtil.getObjectData(data, 'userGender') + '"]').checked = true;
+
             }, function(fail) {
                 alert('회원정보를 불러오는데 실패했습니다.');
             });
 
             document.getElementById("saveBtn").onclick = function() {
                 const data = commonUtil.formToObject(document.getElementById("userInfoForm"));
-                
+
                 httpRequest('POST', '/api/user/updateUserInfo', JSON.stringify(data), async function(success) {
-                    alert("success");
+                    window.location.reload();
                 }, function(fail) {
                     alert('회원정보를 저장하는데 실패했습니다.');
                 });
+            }
+
+            document.getElementById("returnBtn").onclick = function () {
+                window.location.href = "/main";
             }
 
         }
@@ -66,7 +70,10 @@
                 <td><input type="text" id="userPhoneNumber" name="userPhoneNumber"></td>
             </tr>
             <tr>
-                <td colspan="2"><input type="button" value="저장" id="saveBtn"></td>
+                <td colspan="2">
+                    <input type="button" value="돌아가기" id="returnBtn">
+                    <input type="button" value="저장" id="saveBtn">
+                </td>
             </tr>
         </table>
     </form>

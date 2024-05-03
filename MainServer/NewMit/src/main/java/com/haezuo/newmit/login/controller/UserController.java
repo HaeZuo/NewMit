@@ -22,9 +22,9 @@ public class UserController {
     @PostMapping("/api/user/currentUserInfo")
     @ResponseBody
     public Map<String, Object> currentUserInfo(HttpServletRequest request) {
-        Map<String, Object> result;
+        Map<String, Object> result = new HashMap<>();
 
-        result = loginService.ConnectUserInfo(request);
+        result = loginService.CustomerUserInfo(request);
 
         return result;
     }

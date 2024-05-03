@@ -75,6 +75,10 @@ dependencies {
     // -- 네트워크 시간 프로토콜(NTP) Begin --
     implementation 'commons-net:commons-net:3.7'
     // -- 네트워크 시간 프로토콜(NTP) End --
+
+    // -- 한국어 처리기 & 형태소 분석기 Begin --
+    implementation 'org.openkoreantext:open-korean-text:2.1.0'
+    // -- 한국어 처리기 & 형태소 분석기 End --
 }
 
 dependencyManagement {
