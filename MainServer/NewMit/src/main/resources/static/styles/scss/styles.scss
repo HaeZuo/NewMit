@@ -1,0 +1,29 @@
+@charset 'utf-8';
+@import 'layout.scss';
+
+.addFood{
+    img{
+        width: 100%;
+        padding-inline: 16px;
+        margin-block: 96px 24px;
+    }
+    p{
+        letter-spacing: -0.025em;
+        color: $font-02black;
+        text-align: center;
+        &.title{
+            font: $mb-h5-sb;
+            margin-block: 24px 16px;
+        }
+        &.dscpt{
+            font: $mb-b2-lt;
+        }
+    }
+    .btn-wrap{
+        margin-top: 96px;
+        padding-inline: 40px;
+        .btn + .btn{
+            margin-top: 8px;
+        }
+    }
+}

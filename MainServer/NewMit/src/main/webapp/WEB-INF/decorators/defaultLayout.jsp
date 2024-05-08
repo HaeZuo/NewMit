@@ -3,17 +3,15 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <header>
-            <jsp:include page="./include/header.jsp"/>
-        </header>
+    <div class="wrap">
+        <jsp:include page="./include/header.jsp"/>
         <div>
             <head>
                 <sitemesh:write property='head'/>
             </head>
             <sitemesh:write property='body'/>
         </div>
-        <footer>
-            <jsp:include page="./include/footer.jsp"/>
-        </footer>
+        <jsp:include page="./include/footer.jsp"/>
+    </div>
     </body>
 </html>

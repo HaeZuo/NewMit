@@ -8,11 +8,8 @@
     <script src="/js/commonUtil.js"></script>
 </head>
 <body>
-    헤더! <input type="text" id="userInfo">
-
-
+    <!-- 헤더! <input type="text" id="userInfo"> -->
     <script>
-
         let userInfo = "";
         (async function() {
             await Async.httpRequest('POST', '/api/user/currentUserName', null, async function (success) {
@@ -22,7 +19,13 @@
 
             });
         })();
-
     </script>
+
+    <header>
+        <h1><a href="/"><img src="/images/logo-brand.png" alt=""></a></h1>
+        <ul>
+            <li><a href=""><img src="/images/icons/ic-search.svg" alt=""></a></li>
+        </ul>
+    </header>
 </body>
 </html>

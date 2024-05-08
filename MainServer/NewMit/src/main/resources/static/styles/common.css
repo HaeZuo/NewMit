@@ -1,0 +1,404 @@
+@charset "UTF-8";
+/*
+Copyright (c) 2021 Kil Hyung-jin, with Reserved Font Name Pretendard.
+https://github.com/orioncactus/pretendard
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+*/
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 900;
+  font-display: swap;
+  src: local("Pretendard Black"), url("/fonts/Pretendard-Black.woff2") format("woff2"), url("/fonts/Pretendard-Black.woff") format("woff");
+}
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 800;
+  font-display: swap;
+  src: local("Pretendard ExtraBold"), url("/fonts/Pretendard-ExtraBold.woff2") format("woff2"), url("/fonts/Pretendard-ExtraBold.woff") format("woff");
+}
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 700;
+  font-display: swap;
+  src: local("Pretendard Bold"), url("/fonts/Pretendard-Bold.woff2") format("woff2"), url("/fonts/Pretendard-Bold.woff") format("woff");
+}
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 600;
+  font-display: swap;
+  src: local("Pretendard SemiBold"), url("/fonts/Pretendard-SemiBold.woff2") format("woff2"), url("/fonts/Pretendard-SemiBold.woff") format("woff");
+}
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 500;
+  font-display: swap;
+  src: local("Pretendard Medium"), url("/fonts/Pretendard-Medium.woff2") format("woff2"), url("/fonts/Pretendard-Medium.woff") format("woff");
+}
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 400;
+  font-display: swap;
+  src: local("Pretendard Regular"), url("/fonts/Pretendard-Regular.woff2") format("woff2"), url("/fonts/Pretendard-Regular.woff") format("woff");
+}
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 300;
+  font-display: swap;
+  src: local("Pretendard Light"), url("/fonts/Pretendard-Light.woff2") format("woff2"), url("/fonts/Pretendard-Light.woff") format("woff");
+}
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 200;
+  font-display: swap;
+  src: local("Pretendard ExtraLight"), url("/fonts/Pretendard-ExtraLight.woff2") format("woff2"), url("/fonts/Pretendard-ExtraLight.woff") format("woff");
+}
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 100;
+  font-display: swap;
+  src: local("Pretendard Thin"), url("/fonts/Pretendard-Thin.woff2") format("woff2"), url("/fonts/Pretendard-Thin.woff") format("woff");
+}
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  box-sizing: border-box;
+  text-decoration: none;
+  word-break: keep-all;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+img {
+  display: block;
+}
+
+a,
+button {
+  cursor: pointer;
+  outline: unset;
+}
+
+.ipt {
+  display: inline-block;
+}
+.ipt + .ipt {
+  margin-top: 24px;
+}
+.ipt span {
+  font: 400 14px/20px "Pretendard";
+  color: #111111;
+  letter-spacing: -0.025em;
+}
+.ipt span.body-error {
+  font: 400 13px/18px "Pretendard";
+  color: #DC0000;
+  margin-top: 8px;
+}
+.ipt input,
+.ipt select {
+  display: inline-block;
+  margin-top: 8px;
+  font: 400 16px/24px "Pretendard";
+  color: #111111;
+  letter-spacing: -0.025em;
+  padding: 14px 16px;
+  border: 1px solid #E5E5EC;
+  border-radius: 6px;
+}
+.ipt input::placeholder,
+.ipt select::placeholder {
+  color: #767676;
+}
+.ipt input:focus,
+.ipt select:focus {
+  outline: unset;
+  background-color: rgba(51, 186, 138, 0.2);
+}
+
+.btn {
+  display: block;
+  background-color: unset;
+  border: unset;
+  outline: unset;
+  background-color: #F7F7FB;
+  font: 400 16px/24px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #505050;
+  padding: 14px 16px;
+  border-radius: 6px;
+}
+.btn.primary {
+  background-color: #33BA8A;
+  color: #ffffff;
+}
+.btn.plus {
+  border-radius: 8px;
+  width: 40px;
+  aspect-ratio: 1;
+  background: #33BA8A url(/images/icons/ic-plus.svg) center/20px no-repeat;
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.0784313725);
+}
+.btn.full {
+  width: 100%;
+  text-align: center;
+}
+.btn-more {
+  font: 400 12px/18px "Pretendard";
+  color: #111111;
+  letter-spacing: -0.025em;
+  padding-right: 12px;
+  background: url(/images/icons/ic-arrow-right.svg) right center/12px no-repeat;
+}
+
+[class^=list] > h2 {
+  font: 600 18px/26px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+  display: flex;
+  align-items: center;
+}
+[class^=list] > h2 a {
+  margin-left: auto;
+}
+[class^=list] > p {
+  font: 400 13px/18px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #767676;
+}
+[class^=list] > ul {
+  margin-top: 16px;
+}
+
+.review-star ul {
+  display: inline-flex;
+}
+.review-star li {
+  font-size: 12px;
+  display: inline-block;
+  width: 1em;
+  aspect-ratio: 1;
+  background: url(/images/icons/ic-star.svg) 0/2em no-repeat;
+}
+.review-star li.active {
+  background-position: -1em;
+}
+.review-star span {
+  font: 400 13px/18px "Pretendard";
+  letter-spacing: 0.025em;
+  color: #111111;
+  vertical-align: bottom;
+}
+
+.list-useByDate > ul {
+  width: 100%;
+  overflow: auto;
+  white-space: nowrap;
+  margin-top: 16px;
+}
+.list-useByDate > ul li {
+  width: 70px;
+  display: inline-block;
+  padding: 8px 11px;
+}
+.list-useByDate > ul li + li {
+  margin-left: 4px;
+}
+.list-useByDate > ul li a {
+  position: relative;
+}
+.list-useByDate > ul li a > span {
+  position: absolute;
+  top: -4px;
+  right: -7px;
+  background-color: #DC0000;
+  border-radius: 4px;
+  padding-inline: 4px;
+  font: 400 11px/16px "Pretendard";
+  color: #ffffff;
+}
+.list-useByDate img {
+  width: 48px;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+.list-useByDate p {
+  font: 400 12px/18px "Pretendard";
+  color: #505050;
+  letter-spacing: -0.025em;
+  text-align: center;
+  margin-top: 4px;
+}
+.list-recipe > ul {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 32px 16px;
+}
+.list-recipe a .r-chef {
+  font: 600 12px/18px "Pretendard";
+  color: #111111;
+  letter-spacing: -0.025em;
+}
+.list-recipe a .r-title {
+  font: 400 13px/18px "Pretendard";
+  color: #505050;
+  letter-spacing: -0.025em;
+  margin-top: 2px;
+}
+.list-recipe a > div {
+  margin-top: 16px;
+}
+.list-recipe img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.list-food + .list-food {
+  margin-top: 24px;
+}
+.list-food > ul {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 16px;
+}
+.list-food a span, .list-food a span::before {
+  font: 400 13px/18px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+}
+.list-food a span.f-size::before {
+  content: " - ";
+}
+.list-food a span.f-useByDate::before {
+  content: " ~ ";
+}
+.list-food a div {
+  margin-top: 12px;
+}
+.list-food img {
+  width: 100%;
+  aspect-ratio: 1.8;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.list-food.detail ul {
+  grid-template-columns: 1fr;
+}
+.list-food.detail a {
+  display: flex;
+}
+.list-food.detail div {
+  padding-left: 14px;
+}
+.list-food.detail span {
+  display: block;
+}
+.list-food.detail span.f-name {
+  font: 600 18px/26px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+}
+.list-food.detail span.f-size::before {
+  content: unset;
+}
+.list-food.detail span.f-addDate {
+  margin-top: 24px;
+}
+.list-food.detail span.f-addDate::before {
+  content: "구매일자 : ";
+}
+.list-food.detail span.f-useByDate::before {
+  content: "소비기한 : ";
+}
+.list-food.detail img {
+  width: 124px;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+.list-tag ul {
+  margin-top: unset;
+}
+.list-tag li {
+  font: 400 11px/16px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+  padding: 2px 4px;
+  background-color: #F7F7FB;
+  display: inline-block;
+}
+
+.tab-filter table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.tab-filter table td {
+  border: 1px solid #E5E5EC;
+  font: 400 14px/20px "Pretendard";
+  color: #767676;
+}
+.tab-filter table td a {
+  display: block;
+  padding-block: 12px;
+  text-align: center;
+  font: inherit;
+  letter-spacing: -0.025em;
+  color: inherit;
+}
+.tab-filter table td.active {
+  font: 600 14px/20px "Pretendard";
+  border-color: #111111;
+  color: #111111;
+}
+
+.banner {
+  margin-block: unset;
+  padding-inline: unset;
+}
+.banner img {
+  width: 100%;
+  border-radius: 8px;
+}
+.banner li {
+  padding-inline: 4px;
+}
+
+/*# sourceMappingURL=common.css.map */
