@@ -22,3 +22,37 @@ commonUtil.formToObject = function(dom) {
 commonUtil.getObjectData = function(object, key) {
     return (object[key] != null && object[key] != "") ? object[key] : "";
 }
+
+commonUtil.enableToRegIngredientsBtn = function(flag) {
+    if(flag == null)
+        flag = true;
+
+    if(flag) {
+        document.getElementById("regIngredientsBtnDiv").style.display = "";
+    } else {
+        document.getElementById("regIngredientsBtnDiv").style.display = "none";
+    }
+
+}
+
+commonUtil.enableToFooter = function(flag) {
+    if(flag == null)
+        flag = true;
+
+    if(flag) {
+        document.getElementById("commonFooter").style.display = "";
+    } else {
+        document.getElementById("commonFooter").style.display = "none";
+    }
+}
+
+commonUtil.enableToHeader = function(flag) {
+    if(flag == null)
+        flag = true;
+
+    if(flag) {
+        document.getElementById("commonHeader").style.display = "";
+    } else {
+        document.getElementById("commonHeader").style.display = "none";
+    }
+}

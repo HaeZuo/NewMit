@@ -12,9 +12,9 @@ public class MainController {
         return "/index";
     }
 
-    @RequestMapping(value = {"/main"}, method= RequestMethod.GET)
+    @RequestMapping(value = {"/home"}, method= RequestMethod.GET)
     public String main() {
-        return "/main";
+        return "/home/main";
     }
 
 }

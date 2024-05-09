@@ -21,8 +21,8 @@
         })();
     </script>
 
-    <header>
-        <h1><a href="/"><img src="/images/logo-brand.png" alt=""></a></h1>
+    <header id="commonHeader">
+        <h1><a href="/home"><img src="/images/logo-brand.png" alt=""></a></h1>
         <ul>
             <li><a href=""><img src="/images/icons/ic-search.svg" alt=""></a></li>
         </ul>
