@@ -118,9 +118,6 @@ button {
   outline: unset;
 }
 
-.ipt {
-  display: inline-block;
-}
 .ipt + .ipt {
   margin-top: 24px;
 }
@@ -135,24 +132,97 @@ button {
   margin-top: 8px;
 }
 .ipt input,
-.ipt select {
+.ipt select,
+.ipt textarea {
+  flex: 1;
   display: inline-block;
-  margin-top: 8px;
   font: 400 16px/24px "Pretendard";
   color: #111111;
   letter-spacing: -0.025em;
   padding: 14px 16px;
   border: 1px solid #E5E5EC;
   border-radius: 6px;
+  resize: none;
 }
 .ipt input::placeholder,
-.ipt select::placeholder {
+.ipt select::placeholder,
+.ipt textarea::placeholder {
   color: #767676;
 }
 .ipt input:focus,
-.ipt select:focus {
+.ipt select:focus,
+.ipt textarea:focus {
   outline: unset;
   background-color: rgba(51, 186, 138, 0.2);
+}
+.ipt textarea {
+  min-height: 154px;
+}
+.ipt > div {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ipt label {
+  position: relative;
+  display: flex;
+  gap: 8px;
+  cursor: pointer;
+}
+.ipt label input {
+  display: none;
+}
+.ipt label::before {
+  content: "";
+  display: block;
+  font-size: 20px;
+  width: 1em;
+  aspect-ratio: 1;
+  background: #ffffff url(/images/icons/ic-toggle.svg) 0/2em no-repeat;
+  border: 1px solid #E5E5EC;
+  transition: 0.2s;
+}
+.ipt label:has(input:checked)::before {
+  background-position: -1em;
+  background-color: #33BA8A;
+  border-color: #33BA8A;
+}
+.ipt label:has(input[type=radio])::before {
+  border-radius: 50%;
+}
+.ipt label:has(input.toggle) {
+  padding-left: 36px;
+}
+.ipt label:has(input.toggle)::before {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #ffffff;
+  border: unset;
+  box-shadow: 1px 1px 3px 0 rgba(17, 17, 17, 0.1);
+  border-radius: 50%;
+}
+.ipt label:has(input.toggle)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 12px;
+  border-radius: 6px;
+  background-color: #F1F1F5;
+  z-index: -1;
+}
+.ipt label:has(input.toggle) span {
+  padding-left: 8px;
+}
+.ipt label:has(input.toggle:checked)::before {
+  box-shadow: unset;
+  background-color: #33BA8A;
+  left: 16px;
 }
 
 .btn {
@@ -161,22 +231,63 @@ button {
   border: unset;
   outline: unset;
   background-color: #F7F7FB;
+  border: 1px solid #F7F7FB;
   font: 400 16px/24px "Pretendard";
   letter-spacing: -0.025em;
   color: #505050;
   padding: 14px 16px;
   border-radius: 6px;
 }
+.btn.sm {
+  font: 400 12px/18px "Pretendard";
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.btn.clear {
+  background-color: transparent;
+  border-color: transparent;
+}
 .btn.primary {
   background-color: #33BA8A;
   color: #ffffff;
+  border-color: #33BA8A;
 }
-.btn.plus {
-  border-radius: 8px;
-  width: 40px;
+.btn.primary.rvs {
+  background-color: #ffffff;
+  color: #111111;
+  border-color: #33BA8A;
+}
+.btn.login {
+  width: 327px;
+}
+.btn.login img {
+  width: 100%;
+}
+.btn.white {
+  background-color: #ffffff;
+  color: #111111;
+  border-color: #E5E5EC;
+}
+.btn.square {
+  width: 50px;
   aspect-ratio: 1;
-  background: #33BA8A url(/images/icons/ic-plus.svg) center/20px no-repeat;
-  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.0784313725);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+.btn.square img {
+  width: 20px;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+.btn.square.sm {
+  width: 40px;
+  border-radius: 8px;
+}
+.btn.square.primary {
+  background-color: #33BA8A;
+  border-color: #33BA8A;
 }
 .btn.full {
   width: 100%;
@@ -209,6 +320,11 @@ button {
   margin-top: 16px;
 }
 
+.review-star {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
 .review-star ul {
   display: inline-flex;
 }
@@ -217,7 +333,7 @@ button {
   display: inline-block;
   width: 1em;
   aspect-ratio: 1;
-  background: url(/images/icons/ic-star.svg) 0/2em no-repeat;
+  background: url(/images/icons/ic-star.svg) 0/3em no-repeat;
 }
 .review-star li.active {
   background-position: -1em;
@@ -228,7 +344,41 @@ button {
   color: #111111;
   vertical-align: bottom;
 }
+.review-star label {
+  font-size: 24px;
+  width: 1em;
+  aspect-ratio: 1;
+  object-fit: cover;
+  background: url(/images/icons/ic-star.svg) -2em/3em no-repeat;
+}
+.review-star label:has(input:checked) ~ label {
+  background-position: 0;
+}
 
+.list {
+  border-top: 1px solid #F1F1F5;
+}
+.list li {
+  border-bottom: 1px solid #F1F1F5;
+}
+.list li > * {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+}
+.list li > a {
+  padding-right: 20px;
+  background: url(/images/icons/ic-arrow-right-b.svg) right 20px center/20px no-repeat;
+}
+.list li .ipt > div {
+  margin: unset;
+}
+.list span {
+  font: 600 16px/24px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+}
 .list-useByDate > ul {
   width: 100%;
   overflow: auto;
@@ -300,17 +450,6 @@ button {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 16px;
 }
-.list-food a span, .list-food a span::before {
-  font: 400 13px/18px "Pretendard";
-  letter-spacing: -0.025em;
-  color: #111111;
-}
-.list-food a span.f-size::before {
-  content: " - ";
-}
-.list-food a span.f-useByDate::before {
-  content: " ~ ";
-}
 .list-food a div {
   margin-top: 12px;
 }
@@ -365,7 +504,62 @@ button {
   background-color: #F7F7FB;
   display: inline-block;
 }
+.list-foodBuyUseByDate h2 {
+  font: 400 20px/28px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+  align-items: baseline;
+  margin-top: 38px;
+}
+.list-foodBuyUseByDate h2 span {
+  font: 600 40px/52px "Pretendard";
+}
+.list-foodBuyUseByDate ul li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+.list-foodBuyUseByDate ul li p + p {
+  margin-top: 4px;
+}
+.list-foodBuyUseByDate ul img {
+  width: 70px;
+  aspect-ratio: 70/64;
+  object-fit: cover;
+  border-radius: 4px;
+}
 
+.tab ul {
+  display: flex;
+  gap: 26px;
+}
+.tab ul li {
+  position: relative;
+  font: 400 14px/20px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+}
+.tab ul li.active {
+  font: 600 14px/20px "Pretendard";
+}
+.tab ul li + li::before {
+  content: "";
+  width: 2px;
+  aspect-ratio: 1;
+  background-color: rgba(17, 17, 17, 0.2);
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.tab ul li + li[data-color] {
+  background-color: red;
+  color: attr(data-color);
+}
+.tab ul a {
+  color: inherit;
+}
 .tab-filter table {
   width: 100%;
   border-collapse: collapse;
@@ -389,16 +583,129 @@ button {
   color: #111111;
 }
 
-.banner {
-  margin-block: unset;
-  padding-inline: unset;
+.imageUploader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.banner img {
+.imageUploader > * {
+  display: block;
   width: 100%;
+  aspect-ratio: 335/188;
+  object-fit: cover;
   border-radius: 8px;
 }
-.banner li {
-  padding-inline: 4px;
+.imageUploader label {
+  background-color: #C1C6CF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+}
+.imageUploader label p {
+  font: 400 12px/18px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #ffffff;
+}
+.imageUploader label .ic-camera {
+  font-size: 36px;
+  width: 1em;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.imageUploader label .ic-camera::after {
+  content: "";
+  display: block;
+  background: url(/images/icons/ic-camera.svg) 0/2em no-repeat;
+  width: 1em;
+  aspect-ratio: 1;
+}
+.imageUploader img {
+  display: none;
+}
+
+.ui-datepicker-header {
+  display: flex;
+  align-items: center;
+}
+.ui-datepicker-header .ui-corner-all {
+  text-indent: -9999px;
+  width: 48px;
+  aspect-ratio: 1;
+  background: url(/images/icons/datepicker/ic-prev.svg) center/24px no-repeat;
+}
+.ui-datepicker-header .ui-corner-all.ui-datepicker-next {
+  background-image: url(/images/icons/datepicker/ic-next.svg);
+}
+.ui-datepicker-header .ui-datepicker-title {
+  order: -1;
+  margin-right: auto;
+}
+.ui-datepicker-header .ui-datepicker-title select {
+  font: 400 14px/20px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+  padding: 10px 8px;
+  border: unset;
+}
+.ui-datepicker-calendar {
+  width: 100%;
+}
+.ui-datepicker-calendar tr > * {
+  position: relative;
+  font: 400 16px/24px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+  padding-block: 12px;
+  text-align: center;
+  color: #111111;
+}
+.ui-datepicker-calendar tr > * a {
+  color: inherit;
+}
+.ui-datepicker-calendar td.ui-datepicker-today::before, .ui-datepicker-calendar td.ui-datepicker-current-day::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid #33BA8A;
+  z-index: -1;
+}
+.ui-datepicker-calendar td.ui-datepicker-today {
+  color: #33BA8A;
+}
+.ui-datepicker-calendar td.ui-datepicker-current-day {
+  color: #ffffff !important;
+}
+.ui-datepicker-calendar td.ui-datepicker-current-day::before {
+  background-color: #33BA8A;
+}
+
+.f-name, .f-name::before,
+.f-size,
+.f-size::before,
+.f-addDate,
+.f-addDate::before,
+.f-useByDate,
+.f-useByDate::before {
+  font: 400 13px/18px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+}
+
+.f-size::before {
+  content: " - ";
+}
+
+.f-useByDate::before {
+  content: " ~ ";
 }
 
 .wrap {
@@ -416,7 +723,7 @@ header {
   height: 56px;
   background-color: #ffffff;
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.0588235294);
-  z-index: 100;
+  z-index: 10;
 }
 header h1 img {
   height: 38px;
@@ -432,19 +739,116 @@ header ul li {
 header ul img {
   height: 28px;
 }
+header ul:only-child {
+  width: 100%;
+}
+header ul:only-child li:first-child {
+  margin: unset;
+}
+header ul:only-child li:first-child + li {
+  margin-left: auto;
+}
+header:has(ul:only-child) {
+  padding-left: 10px;
+}
+header.effectUnset {
+  box-shadow: unset;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(17, 17, 17, 0.4);
+  z-index: 100;
+  display: none;
+}
+nav .nav-content {
+  width: 260px;
+  height: 100vh;
+  position: absolute;
+  right: 0;
+  overflow: hidden;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+nav .nav-header {
+  padding: 20px 16px 16px;
+}
+nav .nav-header h2 {
+  display: flex;
+  align-items: center;
+  font: 600 18px/26px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+}
+nav .nav-header h2 a {
+  margin-left: auto;
+}
+nav .nav-header p {
+  font: 400 13px/18px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #767676;
+}
+nav .nav-header p span + span {
+  font: 600 13px/18px "Pretendard";
+}
+nav .nav-body {
+  padding-bottom: 16px;
+  overflow-y: auto;
+}
+nav .nav-body .recipeUse li {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 8px;
+  gap: 8px;
+  align-items: center;
+  border-radius: 4px;
+  margin: unset;
+}
+nav .nav-body .recipeUse li img {
+  width: 54px;
+  aspect-ratio: 1;
+  margin: unset;
+}
+nav .nav-body .recipeUse li div {
+  flex: 1;
+}
+nav .nav-body .recipeUse li .r-step-title, nav .nav-body .recipeUse li .r-step-dscpt {
+  font: 400 11px/16px "Pretendard";
+  margin: unset;
+}
+nav .nav-body .recipeUse li .r-step-timer {
+  padding-block: 4px 16px;
+}
+nav .nav-body .recipeUse li .r-step-timer p {
+  font: 600 36px/44px "Pretendard";
+}
+nav .nav-body .recipeUse li .r-step-timer ul {
+  gap: unset;
+  justify-content: space-between;
+  margin-top: unset;
+}
+nav .nav-body .recipeUse li.active {
+  background-color: #F1F1F5;
+}
 
 section {
   min-height: calc(100vh - 108px);
   padding-block: 16px 10px;
+  overflow-x: hidden;
 }
 
 footer {
   position: sticky;
-  height: 52px;
+  min-height: 52px;
   bottom: 0;
   background-color: #ffffff;
   box-shadow: 0 -10px 5px 0 rgba(0, 0, 0, 0.0588235294);
-  z-index: 100;
+  z-index: 10;
 }
 footer ul {
   display: flex;
@@ -466,35 +870,543 @@ footer ul li span {
   letter-spacing: -0.025em;
   color: #767676;
 }
+footer ul.btn-wrap {
+  padding: 12px 20px;
+}
+footer ul.btn-wrap .btn {
+  border-radius: unset;
+  text-align: center;
+  font: 400 14px/20px "Pretendard";
+}
 footer .floating {
   position: absolute;
   bottom: 62px;
   right: 16px;
 }
+footer .floating .btn {
+  box-shadow: 0 4px 16px 0 rgba(17, 17, 17, 0.08);
+}
 
-.addFood img {
+.banner {
+  margin-block: unset;
+  padding-inline: unset;
+}
+.banner img {
+  width: 100%;
+  border-radius: 8px;
+}
+.banner li {
+  padding-inline: 4px;
+}
+
+.foodInsertIntro img {
   width: 100%;
   padding-inline: 16px;
   margin-block: 96px 24px;
 }
-.addFood p {
+.foodInsertIntro p {
   letter-spacing: -0.025em;
   color: #111111;
   text-align: center;
 }
-.addFood p.title {
+.foodInsertIntro p.title {
   font: 600 18px/26px "Pretendard";
   margin-block: 24px 16px;
 }
-.addFood p.dscpt {
+.foodInsertIntro p.dscpt {
   font: 200 14px/20px "Pretendard";
 }
-.addFood .btn-wrap {
+.foodInsertIntro .btn-wrap {
   margin-top: 96px;
   padding-inline: 40px;
 }
-.addFood .btn-wrap .btn + .btn {
+.foodInsertIntro .btn-wrap .btn + .btn {
   margin-top: 8px;
 }
+.foodInsertArea {
+  padding: 26px 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 16px;
+}
+.foodInsertArea .full {
+  grid-column: span 2;
+}
+.foodInsertArea .ipt {
+  margin-top: unset;
+}
+.foodInsertArea .ipt input,
+.foodInsertArea .ipt select {
+  width: 100%;
+}
 
-/*# sourceMappingURL=styles.css.map */
+.recipeUse > ol {
+  padding-inline: 20px;
+}
+.recipeUse > ol > li {
+  counter-increment: recipe-step;
+  margin-bottom: 60px;
+}
+.recipeUse > ol > li::before {
+  content: counter(recipe-step) ".";
+  font: 600 20px/28px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+}
+.recipeUse > ol > li > img {
+  margin-top: 12px;
+  width: 100%;
+  aspect-ratio: 335/250;
+  object-fit: cover;
+}
+.recipeUse > ol .r-step-title {
+  font: 600 18px/26px "Pretendard";
+  margin-top: 16px;
+}
+.recipeUse > ol .r-step-dscpt {
+  font: 400 13px/18px "Pretendard";
+  margin-top: 4px;
+  color: #767676;
+}
+.recipeUse > ol .r-step-timer {
+  margin-top: 4px;
+  padding-block: 20px;
+}
+.recipeUse > ol .r-step-timer p {
+  font: 600 40px/52px "Pretendard";
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #33BA8A;
+  text-align: center;
+}
+.recipeUse > ol .r-step-timer p span + span::before {
+  content: " : ";
+}
+.recipeUse > ol .r-step-timer ul {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  margin-top: 20px;
+}
+.recipeUseThumbnail .r-thumbnail, .recipeUseThumbnail .r-infor, .recipeUseThumbnail .r-information {
+  padding-inline: 20px;
+}
+.recipeUseThumbnail .r-thumbnail {
+  position: relative;
+}
+.recipeUseThumbnail .r-thumbnail > img {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: 335/250;
+}
+.recipeUseThumbnail .r-thumbnail > div {
+  position: absolute;
+  top: 0;
+  left: 20px;
+  right: 20px;
+  height: 100%;
+  background: linear-gradient(140deg, rgba(17, 17, 17, 0) 60%, #111111);
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 10px;
+}
+.recipeUseThumbnail .r-thumbnail ul {
+  display: flex;
+  gap: 6px;
+}
+.recipeUseThumbnail .r-thumbnail ul img {
+  width: 24px;
+  aspect-ratio: 1;
+}
+.recipeUseThumbnail .r-infor {
+  margin-top: 16px;
+}
+.recipeUseThumbnail .r-infor ul {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+}
+.recipeUseThumbnail .r-infor ul img {
+  width: 28px;
+  aspect-ratio: 1;
+}
+.recipeUseThumbnail .r-infor ul li {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+.recipeUseThumbnail .r-infor ul span {
+  font: 400 12px/18px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+}
+.recipeUseThumbnail .r-infor .r-title {
+  font: 600 20px/28px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+}
+.recipeUseThumbnail .r-infor .r-dscpt {
+  margin-top: 4px;
+  font: 400 13px/18px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #767676;
+}
+.recipeUseThumbnail .r-infor-writer {
+  margin-top: 28px;
+  border: solid #F1F1F5;
+  border-block-width: 1px;
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+}
+.recipeUseThumbnail .r-infor-writer > div {
+  flex: 1;
+  padding-inline: 16px;
+}
+.recipeUseThumbnail .r-infor-writer .r-profile {
+  width: 42px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 12px;
+}
+.recipeUseThumbnail .r-infor-writer .r-writer {
+  font: 400 13px/18px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+}
+.recipeUseThumbnail .r-infor-writer .r-writer span {
+  font: 600 15px/22px "Pretendard";
+}
+.recipeUseThumbnail .r-infor-writer .r-writer-dscpt {
+  font: 400 12px/18px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #767676;
+}
+.recipeUseThumbnail .r-information table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.recipeUseThumbnail .r-information table + table {
+  margin-top: 8px;
+}
+.recipeUseThumbnail .r-information table + table tbody {
+  border: unset;
+}
+.recipeUseThumbnail .r-information table thead {
+  border-bottom: 1px solid #111111;
+  text-align: left;
+  font: 600 18px/26px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+}
+.recipeUseThumbnail .r-information table thead th {
+  padding-block: 16px 12px;
+}
+.recipeUseThumbnail .r-information table tbody {
+  font: 400 14px/20px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+  border-bottom: 1px solid #F1F1F5;
+}
+.recipeUseThumbnail .r-information table tbody tr:first-child td {
+  padding-top: 24px;
+}
+.recipeUseThumbnail .r-information table tbody tr:last-child td {
+  padding-bottom: 32px;
+}
+.recipeUseThumbnail .r-information table tbody th {
+  width: 100px;
+  font-weight: 400;
+  text-align: left;
+}
+.recipeUseThumbnail .r-information table tbody td {
+  text-align: center;
+  padding: 8px;
+}
+.recipeUseThumbnail .r-information table tbody td span.lack {
+  color: #DC0000;
+}
+.recipeUseThumbnail .r-information table tbody td span + span {
+  font: 400 12px/18px "Pretendard";
+  color: rgba(118, 118, 118, 0.5);
+}
+.recipeUseThumbnail .r-information table tbody td span + span::before {
+  content: "/";
+}
+.recipeUseThumbnail .r-information table tbody td .btn {
+  display: inline-block;
+  margin-left: auto;
+}
+.recipeUseThumbnail .r-information table tbody td:has(.btn:only-child) {
+  width: 0;
+  padding-inline: unset;
+  text-align: right;
+}
+.recipeInsert h2 {
+  font: 600 20px/28px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+}
+.recipeInsertThumbnail {
+  padding: 8px 20px 24px;
+  border-bottom: 10px solid #E5E5EC;
+}
+.recipeInsertThumbnail .imageUploader {
+  margin-top: 12px;
+}
+.recipeInsertThumbnail .ipt {
+  margin-top: 16px;
+}
+.recipeInsertThumbnail .ipt div {
+  gap: 16px;
+}
+.recipeInsertSteps h2 {
+  margin: 24px 16px 20px;
+}
+.recipeInsertSteps ol > li {
+  padding: 20px;
+  counter-increment: steps;
+}
+.recipeInsertSteps ol > li > h3 {
+  font: 600 18px/26px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+}
+.recipeInsertSteps ol > li > h3::before {
+  content: counter(steps);
+}
+.recipeInsertSteps ol > li .imageUploader {
+  margin-top: 14px;
+}
+.recipeInsertSteps ol > li .ipt,
+.recipeInsertSteps ol > li .btn-wrap {
+  margin-top: 16px;
+}
+.recipeInsertSteps ol > li input[size] {
+  text-align: center;
+}
+.recipeInsertSteps ol > li input[type=checkbox] {
+  display: none;
+}
+.recipeInsertSteps ol > li input[type=checkbox]:checked + .ipt {
+  display: block;
+}
+.recipeInsertSteps ol > li .btn-wrap {
+  display: flex;
+  gap: 4px;
+}
+.recipeInsertSteps ol > li .btn-wrap ~ .ipt {
+  display: none;
+}
+.recipeInsertSteps ol > li .btn-wrap .btn {
+  border-color: #111111;
+  color: #111111;
+  display: flex;
+  align-items: center;
+  padding: 7px 12px;
+}
+.recipeInsertSteps ol > li .btn-wrap .btn::before {
+  content: "";
+  position: relative;
+  font-size: 16px;
+  width: 1em;
+  aspect-ratio: 1;
+  margin-right: 2px;
+  background: url(/resources/images/icons/recipe/ic-add.svg) 0/1em no-repeat;
+}
+.recipeInsertSteps ol > li .btn-wrap .btn.active {
+  background-color: #33BA8A;
+  border-color: #33BA8A;
+  color: #ffffff;
+}
+.recipeInsertSteps ol > li .btn-wrap .btn.active::before {
+  background-image: url(/resources/images/icons/ic-delete.svg);
+  background-size: 2em;
+}
+.recipeInsertSteps h3 {
+  font: 600 18px/26px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+  display: flex;
+  align-items: center;
+}
+.recipeInsertSteps h3 ul {
+  margin-left: auto;
+  display: flex;
+  gap: 4px;
+}
+
+.profile .user-name {
+  font: 600 24px/34px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+  text-align: center;
+}
+.profile .user-recipe {
+  display: flex;
+  padding-inline: 20px;
+  justify-content: space-between;
+  margin-top: 18px;
+}
+.profile .user-recipe li {
+  width: 100px;
+}
+.profile .user-recipe p {
+  font: 400 16px/24px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+  text-align: center;
+}
+.profile .user-recipe span {
+  display: block;
+  font: 600 36px/44px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+  text-align: center;
+}
+.profile .list {
+  margin-top: 32px;
+}
+.profile .imageUploader {
+  padding-block: 32px 20px;
+}
+.profile .imageUploader > * {
+  position: relative;
+  width: 120px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+.profile .imageUploader > * p {
+  text-indent: -9999px;
+}
+.profile .imageUploader > * .ic-camera {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 30px;
+  background-position: -1em;
+  border-radius: 50%;
+  background-color: #F1F1F5;
+}
+.profile .imageUploader > * .ic-camera::after {
+  font-size: 24px;
+  background-position: -1em;
+}
+
+.list-useByDate h2, .list-recipe, .list-food {
+  padding-inline: 16px;
+}
+
+.home [class^=list-] {
+  margin-top: 24px;
+}
+
+.foodList .tab-filter {
+  margin-top: 32px;
+  padding-inline: 16px;
+}
+.foodList .list-food {
+  margin-block: 16px 24px;
+}
+.foodListDetail .list-food {
+  margin-block: 24px;
+}
+
+.foodCalendar {
+  padding-inline: 20px;
+}
+.foodCalendar .tab {
+  margin-top: 8px;
+}
+.foodCalendar .list-foodBuyUseByDate {
+  padding-inline: 4px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(17, 17, 17, 0.4);
+  z-index: 100;
+  display: none;
+}
+.modal-content {
+  width: 310px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.modal-body {
+  min-height: 110px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 36px 16px 24px;
+}
+.modal-body p {
+  font: 400 14px/20px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+  text-align: center;
+}
+.modal-body ul {
+  margin-top: 10px;
+}
+.modal-body li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+.modal-body li p {
+  font: 400 12px/18px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+  text-align: center;
+}
+.modal-body .review-star {
+  margin-top: 8px;
+}
+.modal-footer .btn-wrap {
+  display: flex;
+}
+.modal-footer .btn-wrap .btn {
+  flex: 1;
+  font: 600 14px/20px "Pretendard";
+  text-align: center;
+  border-radius: unset;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 32px;
+  height: 100vh;
+}
+section:has(.login) {
+  padding: unset;
+}
+.login > img {
+  width: 260px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  margin-top: 124px;
+}
+.login .btn {
+  padding: unset;
+  margin-top: 16px;
+}/*# sourceMappingURL=styles.css.map */

@@ -33,7 +33,7 @@
             }
 
             document.getElementById("returnBtn").onclick = function () {
-                window.location.href = "/main";
+                window.location.href = "/home";
             }
 
         }

@@ -1,8 +1,13 @@
 package com.haezuo.newmit.ingredients.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class ingredientsController {
@@ -29,6 +34,16 @@ public class ingredientsController {
     public String viewIngredientsInsert() {
 
         return "/ingredients/foodInsert";
+    }
+
+    @RequestMapping(value = "/inqredients/foodObjectRecognition", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> foodObjectRecognition(@RequestParam Map<String, Object> param) {
+        Map<String, Object> result = new HashMap<>();
+
+
+
+        return result;
     }
 
 }

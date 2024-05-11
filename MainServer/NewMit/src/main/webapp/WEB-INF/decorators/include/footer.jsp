@@ -21,7 +21,7 @@
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="/myPage/viewMyPage">
                     <img src="/images/icons/ic-profile.svg" alt="">
                     <span>마이페이지</span>
                 </a>

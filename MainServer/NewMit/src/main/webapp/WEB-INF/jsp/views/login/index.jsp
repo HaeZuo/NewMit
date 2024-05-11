@@ -19,7 +19,7 @@
 </head>
 <body>
     <script>
-        window.location.href = '/main'
+        window.location.href = '/home'
     </script>
 </body>
 </html>

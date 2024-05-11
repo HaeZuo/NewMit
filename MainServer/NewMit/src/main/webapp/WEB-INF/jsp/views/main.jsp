@@ -16,7 +16,7 @@
 
                         // 쿠키에 저장된 리프레시 토큰을 삭제
                         deleteCookie('refresh_token');
-                        location.replace('/main');
+                        location.replace('/home');
                     }, function() {
                         alert('로그아웃 실패했습니다.');
                     });

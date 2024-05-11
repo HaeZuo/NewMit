@@ -32,24 +32,36 @@
     <script src="/scripts/jquery-2.2.4.min.js"></script>
     <script src="/scripts/slick.min.js"></script>
     <script src="/scripts/scripts.js"></script>
-
     <script>
         window.onload = function () {
             commonUtil.enableToFooter(false);
+
+            // 사진 선택 후
+            document.getElementById("photoFile").onchange = function () {
+                document.getElementById("submit").click();
+            };
+        }
+
+        function objectRecognition() {
+            document.getElementById("photoFile").click();
         }
     </script>
 </head>
 <body>
     <section>
-        <div class="addFood">
+        <div class="foodInsertIntro">
             <img src="/images/intro-foodAdd.png" alt="">
             <p class="title">식자재 등록</p>
             <p class="dscpt">식자재 정보를 가져오기 위해서 사진을 찍을게요!<br/>식품 정보가 나와있는 부분에 대고 찍어주세요.</p>
             <div class="btn-wrap">
-                <a href="/ingredients/insertView" class="btn primary full">자동으로 등록하기</a>
+                <a href="javascript:objectRecognition()" class="btn primary full">자동으로 등록하기</a>
                 <a href="/ingredients/insertView" class="btn full">수동으로 등록하기</a>
             </div>
         </div>
     </section>
+    <form action="/inqredients/foodObjectRecognition" method="post" enctype="multipart/form-data" style="display: none;">
+        <input type="file" name="photoFile" id="photoFile" accept="image/*" capture="camera" style="display:none;">
+        <input type="submit" id="submit">
+    </form>
 </body>
 </html>

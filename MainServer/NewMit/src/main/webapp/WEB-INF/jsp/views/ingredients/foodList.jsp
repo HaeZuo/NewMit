@@ -40,208 +40,210 @@
 </head>
 <body>
     <section>
-        <div class="list-useByDate">
-            <h2><span>소비기한 임박 식자재</span></h2>
-            <ul>
-                <li>
-                    <a href="">
-                        <span><span>3</span>일</span>
-                        <img src="/images/useByDate/apple.png" alt="">
-                        <p>apple</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span><span>3</span>일</span>
-                        <img src="/images/useByDate/banana.png" alt="">
-                        <p>banana</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span><span>3</span>일</span>
-                        <img src="/images/useByDate/strawberry.png" alt="">
-                        <p>strawberry</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span><span>3</span>일</span>
-                        <img src="/images/useByDate/greenGrape.png" alt="">
-                        <p>greenGrape</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span><span>3</span>일</span>
-                        <img src="/images/useByDate/watermelon.png" alt="">
-                        <p>watermelon</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span><span>3</span>일</span>
-                        <img src="/images/useByDate/lime.png" alt="">
-                        <p>lime</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span><span>3</span>일</span>
-                        <img src="/images/useByDate/peach.png" alt="">
-                        <p>peach</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span><span>3</span>일</span>
-                        <img src="/images/useByDate/melon.png" alt="">
-                        <p>melon</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span><span>3</span>일</span>
-                        <img src="/images/useByDate/tomato.png" alt="">
-                        <p>tomato</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span><span>3</span>일</span>
-                        <img src="/images/useByDate/pineApple.png" alt="">
-                        <p>pineApple</p>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="tab-filter">
-            <table>
-                <tr>
-                    <td class="active"><a href="">전체</a></td>
-                    <td><a href="">곡물류</a></td>
-                    <td><a href="">채소류</a></td>
-                    <td><a href="">과일류</a></td>
-                </tr>
-                <tr>
-                    <td><a href="">육류</a></td>
-                    <td><a href="">수산류</a></td>
-                    <td><a href="">유제품류</a></td>
-                    <td><a href="">조미료류</a></td>
-                </tr>
-                <tr>
-                    <td><a href="">가공식품</a></td>
-                    <td><a href="">냉동식품</a></td>
-                    <td><a href="">건강식품</a></td>
-                    <td><a href="">디저트</a></td>
-                </tr>
-                <tr>
-                    <td><a href="">음료수</a></td>
-                    <td><a href="">조미식품</a></td>
-                    <td><a href="">자연식품</a></td>
-                    <td><a href="">빙과류</a></td>
-                </tr>
-            </table>
-        </div>
-        <div class="list-food">
-            <h2><span>육류</span><a href="/ingredients/listDetailView" class="btn-more">더보기</a></h2>
-            <ul>
-                <li>
-                    <a href="">
-                        <img src="/images/food/temp.png" alt="">
-                        <div>
-                            <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
-                            <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <img src="/images/food/temp.png" alt="">
-                        <div>
-                            <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
-                            <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <img src="/images/food/temp.png" alt="">
-                        <div>
-                            <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
-                            <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <img src="/images/food/temp.png" alt="">
-                        <div>
-                            <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
-                            <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <img src="/images/food/temp.png" alt="">
-                        <div>
-                            <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
-                            <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="list-food">
-            <h2><span>육류</span><a href="/ingredients/listDetailView" class="btn-more">더보기</a></h2>
-            <ul>
-                <li>
-                    <a href="">
-                        <img src="/images/food/temp.png" alt="">
-                        <div>
-                            <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
-                            <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <img src="/images/food/temp.png" alt="">
-                        <div>
-                            <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
-                            <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <img src="/images/food/temp.png" alt="">
-                        <div>
-                            <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
-                            <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <img src="/images/food/temp.png" alt="">
-                        <div>
-                            <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
-                            <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <img src="/images/food/temp.png" alt="">
-                        <div>
-                            <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
-                            <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
-                        </div>
-                    </a>
-                </li>
-            </ul>
+        <div class="foodList">
+            <div class="list-useByDate">
+                <h2><span>소비기한 임박 식자재</span></h2>
+                <ul>
+                    <li>
+                        <a href="">
+                            <span><span>3</span>일</span>
+                            <img src="/images/useByDate/apple.png" alt="">
+                            <p>apple</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span><span>3</span>일</span>
+                            <img src="/images/useByDate/banana.png" alt="">
+                            <p>banana</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span><span>3</span>일</span>
+                            <img src="/images/useByDate/strawberry.png" alt="">
+                            <p>strawberry</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span><span>3</span>일</span>
+                            <img src="/images/useByDate/greenGrape.png" alt="">
+                            <p>greenGrape</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span><span>3</span>일</span>
+                            <img src="/images/useByDate/watermelon.png" alt="">
+                            <p>watermelon</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span><span>3</span>일</span>
+                            <img src="/images/useByDate/lime.png" alt="">
+                            <p>lime</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span><span>3</span>일</span>
+                            <img src="/images/useByDate/peach.png" alt="">
+                            <p>peach</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span><span>3</span>일</span>
+                            <img src="/images/useByDate/melon.png" alt="">
+                            <p>melon</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span><span>3</span>일</span>
+                            <img src="/images/useByDate/tomato.png" alt="">
+                            <p>tomato</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span><span>3</span>일</span>
+                            <img src="/images/useByDate/pineApple.png" alt="">
+                            <p>pineApple</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-filter">
+                <table>
+                    <tr>
+                        <td class="active"><a href="">전체</a></td>
+                        <td><a href="">곡물류</a></td>
+                        <td><a href="">채소류</a></td>
+                        <td><a href="">과일류</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="">육류</a></td>
+                        <td><a href="">수산류</a></td>
+                        <td><a href="">유제품류</a></td>
+                        <td><a href="">조미료류</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="">가공식품</a></td>
+                        <td><a href="">냉동식품</a></td>
+                        <td><a href="">건강식품</a></td>
+                        <td><a href="">디저트</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="">음료수</a></td>
+                        <td><a href="">조미식품</a></td>
+                        <td><a href="">자연식품</a></td>
+                        <td><a href="">빙과류</a></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="list-food">
+                <h2><span>육류</span><a href="/food/foodListDetail.html" class="btn-more">더보기</a></h2>
+                <ul>
+                    <li>
+                        <a href="">
+                            <img src="/images/food/temp.png" alt="">
+                            <div>
+                                <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
+                                <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="/images/food/temp.png" alt="">
+                            <div>
+                                <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
+                                <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="/images/food/temp.png" alt="">
+                            <div>
+                                <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
+                                <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="/images/food/temp.png" alt="">
+                            <div>
+                                <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
+                                <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="/images/food/temp.png" alt="">
+                            <div>
+                                <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
+                                <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="list-food">
+                <h2><span>육류</span><a href="/food/foodListDetail.html" class="btn-more">더보기</a></h2>
+                <ul>
+                    <li>
+                        <a href="">
+                            <img src="/images/food/temp.png" alt="">
+                            <div>
+                                <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
+                                <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="/images/food/temp.png" alt="">
+                            <div>
+                                <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
+                                <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="/images/food/temp.png" alt="">
+                            <div>
+                                <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
+                                <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="/images/food/temp.png" alt="">
+                            <div>
+                                <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
+                                <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="/images/food/temp.png" alt="">
+                            <div>
+                                <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
+                                <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </section>
 </body>

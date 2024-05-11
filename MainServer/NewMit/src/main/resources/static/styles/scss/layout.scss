@@ -22,7 +22,7 @@ header{
     height: $height-header;
     background-color: $bg-white;
     box-shadow: $shadow-header;
-    z-index: 100;
+    z-index: 10;
     h1{
         img{
             height: 38px;
@@ -38,19 +38,120 @@ header{
         img{
             height: 28px;
         }
+        &:only-child{
+            width: 100%;
+            li:first-child{
+                margin: unset;
+                & + li{
+                    margin-left: auto;
+                }
+            }
+        }
+    }
+    &:has(ul:only-child){
+        padding-left: 10px;
+    }
+    &.effectUnset{
+        box-shadow: unset;
+    }
+}
+nav{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: $bg-dim;
+    z-index: 100;
+    display: none;
+    .nav{
+        &-content{
+            width: 260px;
+            height: 100vh;
+            position: absolute;
+            right: 0;
+            overflow: hidden;
+            background-color: $bg-white;
+            display: flex;
+            flex-direction: column;
+        }
+        &-header{
+            padding: 20px 16px 16px;
+            h2{
+                display: flex;
+                align-items: center;
+                font: $mb-t5-sb;
+                letter-spacing: -0.025em;
+                color: $font-02black;
+                a{
+                    margin-left: auto;
+                }
+            }
+            p{
+                font: $mb-c1-rg;
+                letter-spacing: -0.025em;
+                color: $font-04grey;
+                span + span{
+                    font: $mb-c1-sb;
+                }
+            }
+        }
+        &-body{
+            padding-bottom: 16px;
+            overflow-y: auto;
+            .recipeUse li{
+                display: flex;
+                flex-wrap: wrap;
+                padding: 8px;
+                gap: 8px;
+                align-items: center;
+                border-radius: 4px;
+                margin: unset;
+                img{
+                    width: 54px;
+                    aspect-ratio: 1;
+                    margin: unset;
+                }
+                div{
+                    flex: 1;
+                }
+                .r-step{
+                    &-title,
+                    &-dscpt{
+                        font: $mb-c3-rg;
+                        margin: unset;
+                    }
+                    &-timer{
+                        padding-block: 4px 16px;
+                        p{
+                            font: $mb-d4-sb;
+                        }
+                        ul{
+                            gap: unset;
+                            justify-content: space-between;
+                            margin-top: unset;
+                        }
+                    }
+                }
+                &.active{
+                    background-color: $bg-regular;
+                }
+            }
+        }
     }
 }
 section{
     min-height: calc(100vh - ($height-header + $height-footer));
     padding-block: 16px 10px;
+    overflow-x: hidden;
 }
 footer{
     position: sticky;
-    height: $height-footer;
+    min-height: $height-footer;
     bottom: 0;
     background-color: $bg-white;
     box-shadow: $shadow-footer;
-    z-index: 100;
+    z-index: 10;
     ul{
         display: flex;
         li{
@@ -70,10 +171,21 @@ footer{
                 color: $font-04grey;
             }
         }
+        &.btn-wrap{
+            padding: 12px 20px;
+            .btn{
+                border-radius: unset;
+                text-align: center;
+                font: $btn2-rg
+            }
+        }
     }
     .floating{
         position: absolute;
         bottom: $height-footer + 10px;
         right: 16px;
+        .btn{
+            box-shadow: 0 4px 16px 0 rgba($bg-black, 0.08);
+        }
     }
 }

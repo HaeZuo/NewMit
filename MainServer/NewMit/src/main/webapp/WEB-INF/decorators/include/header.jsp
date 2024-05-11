@@ -14,7 +14,8 @@
         (async function() {
             await Async.httpRequest('POST', '/api/user/currentUserName', null, async function (success) {
                 userInfo = await JSON.parse(success.response);
-                document.getElementById("userInfo").setAttribute("value", JSON.stringify(userInfo));
+                console.log(userInfo)
+                // document.getElementById("userInfo").setAttribute("value", JSON.stringify(userInfo));
             }, function (fail) {
 
             });

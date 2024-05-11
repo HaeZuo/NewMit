@@ -43,7 +43,7 @@ public class CustomHandlerInterceptor implements org.springframework.web.servlet
             // HTTP 요청 헤더에 존재하는 쿠키에서 인증 토큰을 추출함
             String token = new TokenUtil().getTokenByCookies(request);
 
-            if(token != null && "".equals(token)) {
+            if(token != null && !"".equals(token)) {
 
             }
         }

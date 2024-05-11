@@ -4,45 +4,52 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-
-    <style>
-        .gradient-custom {
-            background: #6a11cb;
-            background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
-            background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뉴밋</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <meta
+            name="식자재 관리의 새로운 방법을 만나다, 뉴밋."
+            content="식자재 관리와 요리의 즐거움을 일깨워 주는 서비스인 뉴밋은 레시피 공유, 식자재 관리등을 개성있게 할 수 있는 서비스 입니다."
+    >
+    <link rel="stylesheet" href="/styles/slick.css">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <script src="/scripts/jquery-2.2.4.min.js"></script>
+    <script src="/scripts/slick.min.js"></script>
+    <script src="/scripts/scripts.js"></script>
 </head>
-<body class="gradient-custom">
-<section class="d-flex vh-100">
-    <div class="container-fluid row justify-content-center align-content-center">
-        <div class="card bg-dark" style="border-radius: 1rem;">
-            <div class="card-body p-5 text-center">
-                <h2 class="text-white">LOGIN</h2>
-                <p class="text-white-50 mt-2 mb-5">서비스 사용을 위해 로그인을 해주세요!</p>
+<body>
+    <section>
+        <div class="login">
+            <img src="/images/logo-brand.png" alt="">
 
-                <div class = "mb-2">
-                    <a href="/oauth2/authorization/google">
-                        <img src="/img/login/google_login.png" width="190" height="45">
-                    </a>
-                </div>
-
-                <div class = "mb-2">
-                    <a href="/oauth2/authorization/kakao">
-                        <img src="/img/login/kakao_login.png" width="183" height="45">
-                    </a>
-                </div>
-
-                <div class = "mb-2">
-                    <a href="/oauth2/authorization/naver">
-                        <img src="/img/login/naver_login.png" width="183" height="45">
-                    </a>
-                </div>
+            <div class="btn-wrap">
+                <a href="/oauth2/authorization/naver" class="btn">
+                    <img src="/images/btn-naver.svg" alt="">
+                </a>
+                <a href="/oauth2/authorization/kakao" class="btn">
+                    <img src="/images/btn-kakao.svg" alt="">
+                </a>
+                <a href="/oauth2/authorization/google" class="btn">
+                    <img src="/images/btn-google.svg" alt="">
+                </a>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 </body>
 </html>

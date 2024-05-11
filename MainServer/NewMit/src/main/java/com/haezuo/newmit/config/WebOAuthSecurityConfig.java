@@ -53,6 +53,7 @@ public class WebOAuthSecurityConfig {
 
         http.authorizeRequests()
                 .requestMatchers("/api/token").permitAll() // "/api/token" 요청은 모두 허용
+                //.requestMatchers("/myPage/viewMyPage").authenticated() // 마이페이지는 인증이 필요
                 .requestMatchers("/api/**").authenticated() // "/api/**" 요청은 인증 필요
                 .anyRequest().permitAll(); // 나머지 요청은 모두 허용
 

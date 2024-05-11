@@ -118,9 +118,6 @@ button {
   outline: unset;
 }
 
-.ipt {
-  display: inline-block;
-}
 .ipt + .ipt {
   margin-top: 24px;
 }
@@ -135,24 +132,97 @@ button {
   margin-top: 8px;
 }
 .ipt input,
-.ipt select {
+.ipt select,
+.ipt textarea {
+  flex: 1;
   display: inline-block;
-  margin-top: 8px;
   font: 400 16px/24px "Pretendard";
   color: #111111;
   letter-spacing: -0.025em;
   padding: 14px 16px;
   border: 1px solid #E5E5EC;
   border-radius: 6px;
+  resize: none;
 }
 .ipt input::placeholder,
-.ipt select::placeholder {
+.ipt select::placeholder,
+.ipt textarea::placeholder {
   color: #767676;
 }
 .ipt input:focus,
-.ipt select:focus {
+.ipt select:focus,
+.ipt textarea:focus {
   outline: unset;
   background-color: rgba(51, 186, 138, 0.2);
+}
+.ipt textarea {
+  min-height: 154px;
+}
+.ipt > div {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ipt label {
+  position: relative;
+  display: flex;
+  gap: 8px;
+  cursor: pointer;
+}
+.ipt label input {
+  display: none;
+}
+.ipt label::before {
+  content: "";
+  display: block;
+  font-size: 20px;
+  width: 1em;
+  aspect-ratio: 1;
+  background: #ffffff url(/images/icons/ic-toggle.svg) 0/2em no-repeat;
+  border: 1px solid #E5E5EC;
+  transition: 0.2s;
+}
+.ipt label:has(input:checked)::before {
+  background-position: -1em;
+  background-color: #33BA8A;
+  border-color: #33BA8A;
+}
+.ipt label:has(input[type=radio])::before {
+  border-radius: 50%;
+}
+.ipt label:has(input.toggle) {
+  padding-left: 36px;
+}
+.ipt label:has(input.toggle)::before {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #ffffff;
+  border: unset;
+  box-shadow: 1px 1px 3px 0 rgba(17, 17, 17, 0.1);
+  border-radius: 50%;
+}
+.ipt label:has(input.toggle)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 12px;
+  border-radius: 6px;
+  background-color: #F1F1F5;
+  z-index: -1;
+}
+.ipt label:has(input.toggle) span {
+  padding-left: 8px;
+}
+.ipt label:has(input.toggle:checked)::before {
+  box-shadow: unset;
+  background-color: #33BA8A;
+  left: 16px;
 }
 
 .btn {
@@ -161,22 +231,63 @@ button {
   border: unset;
   outline: unset;
   background-color: #F7F7FB;
+  border: 1px solid #F7F7FB;
   font: 400 16px/24px "Pretendard";
   letter-spacing: -0.025em;
   color: #505050;
   padding: 14px 16px;
   border-radius: 6px;
 }
+.btn.sm {
+  font: 400 12px/18px "Pretendard";
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.btn.clear {
+  background-color: transparent;
+  border-color: transparent;
+}
 .btn.primary {
   background-color: #33BA8A;
   color: #ffffff;
+  border-color: #33BA8A;
 }
-.btn.plus {
-  border-radius: 8px;
-  width: 40px;
+.btn.primary.rvs {
+  background-color: #ffffff;
+  color: #111111;
+  border-color: #33BA8A;
+}
+.btn.login {
+  width: 327px;
+}
+.btn.login img {
+  width: 100%;
+}
+.btn.white {
+  background-color: #ffffff;
+  color: #111111;
+  border-color: #E5E5EC;
+}
+.btn.square {
+  width: 50px;
   aspect-ratio: 1;
-  background: #33BA8A url(/images/icons/ic-plus.svg) center/20px no-repeat;
-  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.0784313725);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+.btn.square img {
+  width: 20px;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+.btn.square.sm {
+  width: 40px;
+  border-radius: 8px;
+}
+.btn.square.primary {
+  background-color: #33BA8A;
+  border-color: #33BA8A;
 }
 .btn.full {
   width: 100%;
@@ -209,6 +320,11 @@ button {
   margin-top: 16px;
 }
 
+.review-star {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
 .review-star ul {
   display: inline-flex;
 }
@@ -217,7 +333,7 @@ button {
   display: inline-block;
   width: 1em;
   aspect-ratio: 1;
-  background: url(/images/icons/ic-star.svg) 0/2em no-repeat;
+  background: url(/images/icons/ic-star.svg) 0/3em no-repeat;
 }
 .review-star li.active {
   background-position: -1em;
@@ -228,7 +344,41 @@ button {
   color: #111111;
   vertical-align: bottom;
 }
+.review-star label {
+  font-size: 24px;
+  width: 1em;
+  aspect-ratio: 1;
+  object-fit: cover;
+  background: url(/images/icons/ic-star.svg) -2em/3em no-repeat;
+}
+.review-star label:has(input:checked) ~ label {
+  background-position: 0;
+}
 
+.list {
+  border-top: 1px solid #F1F1F5;
+}
+.list li {
+  border-bottom: 1px solid #F1F1F5;
+}
+.list li > * {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+}
+.list li > a {
+  padding-right: 20px;
+  background: url(/images/icons/ic-arrow-right-b.svg) right 20px center/20px no-repeat;
+}
+.list li .ipt > div {
+  margin: unset;
+}
+.list span {
+  font: 600 16px/24px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+}
 .list-useByDate > ul {
   width: 100%;
   overflow: auto;
@@ -300,17 +450,6 @@ button {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 16px;
 }
-.list-food a span, .list-food a span::before {
-  font: 400 13px/18px "Pretendard";
-  letter-spacing: -0.025em;
-  color: #111111;
-}
-.list-food a span.f-size::before {
-  content: " - ";
-}
-.list-food a span.f-useByDate::before {
-  content: " ~ ";
-}
 .list-food a div {
   margin-top: 12px;
 }
@@ -365,7 +504,62 @@ button {
   background-color: #F7F7FB;
   display: inline-block;
 }
+.list-foodBuyUseByDate h2 {
+  font: 400 20px/28px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+  align-items: baseline;
+  margin-top: 38px;
+}
+.list-foodBuyUseByDate h2 span {
+  font: 600 40px/52px "Pretendard";
+}
+.list-foodBuyUseByDate ul li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+.list-foodBuyUseByDate ul li p + p {
+  margin-top: 4px;
+}
+.list-foodBuyUseByDate ul img {
+  width: 70px;
+  aspect-ratio: 70/64;
+  object-fit: cover;
+  border-radius: 4px;
+}
 
+.tab ul {
+  display: flex;
+  gap: 26px;
+}
+.tab ul li {
+  position: relative;
+  font: 400 14px/20px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+}
+.tab ul li.active {
+  font: 600 14px/20px "Pretendard";
+}
+.tab ul li + li::before {
+  content: "";
+  width: 2px;
+  aspect-ratio: 1;
+  background-color: rgba(17, 17, 17, 0.2);
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.tab ul li + li[data-color] {
+  background-color: red;
+  color: attr(data-color);
+}
+.tab ul a {
+  color: inherit;
+}
 .tab-filter table {
   width: 100%;
   border-collapse: collapse;
@@ -389,16 +583,127 @@ button {
   color: #111111;
 }
 
-.banner {
-  margin-block: unset;
-  padding-inline: unset;
+.imageUploader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.banner img {
+.imageUploader > * {
+  display: block;
   width: 100%;
+  aspect-ratio: 335/188;
+  object-fit: cover;
   border-radius: 8px;
 }
-.banner li {
-  padding-inline: 4px;
+.imageUploader label {
+  background-color: #C1C6CF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+}
+.imageUploader label p {
+  font: 400 12px/18px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #ffffff;
+}
+.imageUploader label .ic-camera {
+  font-size: 36px;
+  width: 1em;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.imageUploader label .ic-camera::after {
+  content: "";
+  display: block;
+  background: url(/images/icons/ic-camera.svg) 0/2em no-repeat;
+  width: 1em;
+  aspect-ratio: 1;
+}
+.imageUploader img {
+  display: none;
 }
 
-/*# sourceMappingURL=common.css.map */
+.ui-datepicker-header {
+  display: flex;
+  align-items: center;
+}
+.ui-datepicker-header .ui-corner-all {
+  text-indent: -9999px;
+  width: 48px;
+  aspect-ratio: 1;
+  background: url(/images/icons/datepicker/ic-prev.svg) center/24px no-repeat;
+}
+.ui-datepicker-header .ui-corner-all.ui-datepicker-next {
+  background-image: url(/images/icons/datepicker/ic-next.svg);
+}
+.ui-datepicker-header .ui-datepicker-title {
+  order: -1;
+  margin-right: auto;
+}
+.ui-datepicker-header .ui-datepicker-title select {
+  font: 400 14px/20px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+  padding: 10px 8px;
+  border: unset;
+}
+.ui-datepicker-calendar {
+  width: 100%;
+}
+.ui-datepicker-calendar tr > * {
+  position: relative;
+  font: 400 16px/24px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+  padding-block: 12px;
+  text-align: center;
+  color: #111111;
+}
+.ui-datepicker-calendar tr > * a {
+  color: inherit;
+}
+.ui-datepicker-calendar td.ui-datepicker-today::before, .ui-datepicker-calendar td.ui-datepicker-current-day::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid #33BA8A;
+  z-index: -1;
+}
+.ui-datepicker-calendar td.ui-datepicker-today {
+  color: #33BA8A;
+}
+.ui-datepicker-calendar td.ui-datepicker-current-day {
+  color: #ffffff !important;
+}
+.ui-datepicker-calendar td.ui-datepicker-current-day::before {
+  background-color: #33BA8A;
+}
+
+.f-name, .f-name::before,
+.f-size,
+.f-size::before,
+.f-addDate,
+.f-addDate::before,
+.f-useByDate,
+.f-useByDate::before {
+  font: 400 13px/18px "Pretendard";
+  letter-spacing: -0.025em;
+  color: #111111;
+}
+
+.f-size::before {
+  content: " - ";
+}
+
+.f-useByDate::before {
+  content: " ~ ";
+}/*# sourceMappingURL=common.css.map */
