@@ -21,9 +21,13 @@ public class TokenUtil {
     }
 
     public String getTokenByCookies(HttpServletRequest request) {
-        Object[] token = Arrays.stream(request.getCookies()).filter(cookie -> cookie.getName().equals(TOKEN_KEY)).toArray();
-        if(token.length != 0) {
-            return ((Cookie)token[0]).getValue();
+        if(request.getCookies() != null) {
+            Object[] token = Arrays.stream(request.getCookies()).filter(cookie -> cookie.getName().equals(TOKEN_KEY)).toArray();
+            if(token.length != 0) {
+                return ((Cookie)token[0]).getValue();
+            } else {
+                return null;
+            }
         } else {
             return null;
         }
