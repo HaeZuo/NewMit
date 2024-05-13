@@ -30,7 +30,7 @@ public class BaseService {
     public List<Map<String, Object>> getFoodIngredientsTypeCodeList() {
         List<Map<String, Object>> result = new ArrayList<>();
 
-        result = commonDao.selectList("mappers.common.selectFoodIngredientsTypeCode");
+        //result = commonDao.selectList("mappers.common.selectFoodIngredientsTypeCode");
 
         return result;
     }
