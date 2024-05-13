@@ -9,15 +9,28 @@ CREATE TABLE TB_COMMON_CODE (
     PRIMARY KEY (COMMON_CODE_GROUP_CD, COMMON_CODE_CD)
 );
 INSERT INTO TB_COMMON_CODE(COMMON_CODE_GROUP_CD, COMMON_CODE_GROUP_CD_NM, COMMON_CODE_CD, COMMON_CODE_NM)
-VALUES('1', '성별 코드', '1', '남자');
+VALUES  ('1', '성별 코드', '1', '남자'),
+        ('1', '성별 코드', '2', '여자');
 INSERT INTO TB_COMMON_CODE(COMMON_CODE_GROUP_CD, COMMON_CODE_GROUP_CD_NM, COMMON_CODE_CD, COMMON_CODE_NM)
-VALUES('1', '성별 코드', '2', '여자');
+VALUES  ('2', 'OAuth 인증기관', '1', 'google'),
+        ('2', 'OAuth 인증기관', '2', 'kakao'),
+        ('2', 'OAuth 인증기관', '3', 'naver');
 INSERT INTO TB_COMMON_CODE(COMMON_CODE_GROUP_CD, COMMON_CODE_GROUP_CD_NM, COMMON_CODE_CD, COMMON_CODE_NM)
-VALUES('2', 'OAuth 인증기관', '1', 'google');
-INSERT INTO TB_COMMON_CODE(COMMON_CODE_GROUP_CD, COMMON_CODE_GROUP_CD_NM, COMMON_CODE_CD, COMMON_CODE_NM)
-VALUES('2', 'OAuth 인증기관', '2', 'kakao');
-INSERT INTO TB_COMMON_CODE(COMMON_CODE_GROUP_CD, COMMON_CODE_GROUP_CD_NM, COMMON_CODE_CD, COMMON_CODE_NM)
-VALUES('2', 'OAuth 인증기관', '3', 'naver');
+VALUES  ('3', '식자재 구분', '1', '곡물류'),
+        ('3', '식자재 구분', '2', '채소류'),
+        ('3', '식자재 구분', '3', '과일류'),
+        ('3', '식자재 구분', '4', '육류'),
+        ('3', '식자재 구분', '5', '수산류'),
+        ('3', '식자재 구분', '6', '유제품류'),
+        ('3', '식자재 구분', '7', '조미료류'),
+        ('3', '식자재 구분', '8', '가공식품'),
+        ('3', '식자재 구분', '9', '냉동식품'),
+        ('3', '식자재 구분', '10', '건강식품'),
+        ('3', '식자재 구분', '11', '디저트'),
+        ('3', '식자재 구분', '12', '음료수'),
+        ('3', '식자재 구분', '13', '조미식품'),
+        ('3', '식자재 구분', '14', '자연식품'),
+        ('3', '식자재 구분', '15', '빙과류');
 
 -- 회원정보 테이블
 CREATE TABLE TB_MEMBERS_INFO (
