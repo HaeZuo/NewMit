@@ -3,7 +3,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mappers.common">
+
     <select id="selectSystemDate" resultType="string">
         SELECT NOW() FROM DUAL
     </select>
+
+    <select id="selectFoodIngredientsTypeCode" resultType="map">
+        SELECT COMMON_CODE_GROUP_CD, COMMON_CODE_GROUP_CD_NM, COMMON_CODE_CD, COMMON_CODE_NM
+        FROM TB_COMMON_CODE
+        WHERE COMMON_CODE_GROUP_CD = '3'
+    </select>
+
 </mapper>

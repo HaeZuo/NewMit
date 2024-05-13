@@ -1214,7 +1214,7 @@ footer .floating .btn {
   width: 1em;
   aspect-ratio: 1;
   margin-right: 2px;
-  background: url(/resources/images/icons/recipe/ic-add.svg) 0/1em no-repeat;
+  background: url(/images/icons/recipe/ic-add.svg) 0/1em no-repeat;
 }
 .recipeInsertSteps ol > li .btn-wrap .btn.active {
   background-color: #33BA8A;
@@ -1222,7 +1222,7 @@ footer .floating .btn {
   color: #ffffff;
 }
 .recipeInsertSteps ol > li .btn-wrap .btn.active::before {
-  background-image: url(/resources/images/icons/ic-delete.svg);
+  background-image: url(/images/icons/ic-delete.svg);
   background-size: 2em;
 }
 .recipeInsertSteps h3 {

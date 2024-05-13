@@ -32,95 +32,43 @@
     <script src="/scripts/jquery-2.2.4.min.js"></script>
     <script src="/scripts/slick.min.js"></script>
     <script src="/scripts/scripts.js"></script>
+    <script src="/component/foodComponents.js"></script>
     <script>
         window.onload = function () {
             commonUtil.enableToFooter(false);
+
+            addBtnClick();
+        }
+
+        function addBtnClick() {
+            foodComponents.foodInsertArea(document.getElementById("foodInsertAreaList"));
+        }
+
+        function saveBtnClick() {
+            const foodInsertAreaCount = document.getElementById("foodInsertAreaList").childElementCount;
+
+            for(let fia of document.getElementById("foodInsertAreaList").children) {
+                if (fia.tagName === 'FORM') { // 폼 요소인지 확인
+                    let formData = $(fia).serializeArray();
+                    debugger;
+                }
+            }
         }
     </script>
 </head>
 <body>
     <section>
-        <div class="foodInsertArea">
-            <div class="imageUploader full">
-                <img src="/images/imageUploader.svg" alt="">
-            </div>
-            <div class="ipt full">
-                <span>식자재 이름</span>
-                <div>
-                    <input type="text" placeholder="식자재 이름을 작성해 주세요">
-                </div>
-            </div>
-            <div class="ipt">
-                <span>식자재 구분</span>
-                <div>
-                    <select name="#" >
-                        <option value="010" selected>육류</option>
-                        <option value="02">02</option>
-                    </select>
-                </div>
-            </div>
-            <div class="ipt">
-                <span>수량 / 무게</span>
-                <div>
-                    <input type="text" placeholder="1개">
-                </div>
-            </div>
-            <div class="ipt">
-                <span>구입일자</span>
-                <div>
-                    <input type="date">
-                </div>
-            </div>
-            <div class="ipt">
-                <span>소비기한</span>
-                <div>
-                    <input type="date">
-                </div>
-            </div>
+        <div id="foodInsertAreaList">
+
         </div>
-        <div class="foodInsertArea">
-            <div class="imageUploader full">
-                <img src="/images/imageUploader.svg" alt="">
-            </div>
-            <div class="ipt full">
-                <span>식자재 이름</span>
-                <div>
-                    <input type="text" placeholder="식자재 이름을 작성해 주세요">
-                </div>
-            </div>
-            <div class="ipt">
-                <span>식자재 구분</span>
-                <div>
-                    <select name="#" >
-                        <option value="010" selected>육류</option>
-                        <option value="02">02</option>
-                    </select>
-                </div>
-            </div>
-            <div class="ipt">
-                <span>수량 / 무게</span>
-                <div>
-                    <input type="text" placeholder="1개">
-                </div>
-            </div>
-            <div class="ipt">
-                <span>구입일자</span>
-                <div>
-                    <input type="date">
-                </div>
-            </div>
-            <div class="ipt">
-                <span>소비기한</span>
-                <div>
-                    <input type="date">
-                </div>
-            </div>
+        <div>
+            <input type="button" value="addBtn" id="addBtn" onclick="javascript:addBtnClick();">
         </div>
     </section>
     <footer>
         <ul class="btn-wrap">
-            <li><a href="" class="btn white">삭제</a></li>
-            <li><a href="" class="btn primary">저장</a></li>
+            <li><a href="#" class="btn white">삭제</a></li>
+            <li><a href="#" class="btn primary" onclick="javascript:saveBtnClick();">저장</a></li>
         </ul>
     </footer>
 <div class="modal">

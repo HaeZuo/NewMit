@@ -37,38 +37,31 @@
             commonUtil.enableToFooter(false);
 
             // 사진 선택 후
-            document.getElementById("photoFile").onchange = function () {
-                // XMLHttpRequest 객체 생성
-                const xhr = new XMLHttpRequest();
-
-                // 요청 초기화
-                xhr.open('POST', '/inqredients/foodObjectRecognition', true); // 비동기적 요청
-
-                // 요청 완료 시 실행될 함수 설정
-                xhr.onload = function() {
-                    if (xhr.status >= 200 && xhr.status < 300) {
-                        // 성공적으로 요청을 받았을 때 실행될 코드
-                        debugger;
-                        document.getElementById('result').innerHTML = xhr.responseText;
-                    } else {
-                        // 요청 실패 시 실행될 코드
-                        alert('요청 실패: ' + xhr.statusText);
+            document.getElementById("upload-file-input").onchange = function () {
+                $.ajax({
+                    url: "/inqredients/foodObjectRecognition",
+                    type: "POST",
+                    data: new FormData($("#upload-file-form")[0]),
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    success: function (success) {
+                        // Handle upload success
+                        // ...
+                    },
+                    error: function (error) {
+                        // Handle upload error
+                        // ...
                     }
-                };
-
-                // 요청 실패 시 실행될 함수 설정
-                xhr.onerror = function() {
-                    alert('네트워크 에러');
-                };
-
-                // 요청 보내기
-                xhr.send();
+                });
             };
         }
 
         function objectRecognition() {
-            document.getElementById("photoFile").click();
+            document.getElementById("upload-file-input").click();
         }
+
     </script>
 </head>
 <body>
@@ -83,8 +76,8 @@
             </div>
         </div>
     </section>
-    <form style="display: none;">
-        <input type="file" name="photoFile" id="photoFile" accept="image/*" capture="camera" style="display:none;">
+    <form id="upload-file-form" style="display: none;">
+        <input type="file" name="uploadfile" id="upload-file-input" accept="image/*" capture="camera" style="display:none;">
     </form>
 </body>
 </html>

@@ -363,7 +363,7 @@ button {
 }
 .list li > a {
   padding-right: 20px;
-  background: url(/resources/images/icons/ic-arrow-right-b.svg) right 20px center/20px no-repeat;
+  background: url(/images/icons/ic-arrow-right-b.svg) right 20px center/20px no-repeat;
 }
 .list li .ipt > div {
   margin: unset;
@@ -592,10 +592,10 @@ button {
   text-indent: -9999px;
   width: 48px;
   aspect-ratio: 1;
-  background: url(/resources/images/icons/datepicker/ic-prev.svg) center/24px no-repeat;
+  background: url(/images/icons/datepicker/ic-prev.svg) center/24px no-repeat;
 }
 .ui-datepicker-header .ui-corner-all.ui-datepicker-next {
-  background-image: url(/resources/images/icons/datepicker/ic-next.svg);
+  background-image: url(/images/icons/datepicker/ic-next.svg);
 }
 .ui-datepicker-header .ui-datepicker-title {
   order: -1;
