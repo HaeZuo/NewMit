@@ -1,51 +1,87 @@
-const foodComponents = {};
+const foodInsertArea = {};
 
-foodComponents.foodInsertArea = function(divElement) {
-    divElement.insertAdjacentHTML('beforeend', `
+foodInsertArea.setFoodIngredientsTypeDataList = function(foodIngredientsTypeDataList, numId) {
+        let foodIngredientsTypeElement = `<select id=foodIngredientsType` + numId + `" name="foodIngredientsType">`;
+
+        for(let currentFoodIngredientsTypeData of foodIngredientsTypeDataList) {
+            foodIngredientsTypeElement += `<option value="` + currentFoodIngredientsTypeData['COMMON_CODE_CD'] + `">`+ currentFoodIngredientsTypeData['COMMON_CODE_NM'] + `</option>`;
+        }
+
+        foodIngredientsTypeElement += `</select>`;
+
+        return foodIngredientsTypeElement;
+    }
+
+foodInsertArea.foodIngredientsImageOnChange = function(e) {
+    const file = e.files[0]; // 선택된 파일
+
+    // FileReader 객체 생성
+    const reader = new FileReader();
+
+    // 파일을 읽기 시작할 때 실행되는 이벤트 핸들러
+    reader.onload = function(handler) {
+        // 읽은 데이터를 img 요소의 src 속성에 설정하여 이미지를 표시
+        document.getElementById("foodIngredientsImageBanner" + e.id.replace("foodIngredientsImage", "")).src = handler.target.result; // 첨부한 이미지를 보여주도록
+        document.getElementById("foodIngredientsImageBanner" + e.id.replace("foodIngredientsImage", "")).style.display = ""; // 첨부한 이미지를 보여주도록
+        document.getElementById("imageUploaderLabel" + e.id.replace("foodIngredientsImage", "")).style.display = "none"; // 첨부할 경우 첨부요청 영역 제거
+    };
+
+    // 파일을 읽기
+    reader.readAsDataURL(file);
+}
+
+foodInsertArea.createFoodInsertArea = function(divElement, numId, foodIngredientsTypeDataList) {
+        const foodIngredientsTypeElement = this.setFoodIngredientsTypeDataList(foodIngredientsTypeDataList, numId);
+
+        let foodInsertArea = `
         <form>
         <div class="foodInsertArea">
             <div class="imageUploader full">
-                <label>
-                    <input type="file" name="foodIngredientsImage" accept="image/*" hidden>
+                <label id="imageUploaderLabel` + numId + `">
+                    <input type="file" id="foodIngredientsImage` + numId + `" onchange="foodInsertArea.foodIngredientsImageOnChange(this)" name="foodIngredientsImage" accept="image/*" hidden>
                     <i class="ic-camera"></i>
                     <p>식자재 이미지를 추가해주세요</p>
                 </label>
-                <img src="/images/food/temp.png" alt="">
+                <img id="foodIngredientsImageBanner` + numId + `" style="display: none" /*src="/images/food/temp.png"*/ alt="">
             </div>
             <div class="ipt full">
                 <span>식자재 이름</span>
                 <div>
-                    <input type="text" name="foodIngredientsName" placeholder="식자재 이름을 작성해 주세요">
+                    <input type="text" id="foodIngredientsImage` + numId + `" name="foodIngredientsName" placeholder="식자재 이름을 작성해 주세요">
                 </div>
             </div>
             <div class="ipt">
                 <span>식자재 구분</span>
                 <div>
-                    <select name="foodIngredientsType" >
-                        <option value="010" selected>육류</option>
-                        <option value="02">02</option>
-                    </select>
+                    `
+                        +
+                            foodIngredientsTypeElement
+                        +
+                    `
                 </div>
             </div>
             <div class="ipt">
                 <span>수량 / 무게</span>
                 <div>
-                    <input type="text" name="foodIngredientsCntOrFw" placeholder="1개">
+                    <input type="text" id="foodIngredientsCntOrFw` + numId + `" name="foodIngredientsCntOrFw" placeholder="1개">
                 </div>
             </div>
             <div class="ipt">
                 <span>구입일자</span>
                 <div>
-                    <input type="date" name="buyDate">
+                    <input type="date" id="buyDate` + numId + `" name="buyDate">
                 </div>
             </div>
             <div class="ipt">
                 <span>소비기한</span>
                 <div>
-                    <input type="date" name="expiryDate">
+                    <input type="date" id="expiryDate` + numId + `" name="expiryDate">
                 </div>
             </div>
         </div>
         </form>
-    `);
-}
+        `;
+
+        divElement.insertAdjacentHTML('beforeend', foodInsertArea);
+
+    }

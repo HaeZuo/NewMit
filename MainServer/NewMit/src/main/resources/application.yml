@@ -9,18 +9,28 @@ spring:
       prefix: /WEB-INF/jsp/views
       suffix: .jsp
 
+  # file
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+
   # DB Connection Info
   datasource:
     url: jdbc:mysql://223.130.132.76:3306/NEWMIT
     username: NMu
     password: 1q2w3e4r!!
     driver-class-name: com.mysql.jdbc.Driver
+
   # JPA Info
   jpa:
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+        highlight_sql: true # ANSI 코드에 색을 나타낸다
+        use_sql_comments: true # SQL 내부에 /* */ 주석 추가
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
@@ -28,10 +38,6 @@ spring:
   h2:
     console:
       enabled: true
-
-  # MyBatis Configuration
-  mybatis:
-    mapper-locations: classpath:/mappers/**/*.xml  # Locations of MyBatis mapper XML files
 
   # application-oauth import
   security:
@@ -78,6 +84,11 @@ spring:
 # Server Info
 server:
   port: 8080  # Specifies the port on which the server will run
+
+  # MyBatis Configuration
+  # Locations of MyBatis mapper XML files
+mybatis:
+  mapper-locations: classpath:/mappers/**/*.xml
 
 jwt:
   issuer: HeoZuo

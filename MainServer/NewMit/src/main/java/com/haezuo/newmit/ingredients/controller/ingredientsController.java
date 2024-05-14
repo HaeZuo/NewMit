@@ -1,7 +1,11 @@
 package com.haezuo.newmit.ingredients.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.haezuo.newmit.common.CommonDao.CommonDao;
+import com.haezuo.newmit.common.CommonService.BaseService;
 import com.haezuo.newmit.common.Util.CommonUtil;
+import com.haezuo.newmit.common.Value.CommonCode;
+import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -23,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-public class ingredientsController {
+public class ingredientsController extends BaseService {
 
     @RequestMapping(value = "/ingredients/listView", method = RequestMethod.GET)
     public String viewIngredientsList() {
@@ -44,15 +48,18 @@ public class ingredientsController {
     }
 
     @RequestMapping(value = "/ingredients/insertView", method = RequestMethod.GET)
-    public String viewIngredientsInsert() {
+    @ResponseBody
+    public ModelAndView viewIngredientsInsert() {
+        ModelAndView mav = new ModelAndView("/ingredients/foodInsert");
 
-        return "/ingredients/foodInsert";
+        mav.addObject("foodIngredientsTypeCodeList", convertListMapToJson(new CommonCode().getFoodIngredientsTypeCodeList()));
+
+        return mav;
     }
 
     @RequestMapping(value = "/inqredients/foodObjectRecognition", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> uploadFile(@RequestParam("uploadfile") MultipartFile uploadfile) {
-
 
         String result_txt = "";
         try {

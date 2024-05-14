@@ -1,5 +1,6 @@
 package com.haezuo.newmit.common.CommonService;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.haezuo.newmit.common.CommonDao.CommonDao;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -27,11 +28,22 @@ public class BaseService {
         return map.get(key) == null ? "" : (String) map.get(key);
     }
 
+    public String convertListMapToJson(List<Map<String, Object>> listMap) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.writeValueAsString(listMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public List<Map<String, Object>> getFoodIngredientsTypeCodeList() {
         List<Map<String, Object>> result = new ArrayList<>();
 
-        //result = commonDao.selectList("mappers.common.selectFoodIngredientsTypeCode");
+        result = commonDao.selectList("mappers.common.selectFoodIngredientsTypeCode");
 
         return result;
     }
+
 }

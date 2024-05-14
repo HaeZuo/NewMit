@@ -34,6 +34,11 @@
     <script src="/scripts/scripts.js"></script>
     <script src="/component/foodComponents.js"></script>
     <script>
+
+        const foodIngredientsTypeCodeList = JSON.parse('<c:out value="${foodIngredientsTypeCodeList}" escapeXml="false" />');
+
+        let foodInsertAreaSequence = 0;
+
         window.onload = function () {
             commonUtil.enableToFooter(false);
 
@@ -41,7 +46,8 @@
         }
 
         function addBtnClick() {
-            foodComponents.foodInsertArea(document.getElementById("foodInsertAreaList"));
+
+            foodInsertArea.createFoodInsertArea(document.getElementById("foodInsertAreaList"), ++foodInsertAreaSequence, foodIngredientsTypeCodeList);
         }
 
         function saveBtnClick() {

@@ -623,9 +623,9 @@ button {
   width: 1em;
   aspect-ratio: 1;
 }
-.imageUploader img {
+/*.imageUploader img {
   display: none;
-}
+}*/
 
 .ui-datepicker-header {
   display: flex;
