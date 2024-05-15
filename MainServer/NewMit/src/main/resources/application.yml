@@ -45,14 +45,14 @@ spring:
       client:
         registration:
           google:
-            client-id: 21475556791-2cgd5ot9k19ko12ucvosjsabhj0peova.apps.googleusercontent.com
-            client-secret: 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
+            client-id:
+            client-secret:
             scope:
               - email
               - profile
           kakao:
-            client-id: 42090dbb9596451f03380f2eafde2fbd
-            client-secret: m1BvtRyx66IieWjK5OgWfh0vWalvy3N1
+            client-id:
+            client-secret:
             client-authentication-method: client_secret_post
             redirect-uri: http://localhost:8080/login/oauth2/code/kakao
             authorization-grant-type: authorization_code
@@ -61,8 +61,8 @@ spring:
               - profile_nickname
               - account_email
           naver:
-            client-id: 8l3bkUgi2aBZqcf4regu
-            client-secret: iSIL1ATOGf
+            client-id:
+            client-secret: 
             scope:
               - name
               - email
