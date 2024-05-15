@@ -19,7 +19,46 @@ commonUtil.formToObject = function(dom) {
     return jsonObject;
 }
 
-commonUtil.getObjectData = function(object, key) {
+commonUtil.arrayToObject = function(serializedArray) {
+    return serializedArray.reduce(function(obj, item) {
+        obj[item.name] = item.value;
+        return obj;
+    }, {});
+}
+
+commonUtil.convertObjectToFormData = function(obj) {
+    const formData = new FormData();
+
+    for (const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            const value = obj[key];
+            if (value instanceof File) {
+                formData.append(key, value, value.name);
+            } else {
+                formData.append(key, value);
+            }
+        }
+    }
+
+    return formData;
+}
+
+// 이미지를 Base64로 인코딩하는 함수
+commonUtil.encodeImageToBase64 = async function(imageFile) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            resolve(event.target.result);
+        };
+        reader.onerror = function(error) {
+            reject(error);
+        };
+        reader.readAsDataURL(imageFile);
+    });
+}
+
+
+getObjectData = function(object, key) {
     return (object[key] != null && object[key] != "") ? object[key] : "";
 }
 

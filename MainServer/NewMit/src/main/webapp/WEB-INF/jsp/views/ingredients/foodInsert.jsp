@@ -41,6 +41,7 @@
 
         window.onload = function () {
             commonUtil.enableToFooter(false);
+            commonUtil.enableToRegIngredientsBtn(true);
 
             addBtnClick();
         }
@@ -50,15 +51,34 @@
             foodInsertArea.createFoodInsertArea(document.getElementById("foodInsertAreaList"), ++foodInsertAreaSequence, foodIngredientsTypeCodeList);
         }
 
-        function saveBtnClick() {
+        async function saveBtnClick() {
             const foodInsertAreaCount = document.getElementById("foodInsertAreaList").childElementCount;
+
+            const requestData = new Array();
 
             for(let fia of document.getElementById("foodInsertAreaList").children) {
                 if (fia.tagName === 'FORM') { // 폼 요소인지 확인
-                    let formData = $(fia).serializeArray();
-                    debugger;
+                    let formObject = commonUtil.arrayToObject($(fia).serializeArray());
+
+                    const foodIngredientsImageBannerElement = foodInsertArea.getFoodIngredientsImageBannerElement(formObject['createFoodInsertAreaId'])
+
+                    if (foodIngredientsImageBannerElement.files.length > 0) {
+                        const file = foodIngredientsImageBannerElement.files[0];
+                        formObject['foodIngredientsImageBanner'] = await commonUtil.encodeImageToBase64(file);
+                        formObject['foodIngredientsImageBannerFileName'] = file['name'];
+                        formObject['foodIngredientsImageBannerFileType'] = file['type'];
+                    }
+
+                    requestData.push(formObject);
                 }
             }
+            httpRequest('POST', '/ingredients/saveInqredients', JSON.stringify(requestData), function (success) {
+
+            }, function (fail) {
+
+            });
+
+
         }
     </script>
 </head>

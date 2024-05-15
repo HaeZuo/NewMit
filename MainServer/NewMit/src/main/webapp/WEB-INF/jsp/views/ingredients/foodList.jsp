@@ -33,8 +33,54 @@
     <script src="/scripts/slick.min.js"></script>
     <script src="/scripts/scripts.js"></script>
     <script>
+        function tabFilterOnClick(e) {
+            if(document.getElementsByClassName("active").length != 0)
+                document.getElementsByClassName("active")[0].classList.remove("active");
+
+            e.classList.add("active");
+        }
         window.onload = function () {
             commonUtil.enableToRegIngredientsBtn();
+
+            const foodIngredientsTypeCodeList = JSON.parse('<c:out value="${foodIngredientsTypeCodeList}" escapeXml="false" />');
+
+            const tabFilterTable = document.getElementById("tabFilterTableBody");
+
+            const rowCount = Math.ceil(foodIngredientsTypeCodeList.length / 4);
+
+            for(let curRowIdx=1; curRowIdx<=rowCount; curRowIdx++) {
+                tabFilterTable.insertAdjacentHTML('beforeend', `
+                    <tr id="tabFilterRow` + curRowIdx + `">
+
+                    </tr>
+                `);
+            }
+
+            let curRowIdx = 1;
+            let curColIdx = 0;
+            for(let foodIngredientsTypeCode of foodIngredientsTypeCodeList) {
+                curColIdx++;
+
+                if(curRowIdx==1 && curColIdx==1) {
+                    document.getElementById("tabFilterRow" + curRowIdx).insertAdjacentHTML('beforeend', `
+                    <td id="allCell" onclick="javascript:tabFilterOnClick(this)">
+                        <a hred="#">전체</a>
+                    </td>
+                `);
+                }
+
+                if(curColIdx == 4) {
+                    curColIdx = 0;
+                    ++curRowIdx;
+                }
+                document.getElementById("tabFilterRow" + curRowIdx).insertAdjacentHTML('beforeend', `
+                    <td id="test`+curRowIdx + "" + curColIdx +`" onclick="javascript:tabFilterOnClick(this)">
+                        <a href="#">` + foodIngredientsTypeCode['COMMON_CODE_NM'] + `</a>
+                    </td>
+                `);
+            }
+
+            document.getElementById("allCell").click();
         }
     </script>
 </head>
@@ -117,31 +163,10 @@
                 </ul>
             </div>
             <div class="tab-filter">
-                <table>
-                    <tr>
-                        <td class="active"><a href="">전체</a></td>
-                        <td><a href="">곡물류</a></td>
-                        <td><a href="">채소류</a></td>
-                        <td><a href="">과일류</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="">육류</a></td>
-                        <td><a href="">수산류</a></td>
-                        <td><a href="">유제품류</a></td>
-                        <td><a href="">조미료류</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="">가공식품</a></td>
-                        <td><a href="">냉동식품</a></td>
-                        <td><a href="">건강식품</a></td>
-                        <td><a href="">디저트</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="">음료수</a></td>
-                        <td><a href="">조미식품</a></td>
-                        <td><a href="">자연식품</a></td>
-                        <td><a href="">빙과류</a></td>
-                    </tr>
+                <table id="tabFilterTable">
+                    <tbody id="tabFilterTableBody">
+
+                    </tbody>
                 </table>
             </div>
             <div class="list-food">

@@ -14,4 +14,29 @@
         ORDER BY COMMON_CODE_CD*1 ASC
     </select>
 
+    <insert id="insertFoodIngredientsImageInfo" parameterType="map" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO TB_FILE_INFO(
+                                 FILE_INFO_ORG_NM,
+                                 FILE_INFO_CUR_NM,
+                                 FILE_INFO_SIZE,
+                                 FILE_INFO_DIR,
+                                 FILE_INFO_EXTENSION,
+                                 FILE_INFO_REGISTER_DATE,
+                                 FILE_INFO_REGISTER_IP,
+                                 FILE_INFO_UPDATE_DATE,
+                                 FILE_INFO_UPDATE_IP
+                                 )
+        VALUES(
+               #{fileInfoOrgNm},
+               #{fileInfoCurNm},
+               #{fileInfoSize},
+               #{fileInfoDir},
+               #{fileInfoExtension},
+               now(),
+               #{userIp},
+               now(),
+               #{userIp}
+              )
+    </insert>
+
 </mapper>

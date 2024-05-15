@@ -5,8 +5,12 @@ import com.haezuo.newmit.common.CommonDao.CommonDao;
 import com.haezuo.newmit.common.CommonService.BaseService;
 import com.haezuo.newmit.common.Util.CommonUtil;
 import com.haezuo.newmit.common.Value.CommonCode;
+import com.haezuo.newmit.ingredients.service.ingredientsService;
+import com.haezuo.newmit.login.service.LoginService;
+import com.haezuo.newmit.login.service.TokenService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.http.HttpStatus;
@@ -24,15 +28,24 @@ import java.net.URL;
 import java.util.Arrays;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequiredArgsConstructor
 public class ingredientsController extends BaseService {
 
-    @RequestMapping(value = "/ingredients/listView", method = RequestMethod.GET)
-    public String viewIngredientsList() {
+    private final ingredientsService ingredientsService;
 
-        return "/ingredients/foodList";
+    private final LoginService loginService;
+
+    @RequestMapping(value = "/ingredients/listView", method = RequestMethod.GET)
+    public ModelAndView viewIngredientsList() {
+        ModelAndView mav = new ModelAndView("/ingredients/foodList");
+
+        mav.addObject("foodIngredientsTypeCodeList", convertListMapToJson(new CommonCode().getFoodIngredientsTypeCodeList()));
+
+        return mav;
     }
 
     @RequestMapping(value = "/ingredients/listDetailView", method = RequestMethod.GET)
@@ -55,6 +68,18 @@ public class ingredientsController extends BaseService {
         mav.addObject("foodIngredientsTypeCodeList", convertListMapToJson(new CommonCode().getFoodIngredientsTypeCodeList()));
 
         return mav;
+    }
+
+    @RequestMapping(value = "/ingredients/saveInqredients", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> saveInqredients(HttpServletRequest request, @RequestBody List<Map<String, Object>> requestData) {
+        Map<String, Object> map = new HashMap<>();
+
+        Map<String, Object> connectUserInfo = loginService.ConnectUserInfo(request);
+
+        ingredientsService.saveInqredients(connectUserInfo, requestData);
+
+        return map;
     }
 
     @RequestMapping(value = "/inqredients/foodObjectRecognition", method = RequestMethod.POST)

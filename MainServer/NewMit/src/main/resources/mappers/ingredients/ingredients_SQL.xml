@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mappers.ingredients">
+
+    <insert id="insertIngredientsOwned" parameterType="map">
+        INSERT INTO TB_INGREDIENTS_OWNED(
+            MB_NO,
+            INGREDIENT_OWNED_NO,
+            INGREDIENT_OWNED_NM,
+            INGREDIENT_OWNED_TYPE,
+            INGREDIENT_OWNED_QOW,
+            INGREDIENT_OWNED_BUY_DATE,
+            INGREDIENT_OWNED_EXPIRATION_DATE,
+            INGREDIENT_OWNED_IMAGE_ID,
+            INGREDIENT_OWNED_REGISTER_DATE,
+            INGREDIENT_OWNED_REGISTER_IP
+        )
+        VALUES(
+                #{mbNo},
+                #{ingredientOwnedNo},
+                #{ingredientOwnedNm},
+                #{ingredientOwnedType},
+                #{ingredientOwnedQow},
+                #{ingredientOwnedBuyDate},
+                #{ingredientOwnedExpirationDate},
+                #{ingredientOwnedImageId},
+                now(),
+                #{userIp}
+              )
+    </insert>
+
+    <select id="selectMaxIngredientOwnedNo" parameterType="string" resultType="string">
+        SELECT IFNULL(MAX(INGREDIENT_OWNED_NO), '0') + 1
+        FROM TB_INGREDIENTS_OWNED
+        WHERE MB_NO = #{userId}
+    </select>
+</mapper>

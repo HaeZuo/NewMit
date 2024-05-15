@@ -30,11 +30,16 @@ foodInsertArea.foodIngredientsImageOnChange = function(e) {
     reader.readAsDataURL(file);
 }
 
+foodInsertArea.getFoodIngredientsImageBannerElement = function(numId) {
+    return document.getElementById("foodIngredientsImage" + numId);
+}
+
 foodInsertArea.createFoodInsertArea = function(divElement, numId, foodIngredientsTypeDataList) {
         const foodIngredientsTypeElement = this.setFoodIngredientsTypeDataList(foodIngredientsTypeDataList, numId);
 
         let foodInsertArea = `
         <form>
+        <input name="createFoodInsertAreaId" value="` + numId + `" hidden>
         <div class="foodInsertArea">
             <div class="imageUploader full">
                 <label id="imageUploaderLabel` + numId + `">

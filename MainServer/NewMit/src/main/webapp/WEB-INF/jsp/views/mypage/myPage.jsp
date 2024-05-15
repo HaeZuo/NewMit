@@ -59,7 +59,7 @@
                     <i class="ic-camera"></i>
                     <p>식자재 이미지를 추가해주세요</p>
                 </label>
-                <img src="/images/food/temp.png" alt="">
+                <img class="imageUploaderImg" src="/images/food/temp.png" alt="">
             </div>
             <p class="user-name"><span id="userNm">ㅇㅇㅇ</span> 요리사님</p>
             <ul class="user-recipe">

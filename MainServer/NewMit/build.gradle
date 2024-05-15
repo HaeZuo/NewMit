@@ -79,6 +79,10 @@ dependencies {
     // -- 한국어 처리기 & 형태소 분석기 Begin --
     implementation 'org.openkoreantext:open-korean-text:2.1.0'
     // -- 한국어 처리기 & 형태소 분석기 End --
+
+    // -- io 라이브러리 Begin --
+    implementation 'commons-io:commons-io:2.11.0'
+    // -- io 라이브러리 End --
 }
 
 dependencyManagement {

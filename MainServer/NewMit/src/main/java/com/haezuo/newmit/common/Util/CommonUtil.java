@@ -1,13 +1,15 @@
 package com.haezuo.newmit.common.Util;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.commons.io.FilenameUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class CommonUtil {
     public static String getRemoteAddr(HttpServletRequest request){
@@ -61,5 +63,21 @@ public class CommonUtil {
         return newArray;
     }
 
+    public static String getSafeFilename(String originalFilename) {
+        // 파일 이름에서 허용되지 않는 문자를 제거하고, 확장자를 유지하는 작업
+        String safeFilename = originalFilename.replaceAll("[^a-zA-Z0-9-_\\.]", "_");
+
+        // 중복된 파일 이름을 방지하기 위해 유일한 이름 생성
+        File file = new File(safeFilename);
+        String baseName = FilenameUtils.getBaseName(safeFilename);
+        String extension = FilenameUtils.getExtension(safeFilename);
+        int counter = 1;
+        while (file.exists()) {
+            String newFilename = baseName + "_" + counter + "." + extension;
+            file = new File(newFilename);
+            counter++;
+        }
+        return file.getName();
+    }
 
 }

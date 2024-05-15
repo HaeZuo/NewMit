@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository("commonDao")
 public class CommonDao {
@@ -39,6 +40,12 @@ public class CommonDao {
 
     public int insert(String queryId, Object parameterObject){
         return sqlSession.insert(queryId, parameterObject);
+    }
+
+    public String insertAndReturnKey(String queryId, Map<String, Object> parameterMap){
+        sqlSession.insert(queryId, parameterMap);
+
+        return parameterMap.get("id").toString();
     }
 
     public int update(String queryId, Object parameterObject){

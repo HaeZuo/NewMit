@@ -626,6 +626,10 @@ button {
 /*.imageUploader img {
   display: none;
 }*/
+.imageUploader .imageUploaderImg {
+  display: none;
+}
+
 
 .ui-datepicker-header {
   display: flex;
