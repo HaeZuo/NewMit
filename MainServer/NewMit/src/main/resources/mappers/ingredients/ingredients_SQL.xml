@@ -80,4 +80,18 @@
         ORDER BY INGREDIENT_OWNED_TYPE ASC
     </select>
 
+    <select id="selectExpirationDateImminentList" parameterType="map" resultType="map">
+        /* mappers.ingredients.selectExpirationDateImminentList */
+        SELECT
+            TIO.INGREDIENT_OWNED_NM,
+            TIO.INGREDIENT_OWNED_IMAGE_ID,
+            (TIO.INGREDIENT_OWNED_EXPIRATION_DATE - DATE_FORMAT(NOW(), '%Y%m%d')) AS REMAINING_EXPIRATION_DATE
+        FROM TB_INGREDIENTS_OWNED TIO
+        WHERE 1=1
+        AND TIO.MB_NO = #{userId}
+        <![CDATA[
+          AND (TIO.INGREDIENT_OWNED_EXPIRATION_DATE - DATE_FORMAT(NOW(), '%Y%m%d')) <= 7
+        ]]>
+    </select>
+
 </mapper>

@@ -129,4 +129,26 @@ public class ingredientsService extends BaseService {
 
         return result;
     }
+
+    public List<Map<String, Object>> getExpirationDateImminentList(Map<String, Object> condition) {
+        List<Map<String, Object>> result;
+
+        List<Map<String, Object>> expirationDateImminentList = commonDao.selectList("mappers.ingredients.selectExpirationDateImminentList", condition);
+
+        for(Map<String, Object> curExpirationDateImminent : expirationDateImminentList) {
+            String curImageId = (String) curExpirationDateImminent.get("INGREDIENT_OWNED_IMAGE_ID");
+
+            File curImage = getFileByFileId(curImageId);
+
+            try {
+                curExpirationDateImminent.put("bannerImage", CommonUtil.convertFileToBase64(curImage));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        result = expirationDateImminentList;
+
+        return result;
+    }
 }

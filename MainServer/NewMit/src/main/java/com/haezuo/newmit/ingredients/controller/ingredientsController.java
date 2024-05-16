@@ -120,6 +120,21 @@ public class ingredientsController extends BaseService {
         return result;
     }
 
+    @RequestMapping(value = "/inqredients/selectExpirationDateImminentList", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> selectExpirationDateImminentList(HttpServletRequest request) {
+        Map<String, Object> result = new HashMap<>();
+
+        Map<String, Object> condition = new HashMap<>();
+        condition.put("userId", loginService.ConnectUserInfo(request, userInfo.KEY_USER_ID));
+
+        List<Map<String, Object>> expirationDateImminentList = ingredientsService.getExpirationDateImminentList(condition);
+
+        result.put("expirationDateImminentList", expirationDateImminentList);
+
+        return result;
+    }
+
     @RequestMapping(value = "/inqredients/foodObjectRecognition", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> uploadFile(@RequestParam("uploadfile") MultipartFile uploadfile) {

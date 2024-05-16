@@ -11,81 +11,36 @@
     <script src="/scripts/jquery-2.2.4.min.js"></script>
     <script src="/scripts/slick.min.js"></script>
     <script src="/scripts/scripts.js"></script>
+
 </head>
 
-
-        <div class="list-useByDate">
+        <div class="list-useByDate" onload="javascript:alert('test')">
             <h2><span>소비기한 임박 식자재</span></h2>
-            <ul>
-                <li>
-                    <a href="">
-                        <span><span>3</span>일</span>
-                        <img src="/images/useByDate/apple.png" alt="">
-                        <p>apple</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span><span>3</span>일</span>
-                        <img src="/images/useByDate/banana.png" alt="">
-                        <p>banana</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span><span>3</span>일</span>
-                        <img src="/images/useByDate/strawberry.png" alt="">
-                        <p>strawberry</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span><span>3</span>일</span>
-                        <img src="/images/useByDate/greenGrape.png" alt="">
-                        <p>greenGrape</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span><span>3</span>일</span>
-                        <img src="/images/useByDate/watermelon.png" alt="">
-                        <p>watermelon</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span><span>3</span>일</span>
-                        <img src="/images/useByDate/lime.png" alt="">
-                        <p>lime</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span><span>3</span>일</span>
-                        <img src="/images/useByDate/peach.png" alt="">
-                        <p>peach</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span><span>3</span>일</span>
-                        <img src="/images/useByDate/melon.png" alt="">
-                        <p>melon</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span><span>3</span>일</span>
-                        <img src="/images/useByDate/tomato.png" alt="">
-                        <p>tomato</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span><span>3</span>일</span>
-                        <img src="/images/useByDate/pineApple.png" alt="">
-                        <p>pineApple</p>
-                    </a>
-                </li>
+            <ul id="useByDateUl">
+
             </ul>
         </div>
+        <script>
+
+            document.getElementById("useByDateUl").innerHTML = ``;
+            httpRequest('POST', '/inqredients/selectExpirationDateImminentList', null, async function(success) {
+
+                const data = await success.json();
+
+                for(let curExpirationDateImminent of data['expirationDateImminentList']) {
+
+                    document.getElementById("useByDateUl").insertAdjacentHTML('beforeend', `
+                        <li>
+                            <a href="#">
+                                <span><span>` + curExpirationDateImminent['REMAINING_EXPIRATION_DATE'] + `</span>일</span>
+                                <img src="data:image/jpeg;base64,` + curExpirationDateImminent['bannerImage'] + `" alt="">
+                                <p>` + curExpirationDateImminent['INGREDIENT_OWNED_NM'] + `</p>
+                            </a>
+                        </li>
+                    `);
+                }
+
+            }, function(fail) {
+               alert("에러!");
+            });
+        </script>
