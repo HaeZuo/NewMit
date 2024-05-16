@@ -35,7 +35,7 @@ public class WebOAuthSecurityConfig {
         // 웹 보안 설정
         return (web) -> web.ignoring()
                 //.requestMatchers(toH2Console()) // H2 콘솔 요청은 무시
-                .requestMatchers("/img/**", "/css/**", "/js/**"); // 이미지, CSS, 자바스크립트 요청은 무시
+                .requestMatchers("/img/**", "/css/**", "/js/**", "/component/**", "/scripts/**", "/styles/**", "/images/**", "/fonts/**"); // 이미지, CSS, 자바스크립트 요청은 무시
     }
 
     @Bean
