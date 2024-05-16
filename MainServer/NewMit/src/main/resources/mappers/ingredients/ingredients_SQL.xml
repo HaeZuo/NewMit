@@ -70,4 +70,14 @@
           AND TIO.INGREDIENT_OWNED_TYPE = #{foodIngredientsTypeCode}
     </select>
 
+    <select id="selectRegIngredientOwnedTypeList" parameterType="map" resultType="string">
+        /* mappers.ingredients.selectRegIngredientOwnedTypeList */
+        SELECT INGREDIENT_OWNED_TYPE
+        FROM TB_INGREDIENTS_OWNED
+        WHERE 1=1
+        AND MB_NO = #{userId}
+        GROUP BY INGREDIENT_OWNED_TYPE
+        ORDER BY INGREDIENT_OWNED_TYPE ASC
+    </select>
+
 </mapper>

@@ -85,6 +85,18 @@ public class ingredientsService extends BaseService {
             re.put("ingredientsOwned", ingredientsOwned);
 
             result.add(re);
+        } else {
+            List<String> regIngredientOwnedTypeList = commonDao.selectList("mappers.ingredients.selectRegIngredientOwnedTypeList", condition);
+
+            for(String ingredientOwnedType : regIngredientOwnedTypeList) {
+                Map<String, Object> tmpCondition = new HashMap<>();
+
+                tmpCondition.put("userId", condition.get("userId"));
+                tmpCondition.put("ingredientOwnedType", ingredientOwnedType);
+
+                result.add(this.getInqredientsList(tmpCondition).get(0));
+            }
+
         }
 
         return result;
