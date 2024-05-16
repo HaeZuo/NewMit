@@ -33,11 +33,49 @@
     <script src="/scripts/slick.min.js"></script>
     <script src="/scripts/scripts.js"></script>
     <script>
-        function tabFilterOnClick(e) {
+        async function tabFilterOnClick(e) {
             if(document.getElementsByClassName("active").length != 0)
                 document.getElementsByClassName("active")[0].classList.remove("active");
 
             e.classList.add("active");
+
+            const requestBody = new Object();
+            requestBody["ingredientOwnedType"] = e.getAttribute("code");
+
+            httpRequest("POST", "/inqredients/selectInqredients", JSON.stringify(requestBody), async function(success) {
+                const data = await success.json();
+
+                document.getElementById("listFoodDiv").innerHTML = ``;
+
+                for(let idx=0; idx<data['inqredientsList'].length; idx++) {
+                    let curInqredients = data['inqredientsList'][idx];
+
+                    let eleStr = '';
+                    eleStr += ' <div class="list-food">';
+                    eleStr += '     <h2><span>' + curInqredients['commonCodeNm'] + '</span><a href="/ingredients/listDetailView?foodIngredientsTypeCode=' + curInqredients['commonCodeCd'] + '" class="btn-more">더보기</a></h2>';
+                    eleStr += '     <ul>';
+                    for(let curIngredientsOwned of curInqredients['ingredientsOwned']) {
+
+                        let tmpSrc = "data:image/jpeg;base64," + curIngredientsOwned['bannerImage'];
+
+                        eleStr += '         <li>';
+                        eleStr += '             <a href="">';
+                        eleStr += '                 <img src="'+tmpSrc+'" alt="">';
+                        eleStr += '                 <div>';
+                        eleStr += '                     <p><span class="f-name">' + curIngredientsOwned['INGREDIENT_OWNED_NM'] + '</span><span class="f-size">' + curIngredientsOwned['INGREDIENT_OWNED_QOW'] + '</span></p>';
+                        eleStr += '                     <p><span class="f-addDate">'+curIngredientsOwned['INGREDIENT_OWNED_BUY_DATE']+'</span><span class="f-useByDate">'+curIngredientsOwned['INGREDIENT_OWNED_EXPIRATION_DATE']+'</span></p>';
+                        eleStr += '                 </div>';
+                        eleStr += '             </a>';
+                        eleStr += '         </li>';
+                    }
+                    eleStr += '     </ul>';
+                    eleStr += ' </div>';
+
+                    document.getElementById("listFoodDiv").insertAdjacentHTML('beforeend', eleStr);
+                }
+            }, function(fail) {
+                //debugger;
+            });
         }
         window.onload = function () {
             commonUtil.enableToRegIngredientsBtn();
@@ -63,7 +101,7 @@
 
                 if(curRowIdx==1 && curColIdx==1) {
                     document.getElementById("tabFilterRow" + curRowIdx).insertAdjacentHTML('beforeend', `
-                    <td id="allCell" onclick="javascript:tabFilterOnClick(this)">
+                    <td id="allCell" onclick="javascript:tabFilterOnClick(this)" code="0">
                         <a hred="#">전체</a>
                     </td>
                 `);
@@ -74,7 +112,7 @@
                     ++curRowIdx;
                 }
                 document.getElementById("tabFilterRow" + curRowIdx).insertAdjacentHTML('beforeend', `
-                    <td id="test`+curRowIdx + "" + curColIdx +`" onclick="javascript:tabFilterOnClick(this)">
+                    <td onclick="javascript:tabFilterOnClick(this)" code="` + foodIngredientsTypeCode['COMMON_CODE_CD'] + `">
                         <a href="#">` + foodIngredientsTypeCode['COMMON_CODE_NM'] + `</a>
                     </td>
                 `);
@@ -87,81 +125,9 @@
 <body>
     <section>
         <div class="foodList">
-            <div class="list-useByDate">
-                <h2><span>소비기한 임박 식자재</span></h2>
-                <ul>
-                    <li>
-                        <a href="">
-                            <span><span>3</span>일</span>
-                            <img src="/images/useByDate/apple.png" alt="">
-                            <p>apple</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span><span>3</span>일</span>
-                            <img src="/images/useByDate/banana.png" alt="">
-                            <p>banana</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span><span>3</span>일</span>
-                            <img src="/images/useByDate/strawberry.png" alt="">
-                            <p>strawberry</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span><span>3</span>일</span>
-                            <img src="/images/useByDate/greenGrape.png" alt="">
-                            <p>greenGrape</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span><span>3</span>일</span>
-                            <img src="/images/useByDate/watermelon.png" alt="">
-                            <p>watermelon</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span><span>3</span>일</span>
-                            <img src="/images/useByDate/lime.png" alt="">
-                            <p>lime</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span><span>3</span>일</span>
-                            <img src="/images/useByDate/peach.png" alt="">
-                            <p>peach</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span><span>3</span>일</span>
-                            <img src="/images/useByDate/melon.png" alt="">
-                            <p>melon</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span><span>3</span>일</span>
-                            <img src="/images/useByDate/tomato.png" alt="">
-                            <p>tomato</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span><span>3</span>일</span>
-                            <img src="/images/useByDate/pineApple.png" alt="">
-                            <p>pineApple</p>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+
+            <jsp:include page="commonView-useByDate.jsp"></jsp:include>
+
             <div class="tab-filter">
                 <table id="tabFilterTable">
                     <tbody id="tabFilterTableBody">
@@ -169,106 +135,11 @@
                     </tbody>
                 </table>
             </div>
-            <div class="list-food">
-                <h2><span>육류</span><a href="/food/foodListDetail.html" class="btn-more">더보기</a></h2>
-                <ul>
-                    <li>
-                        <a href="">
-                            <img src="/images/food/temp.png" alt="">
-                            <div>
-                                <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
-                                <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="/images/food/temp.png" alt="">
-                            <div>
-                                <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
-                                <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="/images/food/temp.png" alt="">
-                            <div>
-                                <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
-                                <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="/images/food/temp.png" alt="">
-                            <div>
-                                <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
-                                <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="/images/food/temp.png" alt="">
-                            <div>
-                                <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
-                                <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
+
+            <div id="listFoodDiv">
+
             </div>
-            <div class="list-food">
-                <h2><span>육류</span><a href="/food/foodListDetail.html" class="btn-more">더보기</a></h2>
-                <ul>
-                    <li>
-                        <a href="">
-                            <img src="/images/food/temp.png" alt="">
-                            <div>
-                                <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
-                                <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="/images/food/temp.png" alt="">
-                            <div>
-                                <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
-                                <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="/images/food/temp.png" alt="">
-                            <div>
-                                <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
-                                <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="/images/food/temp.png" alt="">
-                            <div>
-                                <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
-                                <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="/images/food/temp.png" alt="">
-                            <div>
-                                <p><span class="f-name">삼겹살</span><span class="f-size">300g</span></p>
-                                <p><span class="f-addDate">24.01.05</span><span class="f-useByDate">24.08.12</span></p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+
         </div>
     </section>
 </body>

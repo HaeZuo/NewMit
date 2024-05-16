@@ -1,5 +1,6 @@
 package com.haezuo.newmit.ingredients.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.haezuo.newmit.common.CommonDao.CommonDao;
 import com.haezuo.newmit.common.CommonService.BaseService;
@@ -30,6 +31,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.haezuo.newmit.common.constants.userInfo;
 
 @Controller
 @RequiredArgsConstructor
@@ -49,9 +51,27 @@ public class ingredientsController extends BaseService {
     }
 
     @RequestMapping(value = "/ingredients/listDetailView", method = RequestMethod.GET)
-    public String viewIngredientsListDetail() {
+    public ModelAndView viewIngredientsListDetail(HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("/ingredients/foodListDetail");
 
-        return "/ingredients/foodListDetail";
+        String foodIngredientsTypeCode = request.getParameter("foodIngredientsTypeCode");
+
+        Map<String, Object> condition = new HashMap<>();
+        condition.put("foodIngredientsTypeCode", foodIngredientsTypeCode);
+        condition.put("userId", loginService.ConnectUserInfo(request, userInfo.KEY_USER_ID));
+
+        Map<String, Object> ingredientsListDetail = ingredientsService.getIngredientsListDetailInfo(condition);
+
+        try {
+            // json 형태로 변환
+            ingredientsListDetail.put("selectIngredientsList", new ObjectMapper().writeValueAsString(ingredientsListDetail.get("selectIngredientsList")));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        mav.addObject("ingredientsListDetail", ingredientsListDetail);
+
+        return mav;
     }
 
     @RequestMapping(value = "/ingredients/insertIntroView", method = RequestMethod.GET)
@@ -80,6 +100,24 @@ public class ingredientsController extends BaseService {
         ingredientsService.saveInqredients(connectUserInfo, requestData);
 
         return map;
+    }
+
+    @RequestMapping(value = "/inqredients/selectInqredients", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> selectInqredients(HttpServletRequest request, @RequestBody Map<String, Object> requestBody) {
+        Map<String, Object> result = new HashMap<>();
+
+        Map<String, Object> connectUserInfo = loginService.ConnectUserInfo(request);
+
+        Map<String, Object> condition = new HashMap<>();
+        condition.put("userId", connectUserInfo.get(userInfo.KEY_USER_ID));
+        condition.put("ingredientOwnedType", requestBody.get("ingredientOwnedType"));
+
+        List<Map<String, Object>> inqredientsList = ingredientsService.getInqredientsList(condition);
+
+        result.put("inqredientsList", inqredientsList);
+
+        return result;
     }
 
     @RequestMapping(value = "/inqredients/foodObjectRecognition", method = RequestMethod.POST)

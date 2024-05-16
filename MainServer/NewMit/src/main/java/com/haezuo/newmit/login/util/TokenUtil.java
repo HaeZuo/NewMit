@@ -4,7 +4,6 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class TokenUtil {
     private static final String HEADER_AUTHORIZATION = "Authorization";
@@ -14,8 +13,15 @@ public class TokenUtil {
     private static final String TOKEN_KEY = "refresh_token";
 
     public String getRequestToken(HttpServletRequest request) {
+        String token = null;
+
         String authorizationHeader = request.getHeader(HEADER_AUTHORIZATION);
-        String token = getAccessToken(authorizationHeader);
+
+        if(authorizationHeader != null) {
+            token = getAccessToken(authorizationHeader);
+        } else {
+            token = getTokenByCookies(request);
+        }
 
         return token;
     }

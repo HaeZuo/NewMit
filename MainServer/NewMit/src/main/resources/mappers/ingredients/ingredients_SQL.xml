@@ -4,6 +4,7 @@
 <mapper namespace="mappers.ingredients">
 
     <insert id="insertIngredientsOwned" parameterType="map">
+        /* mappers.ingredients.insertIngredientsOwned */
         INSERT INTO TB_INGREDIENTS_OWNED(
             MB_NO,
             INGREDIENT_OWNED_NO,
@@ -31,8 +32,42 @@
     </insert>
 
     <select id="selectMaxIngredientOwnedNo" parameterType="string" resultType="string">
+        /* mappers.ingredients.selectMaxIngredientOwnedNo */
         SELECT IFNULL(MAX(INGREDIENT_OWNED_NO), '0') + 1
         FROM TB_INGREDIENTS_OWNED
         WHERE MB_NO = #{userId}
     </select>
+
+    <select id="selectIngredientsOwned" parameterType="map" resultType="map">
+        /* mappers.ingredients.selectIngredientsOwned */
+        SELECT
+            TIO.INGREDIENT_OWNED_NO,
+            TIO.INGREDIENT_OWNED_NM,
+            TIO.INGREDIENT_OWNED_TYPE,
+            TIO.INGREDIENT_OWNED_QOW,
+            TIO.INGREDIENT_OWNED_BUY_DATE,
+            TIO.INGREDIENT_OWNED_EXPIRATION_DATE,
+            TIO.INGREDIENT_OWNED_IMAGE_ID
+        FROM TB_INGREDIENTS_OWNED TIO
+        WHERE 1=1
+        AND TIO.MB_NO = #{userId}
+        AND TIO.INGREDIENT_OWNED_TYPE = #{ingredientOwnedType}
+    </select>
+
+    <select id="selectIngredientsListDetail" parameterType="map" resultType="map">
+        /* mappers.ingredients.selectIngredientsListDetail */
+        SELECT
+            TIO.INGREDIENT_OWNED_NO,
+            TIO.INGREDIENT_OWNED_NM,
+            TIO.INGREDIENT_OWNED_TYPE,
+            TIO.INGREDIENT_OWNED_QOW,
+            TIO.INGREDIENT_OWNED_BUY_DATE,
+            TIO.INGREDIENT_OWNED_EXPIRATION_DATE,
+            TIO.INGREDIENT_OWNED_IMAGE_ID
+        FROM TB_INGREDIENTS_OWNED TIO
+        WHERE 1=1
+          AND TIO.MB_NO = #{userId}
+          AND TIO.INGREDIENT_OWNED_TYPE = #{foodIngredientsTypeCode}
+    </select>
+
 </mapper>

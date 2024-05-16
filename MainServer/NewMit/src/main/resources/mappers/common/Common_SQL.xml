@@ -39,4 +39,19 @@
               )
     </insert>
 
+    <select id="selectFileInfoByFileId" parameterType="string" resultType="map">
+        SELECT FILE_INFO_NO,
+               FILE_INFO_ORG_NM,
+               FILE_INFO_CUR_NM,
+               FILE_INFO_SIZE,
+               FILE_INFO_DIR,
+               FILE_INFO_EXTENSION,
+               FILE_INFO_REGISTER_DATE,
+               FILE_INFO_REGISTER_IP,
+               FILE_INFO_UPDATE_DATE,
+               FILE_INFO_UPDATE_IP
+        FROM TB_FILE_INFO
+        WHERE FILE_INFO_NO = #{fileId}
+    </select>
+
 </mapper>

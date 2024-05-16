@@ -4,13 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.haezuo.newmit.common.CommonDao.CommonDao;
 import com.haezuo.newmit.common.Util.CommonUtil;
 import jakarta.annotation.Resource;
-import org.apache.commons.io.FilenameUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 @Service
@@ -82,7 +78,24 @@ public class BaseService {
         return fileid;
     }
 
-    public static String getClientIP() {
+    public File getFileByFileId(String fileId) {
+        Map<String, Object> fileInfo = commonDao.selectOne("mappers.common.selectFileInfoByFileId", fileId);
+
+        File file = new File((String) fileInfo.get("FILE_INFO_DIR"));
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                //System.out.println(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return file;
+    }
+
+    public String getClientIP() {
         // HttpServletRequest 객체를 사용하지 않고, 헤더를 통해 클라이언트의 IP 주소를 가져오는 방법
         String xForwardedForHeader = System.getenv("HTTP_X_FORWARDED_FOR");
         if (xForwardedForHeader != null && !xForwardedForHeader.isEmpty()) {

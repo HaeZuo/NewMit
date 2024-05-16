@@ -5,10 +5,7 @@ import org.apache.commons.io.FilenameUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class CommonUtil {
@@ -36,6 +33,10 @@ public class CommonUtil {
 
         // 바이트 배열을 Base64 문자열로 인코딩하여 반환
         return java.util.Base64.getEncoder().encodeToString(byteArray);
+    }
+
+    public static String convertFileToBase64(File file) throws IOException {
+        return Base64.getEncoder().encodeToString(convertToByteArray(file));
     }
 
     public int[][][][] convertImageToRGBArray(BufferedImage image) {
@@ -78,6 +79,14 @@ public class CommonUtil {
             counter++;
         }
         return file.getName();
+    }
+
+    public static byte[] convertToByteArray(File file) throws IOException {
+        FileInputStream fis = new FileInputStream(file);
+        byte[] byteArray = new byte[(int) file.length()];
+        fis.read(byteArray);
+        fis.close();
+        return byteArray;
     }
 
 }

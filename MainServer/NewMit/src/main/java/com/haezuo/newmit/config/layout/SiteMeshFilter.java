@@ -14,6 +14,7 @@ public class SiteMeshFilter extends ConfigurableSiteMeshFilter {
                 // Exclude path from decoration.
                 .addExcludedPath("/html/*")
                 .addExcludedPath(".json")
+                .addExcludedPath("*commonView*")
                 .setMimeTypes("text/html");
     }
 }
