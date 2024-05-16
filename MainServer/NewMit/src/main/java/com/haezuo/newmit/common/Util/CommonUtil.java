@@ -6,6 +6,8 @@ import org.apache.commons.io.FilenameUtils;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class CommonUtil {
@@ -66,19 +68,24 @@ public class CommonUtil {
 
     public static String getSafeFilename(String originalFilename) {
         // 파일 이름에서 허용되지 않는 문자를 제거하고, 확장자를 유지하는 작업
-        String safeFilename = originalFilename.replaceAll("[^a-zA-Z0-9-_\\.]", "_");
+        //String safeFilename = originalFilename.replaceAll("[^a-zA-Z0-9-_\\.]", "_");
 
         // 중복된 파일 이름을 방지하기 위해 유일한 이름 생성
-        File file = new File(safeFilename);
-        String baseName = FilenameUtils.getBaseName(safeFilename);
-        String extension = FilenameUtils.getExtension(safeFilename);
-        int counter = 1;
-        while (file.exists()) {
-            String newFilename = baseName + "_" + counter + "." + extension;
-            file = new File(newFilename);
-            counter++;
-        }
-        return file.getName();
+        //File file = new File(safeFilename);
+        //String baseName = FilenameUtils.getBaseName(safeFilename);
+        //String extension = FilenameUtils.getExtension(safeFilename);
+
+        //String newFilename = timeStamp + "." + extension;
+        //file = new File(newFilename);
+
+        // return file.getName();
+
+        // 파일 이름을 현재 날짜와 시간을 기반으로 생성
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
+        String timeStamp = now.format(formatter);
+
+        return timeStamp;
     }
 
     public static byte[] convertToByteArray(File file) throws IOException {
