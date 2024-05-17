@@ -143,6 +143,7 @@ public class ingredientsController extends BaseService {
         try {
             // Get the filename and build the local file path (be sure that the
             // application have write permissions on such directory)
+
             /*String filename = uploadfile.getOriginalFilename();
             String directory = "C:\\image";
             String filepath = Paths.get(directory, filename).toString();
@@ -157,50 +158,10 @@ public class ingredientsController extends BaseService {
             // BufferedImage를 Bitmap 문자열로 변환
             int[][][][] bitmapString = new CommonUtil().convertImageToRGBArray(image);
 
-            Map<String, Object> map = new HashMap<>();
-            map.put("instances", bitmapString);
+            Map<String, Object> instances = new HashMap<>();
+            instances.put("instances", bitmapString);
 
-            // jackson objectmapper 객체 생성
-            ObjectMapper objectMapper = new ObjectMapper();
-            // Map -> Json 문자열
-            String studentJson = objectMapper.writeValueAsString(map);
-            // Json 문자열 출력
-            System.out.println(studentJson);
-
-            /*JSONObject reqParams = new JSONObject();
-            reqParams.put("instances", Arrays.deepToString(bitmapString)); // body에 들어갈 내용을 담는다.
-
-            System.out.println(reqParams.toJSONString());*/
-
-            URL url = new URL("http://223.130.138.103:8501/v1/models/newmit_model:predict"); // 호출할 외부 API 를 입력한다.
-
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection(); // header에 데이터 통신 방법을 지정한다.
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "application/json; utf-8");
-
-            // Post인 경우 데이터를 OutputStream으로 넘겨 주겠다는 설정
-            conn.setDoOutput(true);
-
-            // Request body message에 전송
-            OutputStreamWriter os = new OutputStreamWriter(conn.getOutputStream());
-            os.write(studentJson.toString());
-            System.out.println(studentJson.toString());
-            os.flush();
-
-            // 응답 데이터 가져오기
-            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-            String inputLine;
-            StringBuilder response = new StringBuilder();
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-
-            // 응답 출력
-            System.out.println(response.toString());
-
-            in.close();
-            conn.disconnect();
+            ingredientsService.getObjectDetectionByInstances(instances);
 
         }
         catch (Exception e) {

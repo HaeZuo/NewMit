@@ -7,18 +7,24 @@ import com.haezuo.newmit.common.CommonService.BaseService;
 import com.haezuo.newmit.common.Util.CommonUtil;
 import com.haezuo.newmit.common.Value.CommonCode;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.apache.commons.io.FilenameUtils;
 import com.haezuo.newmit.common.constants.userInfo;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
 public class ingredientsService extends BaseService {
@@ -47,7 +53,9 @@ public class ingredientsService extends BaseService {
             ingredientsOwnedInfo.put("ingredientOwnedBuyDate", curInqredient.get("buyDate").toString().replaceAll("-", ""));
             ingredientsOwnedInfo.put("ingredientOwnedExpirationDate", curInqredient.get("expiryDate").toString().replaceAll("-", ""));
             ingredientsOwnedInfo.put("ingredientOwnedImageId", fileId);
-            ingredientsOwnedInfo.put("userIp", "1.1.1.1");
+
+            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+            ingredientsOwnedInfo.put("userIp", request.getRemoteAddr());
 
             commonDao.insert("mappers.ingredients.insertIngredientsOwned", ingredientsOwnedInfo);
 
@@ -151,4 +159,83 @@ public class ingredientsService extends BaseService {
 
         return result;
     }
+
+    public void getObjectDetectionByInstances(Map<String, Object> instances) throws IOException {
+        // jackson objectmapper 객체 생성
+        ObjectMapper objectMapper = new ObjectMapper();
+        // Map -> Json 문자열
+        String studentJson = objectMapper.writeValueAsString(instances);
+        // Json 문자열 출력
+        System.out.println(studentJson);
+
+        URL url = new URL("http://223.130.138.103:8501/v1/models/newmit_model:predict"); // 호출할 외부 API 를 입력한다.
+        HttpURLConnection conn = null;
+        OutputStreamWriter os = null;
+        BufferedReader in = null;
+
+        try {
+            conn = (HttpURLConnection) url.openConnection(); // header에 데이터 통신 방법을 지정한다.
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json; utf-8");
+
+            // Post인 경우 데이터를 OutputStream으로 넘겨 주겠다는 설정
+            conn.setDoOutput(true);
+
+            // Request body message에 전송
+            os = new OutputStreamWriter(conn.getOutputStream());
+            os.write(studentJson);
+            System.out.println(studentJson);
+            os.flush();
+
+            // 응답 데이터 가져오기
+            in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+            String inputLine;
+            StringBuilder response = new StringBuilder();
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+
+            /*
+             * detection_classes: Label 번호
+             * detection_scores: Detection 이후 점수
+             * detection_boxes: Detection된 사물의 좌표 [minx, miny, maxx, maxy] * 실제 x, y
+             */
+            Map<String, Object> responseInfo = (Map<String, Object>) ((List<Map<String, Object>>)objectMapper.readValue(response.toString(), Map.class).get("predictions")).get(0);
+
+            List<Integer> detectionIndex = IntStream.range(0, ((List<Double>) responseInfo.get("detection_scores")).size())
+                    .filter(i -> ((List<Double>) responseInfo.get("detection_scores")).get(i) >= 0.7)
+                    .boxed()
+                    .collect(Collectors.toList());
+
+            List<String> detectionClasses = detectionIndex.stream()
+                    .map(((List<String>) responseInfo.get("detection_classes"))::get) // 각 인덱스에 해당하는 데이터를 가져옴
+                    .collect(Collectors.toList()); // 리스트로 변환
+
+            List<List<Double>> detectionBoxes = detectionIndex.stream()
+                    .map(((List<List<Double>>) responseInfo.get("detection_boxes"))::get) // 각 인덱스에 해당하는 데이터를 가져옴
+                    .collect(Collectors.toList()); // 리스트로 변환
+
+            List<String> detectionClassesName = new ArrayList<>();
+            for(String detectionClasse : detectionClasses) {
+
+                detectionClassesName.add(detectionClasse);
+            }
+
+            // 응답 출력
+            System.out.println(responseInfo);
+
+        } finally {
+            // 리소스 해제
+            if (os != null) {
+                os.close();
+            }
+            if (in != null) {
+                in.close();
+            }
+            if (conn != null) {
+                conn.disconnect();
+            }
+        }
+    }
+
 }

@@ -4,7 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.haezuo.newmit.common.CommonDao.CommonDao;
 import com.haezuo.newmit.common.Util.CommonUtil;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.io.*;
 import java.util.*;
@@ -67,7 +70,9 @@ public class BaseService {
             fileInfo.put("fileInfoCurNm", safeFileName);
             fileInfo.put("fileInfoDir", filePath);
             fileInfo.put("fileInfoExtension", fileExtension);
-            fileInfo.put("userIp", "1.1.1.1");
+
+            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+            fileInfo.put("userIp", request.getRemoteAddr());
 
             fileid = commonDao.insertAndReturnKey("mappers.common.insertFoodIngredientsImageInfo", fileInfo);
         } catch (IOException e) {
