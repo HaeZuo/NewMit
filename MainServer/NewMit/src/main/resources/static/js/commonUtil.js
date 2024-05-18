@@ -58,8 +58,15 @@ commonUtil.encodeImageToBase64 = async function(imageFile) {
 }
 
 
-getObjectData = function(object, key) {
+commonUtil.getObjectData = function(object, key) {
     return (object[key] != null && object[key] != "") ? object[key] : "";
+}
+
+commonUtil.getParameter = function(key) {
+    const queryString = window.location.search;
+    const params = new URLSearchParams(queryString);
+
+    return params.get(key);
 }
 
 commonUtil.enableToRegIngredientsBtn = function(flag) {

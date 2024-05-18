@@ -5,11 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.haezuo.newmit.common.CommonDao.CommonDao;
 import com.haezuo.newmit.common.CommonService.BaseService;
 import com.haezuo.newmit.common.Util.CommonUtil;
+import com.haezuo.newmit.common.Util.JsonLoader;
 import com.haezuo.newmit.common.Value.CommonCode;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
@@ -25,12 +28,18 @@ import org.apache.commons.io.FilenameUtils;
 import com.haezuo.newmit.common.constants.userInfo;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.imageio.ImageIO;
 
 @Service
 public class ingredientsService extends BaseService {
 
     @Resource(name="commonDao")
     private CommonDao commonDao;
+
+    @Autowired
+    private JsonLoader jsonLoader;
 
     public void saveInqredients(Map<String, Object> connectUserInfo, List<Map<String, Object>> inqredients) {
         for (Map<String, Object> curInqredient : inqredients) {
@@ -160,13 +169,25 @@ public class ingredientsService extends BaseService {
         return result;
     }
 
-    public void getObjectDetectionByInstances(Map<String, Object> instances) throws IOException {
+    public List<Map<String, Object>> getObjectDetectionByImage(MultipartFile uploadfile) throws IOException {
+
+        List<Map<String, Object>> detectionResult = new ArrayList<>();
+
+        // MultipartFile에서 BufferedImage로 변환
+        BufferedImage image = ImageIO.read(uploadfile.getInputStream());
+
+        // BufferedImage를 Bitmap 문자열로 변환
+        int[][][][] bitmapString = new CommonUtil().convertImageToRGBArray(image);
+
+        Map<String, Object> instances = new HashMap<>();
+        instances.put("instances", bitmapString);
+
         // jackson objectmapper 객체 생성
         ObjectMapper objectMapper = new ObjectMapper();
         // Map -> Json 문자열
         String studentJson = objectMapper.writeValueAsString(instances);
         // Json 문자열 출력
-        System.out.println(studentJson);
+        // System.out.println(studentJson);
 
         URL url = new URL("http://223.130.138.103:8501/v1/models/newmit_model:predict"); // 호출할 외부 API 를 입력한다.
         HttpURLConnection conn = null;
@@ -184,7 +205,8 @@ public class ingredientsService extends BaseService {
             // Request body message에 전송
             os = new OutputStreamWriter(conn.getOutputStream());
             os.write(studentJson);
-            System.out.println(studentJson);
+            System.out.println("### 객체 인식 요청 Begin ###");
+            // System.out.println(studentJson);
             os.flush();
 
             // 응답 데이터 가져오기
@@ -194,6 +216,10 @@ public class ingredientsService extends BaseService {
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
+
+            // 응답 출력
+            //System.out.println(responseInfo);
+            System.out.println("### 객체 인식 요청 End ###");
 
             /*
              * detection_classes: Label 번호
@@ -215,14 +241,42 @@ public class ingredientsService extends BaseService {
                     .map(((List<List<Double>>) responseInfo.get("detection_boxes"))::get) // 각 인덱스에 해당하는 데이터를 가져옴
                     .collect(Collectors.toList()); // 리스트로 변환
 
-            List<String> detectionClassesName = new ArrayList<>();
-            for(String detectionClasse : detectionClasses) {
+            String labelMapStr = jsonLoader.loadJsonFile("/static/json/label/label_map.json");
+            List<Map<String, Object>> labelList = (List<Map<String, Object>>) objectMapper.readValue(labelMapStr, Map.class).get("item");
 
-                detectionClassesName.add(detectionClasse);
+            // 사용하려는 라벨만
+            labelList = labelList.stream()
+                    .filter(labelInfo -> detectionClasses.indexOf(Double.parseDouble(Integer.toString((Integer)labelInfo.get("id")) + ".0")) != -1)
+                    .collect(Collectors.toList());
+
+            Map<String, Object> detectionInfo;
+            for(int idx=0; idx<detectionIndex.size(); idx++) {
+                detectionInfo = new HashMap<>();
+
+                String detectionClasse = String.valueOf(detectionClasses.get(idx)).replace(".0", "");
+                detectionInfo.put("detectionClasse", detectionClasse);
+                detectionInfo.put("detectionBoxe", detectionBoxes.get(idx));
+
+                String curDisplayName = (String) labelList.stream()
+                        .filter(labelInfo -> (Integer.toString((Integer) labelInfo.get("id"))).equals(detectionClasse))
+                        .collect(Collectors.toList()).get(0).get("display_name");
+                detectionInfo.put("detectionClasseName", curDisplayName);
+
+                detectionInfo.put("detectionBannerImage", CommonUtil.convertFileToBase64(CommonUtil.convertMultipartFileToFile(uploadfile)));
+
+                if(detectionResult.size() == 0) {
+                    detectionResult.add(detectionInfo);
+                } else {
+                    // 동일한 재료는 넣지 않도록 체크
+                    List<Map<String, Object>> tmpCurDetectionResultList = detectionResult.stream()
+                            .filter(tmpCurDetectionResult -> tmpCurDetectionResult.get("detectionClasse").equals(detectionClasse))
+                            .collect(Collectors.toList());
+
+                    if(tmpCurDetectionResultList.size() == 0) {
+                        detectionResult.add(detectionInfo);
+                    }
+                }
             }
-
-            // 응답 출력
-            System.out.println(responseInfo);
 
         } finally {
             // 리소스 해제
@@ -236,6 +290,8 @@ public class ingredientsService extends BaseService {
                 conn.disconnect();
             }
         }
+
+        return detectionResult;
     }
 
 }

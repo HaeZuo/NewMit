@@ -32,6 +32,7 @@
     <script src="/scripts/jquery-2.2.4.min.js"></script>
     <script src="/scripts/slick.min.js"></script>
     <script src="/scripts/scripts.js"></script>
+    <script src="/js/ModalPopup.js"></script>
     <script>
         window.onload = function () {
             commonUtil.enableToFooter(false);
@@ -47,12 +48,19 @@
                     contentType: false,
                     cache: false,
                     success: function (success) {
-                        // Handle upload success
-                        // ...
+                        const reqData = JSON.stringify(success);
+
+                        const layerPopup = new ModalPopup("/ingredients/insertView");
+                        layerPopup.iframe = true;
+                        layerPopup.disableHeader = true;
+                        layerPopup.fullScreen = true;
+                        layerPopup.callBackMethod = function(callback) {
+                            alert("콜백!");
+                        }
+                        layerPopup.modalOpen();
                     },
                     error: function (error) {
-                        // Handle upload error
-                        // ...
+                        alert("객체인식 실패");
                     }
                 });
             };
@@ -76,6 +84,7 @@
             </div>
         </div>
     </section>
+
     <form id="upload-file-form" style="display: none;">
         <input type="file" name="uploadfile" id="upload-file-input" accept="image/*" capture="camera" style="display:none;">
     </form>

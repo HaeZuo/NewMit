@@ -72,6 +72,7 @@
                     requestData.push(formObject);
                 }
             }
+
             httpRequest('POST', '/ingredients/saveInqredients', JSON.stringify(requestData), function (success) {
                 alert("성공적으로 저장 됐습니다.");
                 window.location.href = "/home"

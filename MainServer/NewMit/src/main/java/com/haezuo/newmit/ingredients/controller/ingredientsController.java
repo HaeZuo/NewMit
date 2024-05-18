@@ -137,39 +137,14 @@ public class ingredientsController extends BaseService {
 
     @RequestMapping(value = "/inqredients/foodObjectRecognition", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<?> uploadFile(@RequestParam("uploadfile") MultipartFile uploadfile) {
+        public Map<String, Object> uploadFile(@RequestParam("uploadfile") MultipartFile uploadfile) throws IOException {
 
-        String result_txt = "";
-        try {
-            // Get the filename and build the local file path (be sure that the
-            // application have write permissions on such directory)
+        Map<String, Object> result = new HashMap<>();
 
-            /*String filename = uploadfile.getOriginalFilename();
-            String directory = "C:\\image";
-            String filepath = Paths.get(directory, filename).toString();
+        List<Map<String, Object>> objectDetection = ingredientsService.getObjectDetectionByImage(uploadfile);
+        result.put("objectDetection", objectDetection);
 
-            // Save the file locally
-            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(filepath)));
-            stream.write(uploadfile.getBytes());
-            stream.close();*/
-
-            // MultipartFile에서 BufferedImage로 변환
-            BufferedImage image = ImageIO.read(uploadfile.getInputStream());
-            // BufferedImage를 Bitmap 문자열로 변환
-            int[][][][] bitmapString = new CommonUtil().convertImageToRGBArray(image);
-
-            Map<String, Object> instances = new HashMap<>();
-            instances.put("instances", bitmapString);
-
-            ingredientsService.getObjectDetectionByInstances(instances);
-
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>(HttpStatus.OK);
+        return result;
     }
 
 }

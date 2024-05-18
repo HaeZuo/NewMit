@@ -2,6 +2,8 @@ package com.haezuo.newmit.common.Util;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -11,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class CommonUtil {
+
     public static String getRemoteAddr(HttpServletRequest request){
         return (null != request.getHeader("X-FORWARDED-FOR")) ? request.getHeader("X-FORWARDED-FOR") : request.getRemoteAddr();
     }
@@ -94,6 +97,12 @@ public class CommonUtil {
         fis.read(byteArray);
         fis.close();
         return byteArray;
+    }
+
+    public static File convertMultipartFileToFile(MultipartFile multipartFile) throws IOException {
+        File file = new File(multipartFile.getOriginalFilename());
+        FileCopyUtils.copy(multipartFile.getBytes(), file);
+        return file;
     }
 
 }
