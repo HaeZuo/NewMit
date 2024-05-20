@@ -156,7 +156,7 @@ $brand: #33BA8A;
             font-size: 20px;
             width: 1em;
             aspect-ratio: 1;
-            background: $bg-white url(/resources/images/icons/ic-toggle.svg) 0/2em no-repeat;
+            background: $bg-white url(/images/icons/ic-toggle.svg) 0/2em no-repeat;
             border: 1px solid $line-regular;
             transition: 0.2s;
         }
@@ -287,7 +287,7 @@ $brand: #33BA8A;
         color: $font-02black;
         letter-spacing: -0.025em;
         padding-right: 12px;
-        background: url(/resources/images/icons/ic-arrow-right.svg) right center/12px no-repeat;
+        background: url(/images/icons/ic-arrow-right.svg) right center/12px no-repeat;
     }
 }
 // NOTE: LIST
@@ -323,7 +323,7 @@ $brand: #33BA8A;
         display: inline-block;
         width: 1em;
         aspect-ratio: 1;
-        background: url(/resources/images/icons/ic-star.svg) 0/3em no-repeat;
+        background: url(/images/icons/ic-star.svg) 0/3em no-repeat;
         &.active{
             background-position: -1em;
         }
@@ -339,7 +339,7 @@ $brand: #33BA8A;
         width: 1em;
         aspect-ratio: 1;
         object-fit: cover;
-        background: url(/resources/images/icons/ic-star.svg) -2em / 3em no-repeat;
+        background: url(/images/icons/ic-star.svg) -2em / 3em no-repeat;
         &:has(input:checked) ~ label{
             background-position: 0;
         }
@@ -357,7 +357,7 @@ $brand: #33BA8A;
         }
         & > a{
             padding-right: 20px;
-            background: url(/resources/images/icons/ic-arrow-right-b.svg) right 20px center/20px no-repeat;
+            background: url(/images/icons/ic-arrow-right-b.svg) right 20px center/20px no-repeat;
         }
         .ipt > div{
             margin: unset;
@@ -640,7 +640,7 @@ $brand: #33BA8A;
             &::after{
                 content: "";
                 display: block;
-                background: url(/resources/images/icons/ic-camera.svg) 0/2em no-repeat;
+                background: url(/images/icons/ic-camera.svg) 0/2em no-repeat;
                 width: 1em;
                 aspect-ratio: 1;
             }
@@ -660,9 +660,9 @@ $brand: #33BA8A;
                 text-indent: -9999px;
                 width: 48px;
                 aspect-ratio: 1;
-                background: url(/resources/images/icons/datepicker/ic-prev.svg) center/24px no-repeat;
+                background: url(/images/icons/datepicker/ic-prev.svg) center/24px no-repeat;
                 &.ui-datepicker-next{
-                    background-image: url(/resources/images/icons/datepicker/ic-next.svg);
+                    background-image: url(/images/icons/datepicker/ic-next.svg);
                 }
             }
             &-datepicker-title{

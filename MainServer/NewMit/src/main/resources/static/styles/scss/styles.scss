@@ -336,9 +336,9 @@
                     }
                     input[type=checkbox]{
                         display: none;
-                        &:checked + .ipt{
+                        /*&:checked + .ipt{
                             display: block;
-                        }
+                        }*/
                     }
                     .btn-wrap{
                         display: flex;
@@ -359,7 +359,7 @@
                                 width: 1em;
                                 aspect-ratio: 1;
                                 margin-right: 2px;
-                                background: url(/resources/images/icons/recipe/ic-add.svg) 0/1em no-repeat;
+                                background: url(/images/icons/recipe/ic-add.svg) 0/1em no-repeat;
                             }
                             &.active{
                                 background-color: $brand;
@@ -367,7 +367,7 @@
                                 color: $font-01white;
                                 &::before{
                                     background: {
-                                        image: url(/resources/images/icons/ic-delete.svg);
+                                        image: url(/images/icons/ic-delete.svg);
                                         size: 2em;
                                     }
                                 }

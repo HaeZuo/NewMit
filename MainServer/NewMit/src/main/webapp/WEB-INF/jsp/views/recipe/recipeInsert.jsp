@@ -34,7 +34,7 @@
     <script src="/scripts/scripts.js"></script>
     <script src="/component/recipeComponents.js"></script>
     <script>
-        let recipeAddCnt = 0;
+
         window.onload = function() {
             commonUtil.enableToFooter(false);
 
@@ -61,7 +61,7 @@
         }
 
         function stepInsert() {
-            recipeComponents.insertStep(++recipeAddCnt);
+            recipeComponents.insertStep();
         }
 
     </script>

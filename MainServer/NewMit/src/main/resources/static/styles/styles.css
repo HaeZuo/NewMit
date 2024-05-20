@@ -11,55 +11,55 @@ http://scripts.sil.org/OFL
   font-family: "Pretendard";
   font-weight: 900;
   font-display: swap;
-  src: local("Pretendard Black"), url("/resources/fonts/Pretendard-Black.woff2") format("woff2"), url("/resources/fonts/Pretendard-Black.woff") format("woff");
+  src: local("Pretendard Black"), url("/fonts/Pretendard-Black.woff2") format("woff2"), url("/fonts/Pretendard-Black.woff") format("woff");
 }
 @font-face {
   font-family: "Pretendard";
   font-weight: 800;
   font-display: swap;
-  src: local("Pretendard ExtraBold"), url("/resources/fonts/Pretendard-ExtraBold.woff2") format("woff2"), url("/resources/fonts/Pretendard-ExtraBold.woff") format("woff");
+  src: local("Pretendard ExtraBold"), url("/fonts/Pretendard-ExtraBold.woff2") format("woff2"), url("/fonts/Pretendard-ExtraBold.woff") format("woff");
 }
 @font-face {
   font-family: "Pretendard";
   font-weight: 700;
   font-display: swap;
-  src: local("Pretendard Bold"), url("/resources/fonts/Pretendard-Bold.woff2") format("woff2"), url("/resources/fonts/Pretendard-Bold.woff") format("woff");
+  src: local("Pretendard Bold"), url("/fonts/Pretendard-Bold.woff2") format("woff2"), url("/fonts/Pretendard-Bold.woff") format("woff");
 }
 @font-face {
   font-family: "Pretendard";
   font-weight: 600;
   font-display: swap;
-  src: local("Pretendard SemiBold"), url("/resources/fonts/Pretendard-SemiBold.woff2") format("woff2"), url("/resources/fonts/Pretendard-SemiBold.woff") format("woff");
+  src: local("Pretendard SemiBold"), url("/fonts/Pretendard-SemiBold.woff2") format("woff2"), url("/fonts/Pretendard-SemiBold.woff") format("woff");
 }
 @font-face {
   font-family: "Pretendard";
   font-weight: 500;
   font-display: swap;
-  src: local("Pretendard Medium"), url("/resources/fonts/Pretendard-Medium.woff2") format("woff2"), url("/resources/fonts/Pretendard-Medium.woff") format("woff");
+  src: local("Pretendard Medium"), url("/fonts/Pretendard-Medium.woff2") format("woff2"), url("/fonts/Pretendard-Medium.woff") format("woff");
 }
 @font-face {
   font-family: "Pretendard";
   font-weight: 400;
   font-display: swap;
-  src: local("Pretendard Regular"), url("/resources/fonts/Pretendard-Regular.woff2") format("woff2"), url("/resources/fonts/Pretendard-Regular.woff") format("woff");
+  src: local("Pretendard Regular"), url("/fonts/Pretendard-Regular.woff2") format("woff2"), url("/fonts/Pretendard-Regular.woff") format("woff");
 }
 @font-face {
   font-family: "Pretendard";
   font-weight: 300;
   font-display: swap;
-  src: local("Pretendard Light"), url("/resources/fonts/Pretendard-Light.woff2") format("woff2"), url("/resources/fonts/Pretendard-Light.woff") format("woff");
+  src: local("Pretendard Light"), url("/fonts/Pretendard-Light.woff2") format("woff2"), url("/fonts/Pretendard-Light.woff") format("woff");
 }
 @font-face {
   font-family: "Pretendard";
   font-weight: 200;
   font-display: swap;
-  src: local("Pretendard ExtraLight"), url("/resources/fonts/Pretendard-ExtraLight.woff2") format("woff2"), url("/resources/fonts/Pretendard-ExtraLight.woff") format("woff");
+  src: local("Pretendard ExtraLight"), url("/fonts/Pretendard-ExtraLight.woff2") format("woff2"), url("/fonts/Pretendard-ExtraLight.woff") format("woff");
 }
 @font-face {
   font-family: "Pretendard";
   font-weight: 100;
   font-display: swap;
-  src: local("Pretendard Thin"), url("/resources/fonts/Pretendard-Thin.woff2") format("woff2"), url("/resources/fonts/Pretendard-Thin.woff") format("woff");
+  src: local("Pretendard Thin"), url("/fonts/Pretendard-Thin.woff2") format("woff2"), url("/fonts/Pretendard-Thin.woff") format("woff");
 }
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -170,16 +170,16 @@ button {
   gap: 8px;
   cursor: pointer;
 }
-.ipt label input {
+/*.ipt label input {
   display: none;
-}
+}*/
 .ipt label::before {
   content: "";
   display: block;
   font-size: 20px;
   width: 1em;
   aspect-ratio: 1;
-  background: #ffffff url(/resources/images/icons/ic-toggle.svg) 0/2em no-repeat;
+  background: #ffffff url(/images/icons/ic-toggle.svg) 0/2em no-repeat;
   border: 1px solid #E5E5EC;
   transition: 0.2s;
 }
@@ -298,7 +298,7 @@ button {
   color: #111111;
   letter-spacing: -0.025em;
   padding-right: 12px;
-  background: url(/resources/images/icons/ic-arrow-right.svg) right center/12px no-repeat;
+  background: url(/images/icons/ic-arrow-right.svg) right center/12px no-repeat;
 }
 
 [class^=list] > h2 {
@@ -333,7 +333,7 @@ button {
   display: inline-block;
   width: 1em;
   aspect-ratio: 1;
-  background: url(/resources/images/icons/ic-star.svg) 0/3em no-repeat;
+  background: url(/images/icons/ic-star.svg) 0/3em no-repeat;
 }
 .review-star li.active {
   background-position: -1em;
@@ -349,7 +349,7 @@ button {
   width: 1em;
   aspect-ratio: 1;
   object-fit: cover;
-  background: url(/resources/images/icons/ic-star.svg) -2em/3em no-repeat;
+  background: url(/images/icons/ic-star.svg) -2em/3em no-repeat;
 }
 .review-star label:has(input:checked) ~ label {
   background-position: 0;
@@ -369,7 +369,7 @@ button {
 }
 .list li > a {
   padding-right: 20px;
-  background: url(/resources/images/icons/ic-arrow-right-b.svg) right 20px center/20px no-repeat;
+  background: url(/images/icons/ic-arrow-right-b.svg) right 20px center/20px no-repeat;
 }
 .list li .ipt > div {
   margin: unset;
@@ -619,7 +619,7 @@ button {
 .imageUploader label .ic-camera::after {
   content: "";
   display: block;
-  background: url(/resources/images/icons/ic-camera.svg) 0/2em no-repeat;
+  background: url(/images/icons/ic-camera.svg) 0/2em no-repeat;
   width: 1em;
   aspect-ratio: 1;
 }
@@ -635,10 +635,10 @@ button {
   text-indent: -9999px;
   width: 48px;
   aspect-ratio: 1;
-  background: url(/resources/images/icons/datepicker/ic-prev.svg) center/24px no-repeat;
+  background: url(/images/icons/datepicker/ic-prev.svg) center/24px no-repeat;
 }
 .ui-datepicker-header .ui-corner-all.ui-datepicker-next {
-  background-image: url(/resources/images/icons/datepicker/ic-next.svg);
+  background-image: url(/images/icons/datepicker/ic-next.svg);
 }
 .ui-datepicker-header .ui-datepicker-title {
   order: -1;
@@ -1190,16 +1190,16 @@ footer .floating .btn {
 .recipeInsertSteps ol > li input[type=checkbox] {
   display: none;
 }
-.recipeInsertSteps ol > li input[type=checkbox]:checked + .ipt {
+/*.recipeInsertSteps ol > li input[type=checkbox]:checked + .ipt {
   display: block;
-}
+}*/
 .recipeInsertSteps ol > li .btn-wrap {
   display: flex;
   gap: 4px;
 }
-.recipeInsertSteps ol > li .btn-wrap ~ .ipt {
+/*.recipeInsertSteps ol > li .btn-wrap ~ .ipt {
   display: none;
-}
+}*/
 .recipeInsertSteps ol > li .btn-wrap .btn {
   border-color: #111111;
   color: #111111;
@@ -1214,7 +1214,7 @@ footer .floating .btn {
   width: 1em;
   aspect-ratio: 1;
   margin-right: 2px;
-  background: url(/resources/images/icons/recipe/ic-add.svg) 0/1em no-repeat;
+  background: url(/images/icons/recipe/ic-add.svg) 0/1em no-repeat;
 }
 .recipeInsertSteps ol > li .btn-wrap .btn.active {
   background-color: #33BA8A;
@@ -1222,7 +1222,7 @@ footer .floating .btn {
   color: #ffffff;
 }
 .recipeInsertSteps ol > li .btn-wrap .btn.active::before {
-  background-image: url(/resources/images/icons/ic-delete.svg);
+  background-image: url(/images/icons/ic-delete.svg);
   background-size: 2em;
 }
 .recipeInsertSteps h3 {
