@@ -32,10 +32,13 @@
     <script src="/scripts/jquery-2.2.4.min.js"></script>
     <script src="/scripts/slick.min.js"></script>
     <script src="/scripts/scripts.js"></script>
+    <script src="/component/recipeComponents.js"></script>
     <script>
+        let recipeAddCnt = 0;
         window.onload = function() {
             commonUtil.enableToFooter(false);
 
+            stepInsert();
         }
 
         function recipeIntroImage(e) {
@@ -55,6 +58,10 @@
 
             // 파일을 읽기
             reader.readAsDataURL(file);
+        }
+
+        function stepInsert() {
+            recipeComponents.insertStep(++recipeAddCnt);
         }
 
     </script>
@@ -114,147 +121,15 @@
                 </div>
                 <div class="recipeInsertSteps">
                     <h2>단계별 설명</h2>
-                    <ol>
-                        <li>
-                            <h3>
-                                <span>번째 단계</span>
-                                <ul>
-                                    <li>
-                                        <a href=""><img src="/images/icons/recipe/ic-arrow-up.svg" alt=""></a>
-                                    </li>
-                                    <li>
-                                        <a href=""><img src="/images/icons/recipe/ic-arrow-down.svg" alt=""></a>
-                                    </li>
-                                    <li>
-                                        <a href=""><img src="/images/icons/recipe/ic-add.svg" alt=""></a>
-                                    </li>
-                                    <li>
-                                        <a href=""><img src="/images/icons/recipe/ic-delete.svg" alt=""></a>
-                                    </li>
-                                </ul>
-                            </h3>
-                            <div class="imageUploader">
-                                <img src="/images/imageUploader.svg" alt="">
-                            </div>
-                            <div class="ipt">
-                                <span>레시피 설명</span>
-                                <div>
-                                    <textarea name="" id=""></textarea>
-                                </div>
-                            </div>
-                            <div class="btn-wrap">
-                                <label for="material" class="btn sm clear">재료</label>
-                                <label for="tool" class="btn sm clear">도구</label>
-                                <label for="tip" class="btn sm clear">팁</label>
-                                <label for="timer" class="btn sm clear">타이머</label>
-                            </div>
-                            <input type="checkbox" id="material">
-                            <div class="ipt">
-                                <span>재료</span>
-                                <div>
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <input type="checkbox" id="tool">
-                            <div class="ipt">
-                                <span>도구</span>
-                                <div>
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <input type="checkbox" id="tip">
-                            <div class="ipt">
-                                <span>팁</span>
-                                <div>
-                                    <textarea name="" id=""></textarea>
-                                </div>
-                            </div>
-                            <input type="checkbox" id="timer">
-                            <div class="ipt">
-                                <span>타이머</span>
-                                <div>
-                                    <input type="text" maxlength="2" size="2">
-                                    <span>:</span>
-                                    <input type="text" maxlength="2" size="2">
-                                    <span>:</span>
-                                    <input type="text" maxlength="2" size="2">
-                                </div>
-                            </div>
+                    <ol id="recipeInsertStepsOl">
 
-                        </li>
-                        <li>
-                            <h3>
-                                <span>번째 단계</span>
-                                <ul>
-                                    <li>
-                                        <a href=""><img src="/images/icons/recipe/ic-arrow-up.svg" alt=""></a>
-                                    </li>
-                                    <li>
-                                        <a href=""><img src="/images/icons/recipe/ic-arrow-down.svg" alt=""></a>
-                                    </li>
-                                    <li>
-                                        <a href=""><img src="/images/icons/recipe/ic-add.svg" alt=""></a>
-                                    </li>
-                                    <li>
-                                        <a href=""><img src="/images/icons/recipe/ic-delete.svg" alt=""></a>
-                                    </li>
-                                </ul>
-                            </h3>
-                            <div class="imageUploader">
-                                <img src="/images/imageUploader.svg" alt="">
-                            </div>
-                            <div class="ipt">
-                                <span>레시피 설명</span>
-                                <div>
-                                    <textarea name="" id=""></textarea>
-                                </div>
-                            </div>
-                            <div class="btn-wrap">
-                                <label for="material" class="btn sm clear">재료</label>
-                                <label for="tool" class="btn sm clear">도구</label>
-                                <label for="tip" class="btn sm clear">팁</label>
-                                <label for="timer" class="btn sm clear">타이머</label>
-                            </div>
-                            <input type="checkbox" id="material">
-                            <div class="ipt">
-                                <span>재료</span>
-                                <div>
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <input type="checkbox" id="tool">
-                            <div class="ipt">
-                                <span>도구</span>
-                                <div>
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <input type="checkbox" id="tip">
-                            <div class="ipt">
-                                <span>팁</span>
-                                <div>
-                                    <textarea name="" id=""></textarea>
-                                </div>
-                            </div>
-                            <input type="checkbox" id="timer">
-                            <div class="ipt">
-                                <span>타이머</span>
-                                <div>
-                                    <input type="text" maxlength="2" size="2">
-                                    <span>:</span>
-                                    <input type="text" maxlength="2" size="2">
-                                    <span>:</span>
-                                    <input type="text" maxlength="2" size="2">
-                                </div>
-                            </div>
-                        </li>
                     </ol>
                 </div>
             </div>
         </section>
         <footer>
             <ul class="btn-wrap">
-                <li><a href="" class="btn white">단계추가</a></li>
+                <li><a href="javascript:stepInsert()" class="btn white">단계추가</a></li>
                 <li><a href="" class="btn primary">저장</a></li>
             </ul>
         </footer>

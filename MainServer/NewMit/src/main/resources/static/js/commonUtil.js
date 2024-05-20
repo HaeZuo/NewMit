@@ -105,3 +105,15 @@ commonUtil.enableToHeader = function(flag) {
         document.getElementById("commonHeader").style.display = "none";
     }
 }
+
+commonUtil.getExtensionFromBase64 = function (base64String) {
+    // 정규 표현식을 사용하여 데이터 URI에서 확장자 부분 추출
+    var regex = /^data:image\/([a-z]+);base64,/;
+    var result = regex.exec(base64String);
+
+    if (result && result.length > 1) {
+        return result[1]; // 확장자 반환
+    } else {
+        return null; // 확장자를 찾을 수 없을 경우 null 반환
+    }
+}
