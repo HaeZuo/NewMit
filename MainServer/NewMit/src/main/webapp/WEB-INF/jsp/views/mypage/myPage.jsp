@@ -81,7 +81,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="/recipe/viewWrittenRecipeList">
                         <p>작성한 레시피</p>
                         <span>21</span>
                     </a>

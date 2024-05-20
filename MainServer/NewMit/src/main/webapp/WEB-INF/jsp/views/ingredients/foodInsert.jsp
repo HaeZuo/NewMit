@@ -41,7 +41,6 @@
 
         window.onload = function () {
             commonUtil.enableToFooter(false);
-            commonUtil.enableToRegIngredientsBtn(true);
 
             addBtnClick();
         }

@@ -16,7 +16,14 @@ public class RecipeController {
 
     @RequestMapping(value = "/recipe/viewWrittenRecipeList")
     public ModelAndView viewWrittenRecipeList(HttpServletRequest request) {
-        ModelAndView mav = new ModelAndView();
+        ModelAndView mav = new ModelAndView("/recipe/writtenRecipeList");
+
+        return mav;
+    }
+
+    @RequestMapping(value = "/recipe/viewInsertRecipe")
+    public ModelAndView viewInsertRecipe(HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("/recipe/recipeInsert");
 
         return mav;
     }

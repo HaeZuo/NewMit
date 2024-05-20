@@ -78,7 +78,9 @@
             });
         }
         window.onload = function () {
-            commonUtil.enableToRegIngredientsBtn();
+            commonUtil.enableToRegBtn(true, function () {
+                location.href = '/ingredients/insertIntroView';
+            });
 
             const foodIngredientsTypeCodeList = JSON.parse('<c:out value="${foodIngredientsTypeCodeList}" escapeXml="false" />');
 

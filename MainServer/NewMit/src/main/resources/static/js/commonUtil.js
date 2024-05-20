@@ -69,14 +69,17 @@ commonUtil.getParameter = function(key) {
     return params.get(key);
 }
 
-commonUtil.enableToRegIngredientsBtn = function(flag) {
+commonUtil.enableToRegBtn = function(flag, clickEvent) {
     if(flag == null)
         flag = true;
 
     if(flag) {
-        document.getElementById("regIngredientsBtnDiv").style.display = "";
+        document.getElementById("regBtnDiv").style.display = "";
+
+        if(typeof clickEvent === 'function')
+            document.getElementById("regBtnDiv").onclick = clickEvent;
     } else {
-        document.getElementById("regIngredientsBtnDiv").style.display = "none";
+        document.getElementById("regBtnDiv").style.display = "none";
     }
 
 }
