@@ -37,7 +37,12 @@
             commonUtil.enableToHeader(false);
             commonUtil.enableToFooter(false);
 
-            document.getElementById("userNm").innerText = userInfo["userNm"];
+            if(userInfo["userNm"] != null) {
+                document.getElementById("userNm").innerText = userInfo["userNm"];
+            } else {
+                window.location.href = "/login";
+            }
+
         }
         function historyBack() {
             window.history.back();
@@ -76,7 +81,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="/recipe/viewWrittenRecipeList">
                         <p>작성한 레시피</p>
                         <span>21</span>
                     </a>

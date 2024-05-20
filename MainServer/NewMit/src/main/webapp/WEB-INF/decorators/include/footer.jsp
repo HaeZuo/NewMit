@@ -27,8 +27,8 @@
                 </a>
             </li>
         </ul>
-        <div id="regIngredientsBtnDiv" class="floating" style="display: none">
-            <a href="/ingredients/insertIntroView" class="btn sm square primary">
+        <div id="regBtnDiv" class="floating" style="display: none">
+            <a href="#" class="btn sm square primary">
                 <img src="/images/icons/ic-plus.svg" alt="">
             </a>
         </div>
