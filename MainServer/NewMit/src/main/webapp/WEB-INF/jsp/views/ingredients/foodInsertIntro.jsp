@@ -33,7 +33,7 @@
     <script src="/scripts/slick.min.js"></script>
     <script src="/scripts/scripts.js"></script>
     <script src="/js/ModalPopup.js"></script>
-    <script>
+    <script>;
         window.onload = function () {
             commonUtil.enableToFooter(false);
 
@@ -48,15 +48,15 @@
                     contentType: false,
                     cache: false,
                     success: function (success) {
-                        const reqData = JSON.stringify(success);
 
                         const layerPopup = new ModalPopup("/ingredients/insertView");
                         layerPopup.iframe = true;
                         layerPopup.disableHeader = true;
                         layerPopup.fullScreen = true;
                         layerPopup.callBackMethod = function(callback) {
-                            alert("콜백!");
+                            location.href = '/home';
                         }
+                        layerPopup.data = success;
                         layerPopup.modalOpen();
                     },
                     error: function (error) {

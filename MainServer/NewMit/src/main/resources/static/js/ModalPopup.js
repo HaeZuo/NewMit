@@ -19,6 +19,8 @@ class ModalPopup {
         this.disableHeader = false;
         this.fullScreen = false;
 
+        this.data = "";
+
         this.modalClose = this.modalClose.bind(this);
     }
 
@@ -35,6 +37,14 @@ class ModalPopup {
     modalOpen = function() {
         this.showModalContent(this.filePath);
     }
+
+    // isModalOpen = function() {
+    //     if(Object.getPrototypeOf(parent).constructor.name == 'ModalPopup') {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
     setCallBackMethod = function(method) {
         if(!(typeof method === 'function')) {

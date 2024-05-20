@@ -34,6 +34,10 @@ foodInsertArea.getFoodIngredientsImageBannerElement = function(numId) {
     return document.getElementById("foodIngredientsImage" + numId);
 }
 
+foodInsertArea.getFoodIngredientsImageBannerImgElement = function(numId) {
+    return document.getElementById("foodIngredientsImageBanner" + numId);
+}
+
 foodInsertArea.createFoodInsertArea = function(divElement, numId, foodIngredientsTypeDataList) {
         const foodIngredientsTypeElement = this.setFoodIngredientsTypeDataList(foodIngredientsTypeDataList, numId);
 
@@ -52,7 +56,7 @@ foodInsertArea.createFoodInsertArea = function(divElement, numId, foodIngredient
             <div class="ipt full">
                 <span>식자재 이름</span>
                 <div>
-                    <input type="text" id="foodIngredientsImage` + numId + `" name="foodIngredientsName" placeholder="식자재 이름을 작성해 주세요">
+                    <input type="text" id="foodIngredientsName` + numId + `" name="foodIngredientsName" placeholder="식자재 이름을 작성해 주세요">
                 </div>
             </div>
             <div class="ipt">
@@ -90,3 +94,13 @@ foodInsertArea.createFoodInsertArea = function(divElement, numId, foodIngredient
         divElement.insertAdjacentHTML('beforeend', foodInsertArea);
 
     }
+
+foodInsertArea.setBannerImage = function(numId, src) {
+    document.getElementById("foodIngredientsImageBanner" + numId).src = src;
+    document.getElementById("foodIngredientsImageBanner" + numId).style.display = ""; // 첨부한 이미지를 보여주도록
+    document.getElementById("imageUploaderLabel" + numId).style.display = "none"; // 첨부할 경우 첨부요청 영역 제거
+}
+
+foodInsertArea.setName = function(numId, nm) {
+    document.getElementById("foodIngredientsName" + numId).value = nm;
+}
