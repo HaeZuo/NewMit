@@ -33,6 +33,7 @@
     <script src="/scripts/slick.min.js"></script>
     <script src="/scripts/scripts.js"></script>
     <script src="/component/foodComponents.js"></script>
+    <script src="/js/ModalPopup.js"></script>
     <script>
 
         const foodIngredientsTypeCodeList = JSON.parse('<c:out value="${foodIngredientsTypeCodeList}" escapeXml="false" />');
@@ -44,6 +45,22 @@
             commonUtil.enableToRegIngredientsBtn(true);
 
             addBtnClick();
+
+            // 객체 인식으로 들어왔는지
+            if(Object.getPrototypeOf(parent).constructor.name == 'ModalPopup') {
+
+                // 초기화
+                document.getElementById("foodInsertAreaList").innerHTML = '';
+
+                const objectDetection = parent.data['objectDetection'];
+
+                for(let curObjectDetection of objectDetection) {
+                    addBtnClick();
+
+                    foodInsertArea.setBannerImage(foodInsertAreaSequence, "data:image/jpeg;base64," + curObjectDetection['detectionBannerImage']);
+                    foodInsertArea.setName(foodInsertAreaSequence, curObjectDetection['detectionClasseName']);
+                }
+            }
         }
 
         function addBtnClick() {
@@ -61,12 +78,17 @@
                     let formObject = commonUtil.arrayToObject($(fia).serializeArray());
 
                     const foodIngredientsImageBannerElement = foodInsertArea.getFoodIngredientsImageBannerElement(formObject['createFoodInsertAreaId'])
+                    const foodIngredientsImageBannerImgElement = foodInsertArea.getFoodIngredientsImageBannerImgElement(formObject['createFoodInsertAreaId']);
 
                     if (foodIngredientsImageBannerElement.files.length > 0) {
                         const file = foodIngredientsImageBannerElement.files[0];
                         formObject['foodIngredientsImageBanner'] = await commonUtil.encodeImageToBase64(file);
                         formObject['foodIngredientsImageBannerFileName'] = file['name'];
                         formObject['foodIngredientsImageBannerFileType'] = file['type'];
+                    } else if(foodIngredientsImageBannerImgElement.src != "") {
+                        formObject['foodIngredientsImageBanner'] = foodIngredientsImageBannerImgElement.src.toString().replace("data:image/jpeg;base64,", "");
+                        formObject['foodIngredientsImageBannerFileName'] = "Object_Recognition_Image";
+                        formObject['foodIngredientsImageBannerFileType'] = commonUtil.getExtensionFromBase64(foodIngredientsImageBannerImgElement.src.toString());
                     }
 
                     requestData.push(formObject);
@@ -75,7 +97,15 @@
 
             httpRequest('POST', '/ingredients/saveInqredients', JSON.stringify(requestData), function (success) {
                 alert("성공적으로 저장 됐습니다.");
-                window.location.href = "/home"
+
+                if(Object.getPrototypeOf(parent).constructor.name == 'ModalPopup') {
+                    parent.modalClose();
+                } else {
+                    window.location.href = "/home"
+                }
+
+
+                window.parent.modalClose();
             }, function (fail) {
                 alert("저장 실패.");
             });
