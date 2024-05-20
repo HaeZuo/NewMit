@@ -37,7 +37,12 @@
             commonUtil.enableToHeader(false);
             commonUtil.enableToFooter(false);
 
-            document.getElementById("userNm").innerText = userInfo["userNm"];
+            if(userInfo["userNm"] != null) {
+                document.getElementById("userNm").innerText = userInfo["userNm"];
+            } else {
+                window.location.href = "/login";
+            }
+
         }
         function historyBack() {
             window.history.back();
