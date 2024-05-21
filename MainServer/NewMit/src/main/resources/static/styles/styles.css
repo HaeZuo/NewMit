@@ -1174,7 +1174,7 @@ footer .floating .btn {
   letter-spacing: -0.025em;
   color: #111111;
 }
-.recipeInsertSteps ol > li > h3::before {
+.recipeInsertSteps ol > li > form > h3::before {
   content: counter(steps);
 }
 .recipeInsertSteps ol > li .imageUploader {

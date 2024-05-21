@@ -22,7 +22,7 @@ foodInsertArea.foodIngredientsImageOnChange = function(e) {
     reader.onload = function(handler) {
         // 읽은 데이터를 img 요소의 src 속성에 설정하여 이미지를 표시
         document.getElementById("foodIngredientsImageBanner" + e.id.replace("foodIngredientsImage", "")).src = handler.target.result; // 첨부한 이미지를 보여주도록
-        document.getElementById("foodIngredientsImageBanner" + e.id.replace("foodIngredientsImage", "")).style.display = ""; // 첨부한 이미지를 보여주도록
+        document.getElementById("foodIngredientsImageBanner" + e.id.replace("foodIngredientsImage", "")).style.display = "block"; // 첨부한 이미지를 보여주도록
         document.getElementById("imageUploaderLabel" + e.id.replace("foodIngredientsImage", "")).style.display = "none"; // 첨부할 경우 첨부요청 영역 제거
     };
 

@@ -19,6 +19,44 @@ commonUtil.formToObject = function(dom) {
     return jsonObject;
 }
 
+commonUtil.formToObjectWithImage = async function(dom) {
+    const formData = new FormData(dom);
+    const jsonObject = {};
+
+    const readFileAsDataURL = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+    };
+
+    for (const [key, value] of formData.entries()) {
+        if (value instanceof File) {
+            // Read the file as Data URL (base64)
+            try {
+                const base64String = await readFileAsDataURL(value);
+                jsonObject[key] = base64String;
+            } catch (error) {
+                console.error('Error reading file:', error);
+            }
+        } else {
+            // Handle other form data
+            if (jsonObject.hasOwnProperty(key)) {
+                if (!Array.isArray(jsonObject[key])) {
+                    jsonObject[key] = [jsonObject[key]];
+                }
+                jsonObject[key].push(value);
+            } else {
+                jsonObject[key] = value;
+            }
+        }
+    }
+
+    return jsonObject;
+};
+
 commonUtil.arrayToObject = function(serializedArray) {
     return serializedArray.reduce(function(obj, item) {
         obj[item.name] = item.value;

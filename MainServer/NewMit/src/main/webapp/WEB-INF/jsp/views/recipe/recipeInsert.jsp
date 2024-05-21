@@ -41,8 +41,8 @@
             stepInsert();
         }
 
-        function recipeIntroImage(e) {
-            
+        function recipeIntroImageOnChange(e) {
+
             const file = e.files[0]; // 선택된 파일
 
             // FileReader 객체 생성
@@ -52,7 +52,7 @@
             reader.onload = function(handler) {
                 // 읽은 데이터를 img 요소의 src 속성에 설정하여 이미지를 표시
                 document.getElementById("recipeIntroImageBanner").src = handler.target.result; // 첨부한 이미지를 보여주도록
-                document.getElementById("recipeIntroImageBanner").style.display = ""; // 첨부한 이미지를 보여주도록
+                document.getElementById("recipeIntroImageBanner").style.display = "block"; // 첨부한 이미지를 보여주도록
                 document.getElementById("imageUploaderLabel").style.display = "none"; // 첨부할 경우 첨부요청 영역 제거
             };
 
@@ -64,61 +64,84 @@
             recipeComponents.insertStep();
         }
 
+        async function saveBtnClick() {
+            const requestData = new Object();
+
+            const recipeInfo = await commonUtil.formToObjectWithImage(document.getElementById("recipeInfoForm"));
+
+            const recipeStepInfoList = new Array();
+            for(let currentStep of document.getElementById("recipeInsertStepsOl").children)
+                recipeStepInfoList.push(commonUtil.formToObject(currentStep.getElementsByTagName("form")[0]));
+
+            requestData['recipeInfo'] = recipeInfo;
+            requestData['recipeStepInfoList'] = recipeStepInfoList;
+
+            httpRequest('POST', '/recipe/insertRecipe', JSON.stringify(requestData), function(success) {
+
+            }, function(fail) {
+
+            });
+
+            debugger;
+        }
+
     </script>
 </head>
 <body>
     <div class="wrap">
         <section>
             <div class="recipeInsert">
-                <div class="recipeInsertThumbnail">
-                    <h2>레시피 정보</h2>
-                    <div class="imageUploader">
-                        <label id="imageUploaderLabel">
-                            <input id="recipeIntroImageInput" onchange="javascript:recipeIntroImage(this)" type="file" accept="image/*" hidden>
-                            <i class="ic-camera"></i>
-                            <p>식자재 이미지를 추가해주세요</p>
-                        </label>
-                        <img id="recipeIntroImageBanner" src="/images/food/temp.png" style="display: none" alt="">
-                    </div>
-                    <div class="ipt">
-                        <span>레시피 제목</span>
-                        <div>
-                            <input type="text" placeholder="1개">
+                <form id="recipeInfoForm">
+                    <div class="recipeInsertThumbnail">
+                        <h2>레시피 정보</h2>
+                        <div class="imageUploader">
+                            <label id="imageUploaderLabel">
+                                <input id="recipeIntroImageInput" name="recipeIntroImage" onchange="javascript:recipeIntroImageOnChange(this)" type="file" accept="image/*" hidden>
+                                <i class="ic-camera"></i>
+                                <p>식자재 이미지를 추가해주세요</p>
+                            </label>
+                            <img id="recipeIntroImageBanner" src="/images/food/temp.png" style="display: none" alt="">
+                        </div>
+                        <div class="ipt">
+                            <span>레시피 제목</span>
+                            <div>
+                                <input name="recipeTitle" id="recipeTitle" type="text" placeholder="제목을 입력해 주세요">
+                            </div>
+                        </div>
+                        <div class="ipt">
+                            <span>레시피 설명</span>
+                            <div>
+                                <textarea name="recipeMainDescription" id="recipeMainDescription"></textarea>
+                            </div>
+                        </div>
+                        <div class="ipt">
+                            <span>레시피 카테고리</span>
+                            <div>
+                                <select name="recipeCategoryByType" id="recipeCategoryByType">
+                                    <option value="0">종류별</option>
+                                    <option value="1">육류</option>
+                                </select>
+                                <select name="recipeCategoryByOccasion" id="recipeCategoryByOccasion">
+                                    <option value="0">상황별</option>
+                                    <option value="1">파티용</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="ipt">
+                            <span>요리기준</span>
+                            <div>
+                                <select name="recipeCriteriaByCookingServing" id="recipeCriteriaByCookingServing">
+                                    <option value="1">1인분</option>
+                                    <option value="2">2인분</option>
+                                </select>
+                                <select name="recipeCriteriaByCookingTime" id="recipeCriteriaByCookingTime">
+                                    <option value="1">15분소요</option>
+                                    <option value="2">30분소요</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="ipt">
-                        <span>레시피 설명</span>
-                        <div>
-                            <textarea name="" id=""></textarea>
-                        </div>
-                    </div>
-                    <div class="ipt">
-                        <span>레시피 카테고리</span>
-                        <div>
-                            <select name="" id="">
-                                <option value="">종류별</option>
-                                <option value="">육류</option>
-                            </select>
-                            <select name="" id="">
-                                <option value="">상황별</option>
-                                <option value="">파티용</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="ipt">
-                        <span>요리기준</span>
-                        <div>
-                            <select name="" id="">
-                                <option value="">1인분</option>
-                                <option value="">2인분</option>
-                            </select>
-                            <select name="" id="">
-                                <option value="">15분소요</option>
-                                <option value="">30분소요</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
+                </form>
                 <div class="recipeInsertSteps">
                     <h2>단계별 설명</h2>
                     <ol id="recipeInsertStepsOl">
@@ -130,7 +153,7 @@
         <footer>
             <ul class="btn-wrap">
                 <li><a href="javascript:stepInsert()" class="btn white">단계추가</a></li>
-                <li><a href="" class="btn primary">저장</a></li>
+                <li><a href="javascript:saveBtnClick()" class="btn primary">저장</a></li>
             </ul>
         </footer>
     </div>
