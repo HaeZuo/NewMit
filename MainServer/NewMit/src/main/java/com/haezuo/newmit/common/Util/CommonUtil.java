@@ -3,6 +3,8 @@ package com.haezuo.newmit.common.Util;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -103,6 +105,11 @@ public class CommonUtil {
         File file = new File(multipartFile.getOriginalFilename());
         FileCopyUtils.copy(multipartFile.getBytes(), file);
         return file;
+    }
+
+    public static String getUserIp() {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        return request.getRemoteAddr();
     }
 
 }

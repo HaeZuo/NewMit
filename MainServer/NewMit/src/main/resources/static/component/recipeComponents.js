@@ -114,6 +114,26 @@ recipeComponents.deleteStep = function(e) {
     document.getElementById("step" + componentId).remove();
 }
 
+recipeComponents.recipeStepImageOnChange = function (e) {
+    const componentId = e.getAttribute("componentId");
+
+    const file = e.files[0]; // 선택된 파일
+
+    // FileReader 객체 생성
+    const reader = new FileReader();
+
+    // 파일을 읽기 시작할 때 실행되는 이벤트 핸들러
+    reader.onload = function(handler) {
+        // 읽은 데이터를 img 요소의 src 속성에 설정하여 이미지를 표시
+        document.getElementById("recipeStepImageBanner" + componentId).src = handler.target.result; // 첨부한 이미지를 보여주도록
+        document.getElementById("recipeStepImageBanner" + componentId).style.display = "block"; // 첨부한 이미지를 보여주도록
+        document.getElementById("imageUploaderLabel" + componentId).style.display = "none"; // 첨부할 경우 첨부요청 영역 제거
+    };
+
+    // 파일을 읽기
+    reader.readAsDataURL(file);
+}
+
 recipeComponents.getStepElement = function(id) {
     let elementStr = `
                     <li id="step`+id+`">
@@ -140,7 +160,12 @@ recipeComponents.getStepElement = function(id) {
                                 </ul>
                             </h3>
                             <div class="imageUploader">
-                                <img src="/images/imageUploader.svg" alt="">
+                                <label id="imageUploaderLabel` + id + `">
+                                    <input componentId="` + id + `" id="recipeStepImageInput` + id + `" name="recipeStepImage" onchange="javascript:recipeComponents.recipeStepImageOnChange(this)" type="file" accept="image/*" hidden>
+                                    <i class="ic-camera"></i>
+                                    <p>식자재 이미지를 추가해주세요</p>
+                                </label>
+                                <img id="recipeStepImageBanner` + id + `" src="/images/food/temp.png" style="display: none" alt="">
                             </div>
                             <div class="ipt">
                                 <span>레시피 설명</span>

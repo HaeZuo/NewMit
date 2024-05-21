@@ -69,9 +69,16 @@
 
             const recipeInfo = await commonUtil.formToObjectWithImage(document.getElementById("recipeInfoForm"));
 
+            recipeInfo['recipeIntroImageFileNm'] = document.getElementById("recipeIntroImageInput").files[0].name;
+            recipeInfo['recipeIntroImageFileExtension'] = commonUtil.getExtensionFromBase64(recipeInfo['recipeIntroImage']);
+
             const recipeStepInfoList = new Array();
-            for(let currentStep of document.getElementById("recipeInsertStepsOl").children)
-                recipeStepInfoList.push(commonUtil.formToObject(currentStep.getElementsByTagName("form")[0]));
+            for(let currentStep of document.getElementById("recipeInsertStepsOl").children) {
+                const recipeStepInfoObject = await commonUtil.formToObjectWithImage(currentStep.getElementsByTagName("form")[0])
+
+                recipeStepInfoList.push(recipeStepInfoObject);
+            }
+
 
             requestData['recipeInfo'] = recipeInfo;
             requestData['recipeStepInfoList'] = recipeStepInfoList;
@@ -81,8 +88,6 @@
             }, function(fail) {
 
             });
-
-            debugger;
         }
 
     </script>

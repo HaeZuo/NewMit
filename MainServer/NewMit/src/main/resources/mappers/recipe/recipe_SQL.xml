@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mappers.recipe">
+
+    <insert id="insertRecipeInfo" parameterType="map">
+        /* mappers.recipe.insertRecipeInfo */
+        INSERT INTO TB_RECIPE(
+            RECIPE_NO,
+            MB_NO,
+            RECIPE_NM,
+            RECIPE_MAIN_IMAGE_ID,
+            RECIPE_EXPLANATION,
+            RECIPE_CRITERIA_BY_COOKING_TIME,
+            RECIPE_CRITERIA_BY_COOKING_SERVING,
+            RECIPE_CATEGORY_BY_OCCASION,
+            RECIPE_CRITERIA_BY_TYPE,
+            RECIPE_REGISTER_DATE,
+            RECIPE_REGISTER_IP,
+            RECIPE_UPDATE_DATE,
+            RECIPE_UPDATE_IP
+        )
+        VALUES(
+            #{recipeNo},
+            #{mbNo},
+            #{recipeNm},
+            #{recipeMainImageId},
+            #{recipeExplanation},
+            #{recipeCriteriaByCookingTime},
+            #{recipeCriteriaByCookingServing},
+            #{recipeCategoryByOccasion},
+            #{recipeCategoryByType},
+            NOW(),
+            #{userIp},
+            NOW(),
+            #{userIp}
+        )
+    </insert>
+
+    <select id="selectNextRecipeNo" parameterType="string" resultType="string">
+        /* mappers.recipe.selectNextRecipeNo */
+        SELECT IFNULL(MAX(RECIPE_NO), 0) + 1
+        FROM TB_RECIPE
+        WHERE MB_NO = #{mbNo}
+    </select>
+
+</mapper>
