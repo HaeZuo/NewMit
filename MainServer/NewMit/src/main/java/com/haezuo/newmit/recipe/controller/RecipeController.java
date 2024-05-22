@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -32,9 +34,38 @@ public class RecipeController extends BaseService {
         return mav;
     }
 
+    @RequestMapping(value = "/recipe/selectWrittenRecipeList", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> selectWrittenRecipeList(HttpServletRequest request) throws IOException {
+        Map<String, Object> result = new HashMap<>();
+
+        Map<String, Object> condition = new HashMap<>();
+        condition.put("userId", loginService.ConnectUserInfo(request, userInfo.KEY_USER_ID));
+        condition.put("userNm", loginService.ConnectUserInfo(request, userInfo.KEY_USER_NM));
+
+        List<Map<String, Object>> writtenRecipeList = recipeService.getWrittenRecipeList(condition);
+
+        result.put("writtenRecipeList", writtenRecipeList);
+
+        return result;
+    }
+
     @RequestMapping(value = "/recipe/viewInsertRecipe")
     public ModelAndView viewInsertRecipe(HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("/recipe/recipeInsert");
+
+        return mav;
+    }
+
+    @RequestMapping(value = "/recipe/viewDetailRecipe")
+    public ModelAndView viewDetailRecipe(HttpServletRequest request) throws IOException {
+        ModelAndView mav = new ModelAndView("/recipe/recipeIntro");
+
+        String recipeNo = request.getParameter("recipeNo");
+
+        Map<String, Object> detailRecipeInfo = recipeService.getDetailRecipeInfo(recipeNo);
+
+        mav.addObject("detailRecipeInfo", detailRecipeInfo);
 
         return mav;
     }

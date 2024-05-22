@@ -1,7 +1,6 @@
 package com.haezuo.newmit.common.Util;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -13,6 +12,8 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CommonUtil {
 
@@ -110,6 +111,19 @@ public class CommonUtil {
     public static String getUserIp() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         return request.getRemoteAddr();
+    }
+
+    public static String getExtensionFromBase64(String base64String) {
+        // 정규 표현식을 사용하여 데이터 URI에서 확장자 부분 추출
+        String regex = "^data:image\\/([a-z]+);base64,";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(base64String);
+
+        if (matcher.find() && matcher.groupCount() > 0) {
+            return matcher.group(1); // 확장자 반환
+        } else {
+            return null; // 확장자를 찾을 수 없을 경우 null 반환
+        }
     }
 
 }

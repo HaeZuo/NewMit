@@ -83,7 +83,7 @@
                 <li>
                     <a href="/recipe/viewWrittenRecipeList">
                         <p>작성한 레시피</p>
-                        <span>21</span>
+                        <span><c:out value="${writtenRecipeCount}"/></span>
                     </a>
                 </li>
             </ul>

@@ -44,4 +44,89 @@
         WHERE MB_NO = #{mbNo}
     </select>
 
+    <insert id="insertCookingProcess" parameterType="map">
+        /* mappers.recipe.insertCookingProcess */
+        INSERT INTO TB_COOKING_PROCESS(
+            RECIPE_NO,
+            RECIPE_STEP_NO,
+            RECIPE_STEP_IMAGE_ID,
+            RECIPE_STEP_EXPLANATION,
+            RECIPE_STEP_INGREDIENTS,
+            RECIPE_STEP_TOOLS,
+            RECIPE_STEP_TIPS,
+            RECIPE_STEP_TIMER,
+            RECIPE_STEP_REGISTER_DATE,
+            RECIPE_STEP_REGISTER_IP,
+            RECIPE_STEP_UPDATE_DATE,
+            RECIPE_STEP_UPDATE_IP
+        )
+        VALUES(
+            #{recipeNo},
+            #{recipeStepNo},
+            #{recipeStepImageId},
+            #{recipeStepExplanation},
+            #{recipeStepIngredients},
+            #{recipeStepTools},
+            #{recipeStepTips},
+            #{recipeStepTimer},
+            NOW(),
+            #{userIp},
+            NOW(),
+            #{userIp}
+        )
+    </insert>
+
+    <select id="selectWrittenRecipeList" parameterType="map" resultType="map">
+        /* mappers.recipe.selectWrittenRecipeList */
+        SELECT
+                TR.RECIPE_NO,
+                TMI.MB_NM,
+                TR.RECIPE_MAIN_IMAGE_ID,
+                TR.RECIPE_NM,
+                CAST(0.0 AS CHAR) RATING
+        FROM TB_RECIPE TR
+                INNER JOIN TB_MEMBERS_INFO TMI ON TR.MB_NO = TMI.MB_NO
+             -- INNER JOIN TB_RECIPE_RATING TRR ON TR.RECIPE_NO = TRR.RECIPE_NO
+        WHERE TR.MB_NO = #{userId}
+    </select>
+
+    <select id="selectWrittenRecipeCount" parameterType="map" resultType="string">
+        /* mappers.recipe.selectWrittenRecipeCount */
+        SELECT COUNT(*) CNT
+        FROM TB_RECIPE TR
+        WHERE TR.MB_NO = #{userId}
+    </select>
+
+    <select id="selectDetailRecipeInfo" parameterType="string" resultType="map">
+        /* mappers.recipe.selectDetailRecipeInfo */
+        SELECT
+            TR.RECIPE_NO,
+            TR.RECIPE_MAIN_IMAGE_ID,
+            TR.RECIPE_NM, -- 레시피 명
+            TR.RECIPE_EXPLANATION, -- 레시피 설명
+            TR.RECIPE_CRITERIA_BY_COOKING_SERVING, -- 몇 인분
+            TR.RECIPE_CRITERIA_BY_COOKING_TIME, -- 소요시간
+            CAST(0.0 AS CHAR) AS RATING, -- 평점
+            CASE GROUP_CONCAT(TCP.RECIPE_STEP_INGREDIENTS SEPARATOR ',')
+                WHEN ',' THEN ''
+                ELSE GROUP_CONCAT(TCP.RECIPE_STEP_INGREDIENTS SEPARATOR ',')
+                END AS RECIPE_STEP_INGREDIENTS, -- 재료 문자열
+            CASE GROUP_CONCAT(TCP.RECIPE_STEP_TOOLS SEPARATOR ',')
+                WHEN ',' THEN ''
+                ELSE GROUP_CONCAT(TCP.RECIPE_STEP_TOOLS SEPARATOR ',')
+                END AS RECIPE_STEP_TOOLS -- 도구 문자열
+
+        FROM    TB_RECIPE TR
+                    -- INNER JOIN TB_RECIPE_RATING TRR ON TR.RECIPE_NO = TRR.RECIPE_NO
+                    INNER JOIN TB_COOKING_PROCESS TCP ON TR.RECIPE_NO = TCP.RECIPE_NO
+        WHERE TR.RECIPE_NO = #{recipeNo}
+        GROUP BY TR.RECIPE_NO,
+                 TR.RECIPE_MAIN_IMAGE_ID,
+                 TR.RECIPE_NM,
+                 TR.RECIPE_EXPLANATION,
+                 TR.RECIPE_CRITERIA_BY_COOKING_SERVING,
+                 TR.RECIPE_CRITERIA_BY_COOKING_TIME,
+                 CAST(0.0 AS CHAR)
+    </select>
+
 </mapper>

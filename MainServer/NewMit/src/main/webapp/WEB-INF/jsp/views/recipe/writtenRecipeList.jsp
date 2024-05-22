@@ -32,11 +32,25 @@
     <script src="/scripts/jquery-2.2.4.min.js"></script>
     <script src="/scripts/slick.min.js"></script>
     <script src="/scripts/scripts.js"></script>
+    <script src="/component/recipeListComponents.js"></script>
     <script>
         window.onload = function() {
             commonUtil.enableToRegBtn(true, function() {
                 location.href = '/recipe/viewInsertRecipe';
             });
+
+            httpRequest('POST', '/recipe/selectWrittenRecipeList', null, async function (success) {
+                const data = await success.json();
+
+                const writtenRecipeList = data['writtenRecipeList'];
+
+                for(let currentWrittenRecipeInfo of writtenRecipeList) {
+                    recipeListComponents.insertStep(currentWrittenRecipeInfo);
+                }
+
+            }, function (fail) {
+
+            })
         }
     </script>
 </head>
@@ -44,32 +58,8 @@
     <div class="wrap">
         <section>
             <div class="list-recipe">
-                <ul>
-                    <li>
-                        <a href="">
-                            <img src="/images/recipe/temp.png" alt="">
-                            <div>
-                                <p class="r-chef"><span>은영환</span> 요리사님</p>
-                                <p class="r-title">밥 맛 없을때, 입맛 떨어질 때 먹는 삼치 간장 조림</p>
-                                <div class="review-star">
-                                    <ul>
-                                        <li class="active"></li>
-                                        <li class="active"></li>
-                                        <li class="active"></li>
-                                        <li class="active"></li>
-                                        <li></li>
-                                    </ul>
-                                    <span>4.0</span>
-                                </div>
-                                <div class="list-tag">
-                                    <ul>
-                                        <li>#칼칼한</li>
-                                        <li>#깊은</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
+                <ul id="listRecipeUl">
+
                 </ul>
             </div>
         </section>

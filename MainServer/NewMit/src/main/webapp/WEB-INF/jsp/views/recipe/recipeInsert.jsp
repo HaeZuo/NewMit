@@ -32,7 +32,7 @@
     <script src="/scripts/jquery-2.2.4.min.js"></script>
     <script src="/scripts/slick.min.js"></script>
     <script src="/scripts/scripts.js"></script>
-    <script src="/component/recipeComponents.js"></script>
+    <script src="/component/recipeInsertComponents.js"></script>
     <script>
 
         window.onload = function() {
@@ -61,7 +61,7 @@
         }
 
         function stepInsert() {
-            recipeComponents.insertStep();
+            recipeInsertComponents.insertStep();
         }
 
         async function saveBtnClick() {
@@ -74,7 +74,7 @@
 
             const recipeStepInfoList = new Array();
             for(let currentStep of document.getElementById("recipeInsertStepsOl").children) {
-                const recipeStepInfoObject = await commonUtil.formToObjectWithImage(currentStep.getElementsByTagName("form")[0])
+                const recipeStepInfoObject = await commonUtil.formToObjectWithImage(currentStep.getElementsByTagName("form")[0]);
 
                 recipeStepInfoList.push(recipeStepInfoObject);
             }
@@ -84,9 +84,10 @@
             requestData['recipeStepInfoList'] = recipeStepInfoList;
 
             httpRequest('POST', '/recipe/insertRecipe', JSON.stringify(requestData), function(success) {
-
+                alert("레시피 등록을 성공했습니다.");
+                window.location.href = '/recipe/viewWrittenRecipeList';
             }, function(fail) {
-
+                alert("레시피 등록 실패");
             });
         }
 

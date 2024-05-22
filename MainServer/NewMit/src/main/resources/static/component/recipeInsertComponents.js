@@ -1,16 +1,16 @@
-const recipeComponents = {};
+const recipeInsertComponents = {};
 
-recipeComponents.recipeAddCnt = 0;
+recipeInsertComponents.recipeAddCnt = 0;
 
-recipeComponents.insertStep = function (e) {
-    const id = ++recipeComponents.recipeAddCnt;
+recipeInsertComponents.insertStep = function (e) {
+    const id = ++recipeInsertComponents.recipeAddCnt;
 
     if(e == null) {
         const recipeInsertStepsOl = document.getElementById("recipeInsertStepsOl");
-        recipeInsertStepsOl.insertAdjacentHTML('beforeend', recipeComponents.getStepElement(id));
+        recipeInsertStepsOl.insertAdjacentHTML('beforeend', recipeInsertComponents.getStepElement(id));
     } else {
         const recipeInsertStepsOl = document.getElementById("step" + e.getAttribute("componentId"));
-        recipeInsertStepsOl.insertAdjacentHTML('beforebegin', recipeComponents.getStepElement(id));
+        recipeInsertStepsOl.insertAdjacentHTML('beforebegin', recipeInsertComponents.getStepElement(id));
     }
 
 }
@@ -20,7 +20,7 @@ recipeComponents.insertStep = function (e) {
  * @param e
  * @param type default 1:위, 2:아래
  */
-recipeComponents.changeStepLocation = function(e, type) {
+recipeInsertComponents.changeStepLocation = function(e, type) {
     type = type == null ? 1 : type;
 
     const componentId = e.getAttribute("componentId");
@@ -52,7 +52,7 @@ recipeComponents.changeStepLocation = function(e, type) {
     }
 }
 
-recipeComponents.materialOnClick = function(e) {
+recipeInsertComponents.materialOnClick = function(e) {
     const componentId = e.getAttribute("componentId");
 
     if(!e.classList.contains("active")) {
@@ -66,7 +66,7 @@ recipeComponents.materialOnClick = function(e) {
     }
 }
 
-recipeComponents.toolOnClick = function(e) {
+recipeInsertComponents.toolOnClick = function(e) {
     const componentId = e.getAttribute("componentId");
 
     if(!e.classList.contains("active")) {
@@ -80,7 +80,7 @@ recipeComponents.toolOnClick = function(e) {
     }
 }
 
-recipeComponents.tipOnClick = function(e) {
+recipeInsertComponents.tipOnClick = function(e) {
     const componentId = e.getAttribute("componentId");
 
     if(!e.classList.contains("active")) {
@@ -94,7 +94,7 @@ recipeComponents.tipOnClick = function(e) {
     }
 }
 
-recipeComponents.timerOnClick = function(e) {
+recipeInsertComponents.timerOnClick = function(e) {
     const componentId = e.getAttribute("componentId");
 
     if(!e.classList.contains("active")) {
@@ -108,13 +108,13 @@ recipeComponents.timerOnClick = function(e) {
     }
 }
 
-recipeComponents.deleteStep = function(e) {
+recipeInsertComponents.deleteStep = function(e) {
     const componentId = e.getAttribute("componentId");
 
     document.getElementById("step" + componentId).remove();
 }
 
-recipeComponents.recipeStepImageOnChange = function (e) {
+recipeInsertComponents.recipeStepImageOnChange = function (e) {
     const componentId = e.getAttribute("componentId");
 
     const file = e.files[0]; // 선택된 파일
@@ -134,7 +134,7 @@ recipeComponents.recipeStepImageOnChange = function (e) {
     reader.readAsDataURL(file);
 }
 
-recipeComponents.getStepElement = function(id) {
+recipeInsertComponents.getStepElement = function(id) {
     let elementStr = `
                     <li id="step`+id+`">
                         <form>
@@ -142,18 +142,18 @@ recipeComponents.getStepElement = function(id) {
                                 <span>번째 단계</span>
                                 <ul>
                                     <li>
-                                        <a componentId="`+id+`" onclick="javascript:recipeComponents.changeStepLocation(this, 1)"><img src="/images/icons/recipe/ic-arrow-up.svg" alt=""></a>
+                                        <a componentId="`+id+`" onclick="javascript:recipeInsertComponents.changeStepLocation(this, 1)"><img src="/images/icons/recipe/ic-arrow-up.svg" alt=""></a>
                                     </li>
                                     <li>
-                                        <a componentId="`+id+`" onclick="javascript:recipeComponents.changeStepLocation(this, 2)"><img src="/images/icons/recipe/ic-arrow-down.svg" alt=""></a>
+                                        <a componentId="`+id+`" onclick="javascript:recipeInsertComponents.changeStepLocation(this, 2)"><img src="/images/icons/recipe/ic-arrow-down.svg" alt=""></a>
                                     </li>
                                     <li>
-                                        <a componentId="`+id+`" onclick="javascript:recipeComponents.insertStep(this)">
+                                        <a componentId="`+id+`" onclick="javascript:recipeInsertComponents.insertStep(this)">
                                             <img src="/images/icons/recipe/ic-add.svg" alt="">
                                         </a>
                                     </li>
                                     <li>
-                                        <a componentId="`+id+`" onclick="javascript:recipeComponents.deleteStep(this)">
+                                        <a componentId="`+id+`" onclick="javascript:recipeInsertComponents.deleteStep(this)">
                                             <img src="/images/icons/recipe/ic-delete.svg" alt="">
                                         </a>
                                     </li>
@@ -161,7 +161,7 @@ recipeComponents.getStepElement = function(id) {
                             </h3>
                             <div class="imageUploader">
                                 <label id="imageUploaderLabel` + id + `">
-                                    <input componentId="` + id + `" id="recipeStepImageInput` + id + `" name="recipeStepImage" onchange="javascript:recipeComponents.recipeStepImageOnChange(this)" type="file" accept="image/*" hidden>
+                                    <input componentId="` + id + `" id="recipeStepImageInput` + id + `" name="recipeStepImage" onchange="javascript:recipeInsertComponents.recipeStepImageOnChange(this)" type="file" accept="image/*" hidden>
                                     <i class="ic-camera"></i>
                                     <p>식자재 이미지를 추가해주세요</p>
                                 </label>
@@ -170,14 +170,14 @@ recipeComponents.getStepElement = function(id) {
                             <div class="ipt">
                                 <span>레시피 설명</span>
                                 <div>
-                                    <textarea name="recipeDescription` + id + `" id="recipeDescription` + id + `"></textarea>
+                                    <textarea name="recipeDescription" id="recipeDescription` + id + `"></textarea>
                                 </div>
                             </div>
                             <div class="btn-wrap">
-                                <label componentId="`+id+`" id="material` + id + `" for="materialDiv` + id +`" class="btn sm clear" onclick="javascript:recipeComponents.materialOnClick(this)">재료</label>
-                                <label componentId="`+id+`" id="tool` + id + `" for="tool" class="btn sm clear" onclick="javascript:recipeComponents.toolOnClick(this)">도구</label>
-                                <label componentId="`+id+`" id="tip` + id + `" for="tip" class="btn sm clear" onclick="javascript:recipeComponents.tipOnClick(this)">팁</label>
-                                <label componentId="`+id+`" id="timer` + id + `" for="timer" class="btn sm clear" onclick="javascript:recipeComponents.timerOnClick(this)">타이머</label>
+                                <label componentId="`+id+`" id="material` + id + `" for="materialDiv` + id +`" class="btn sm clear" onclick="javascript:recipeInsertComponents.materialOnClick(this)">재료</label>
+                                <label componentId="`+id+`" id="tool` + id + `" for="tool" class="btn sm clear" onclick="javascript:recipeInsertComponents.toolOnClick(this)">도구</label>
+                                <label componentId="`+id+`" id="tip` + id + `" for="tip" class="btn sm clear" onclick="javascript:recipeInsertComponents.tipOnClick(this)">팁</label>
+                                <label componentId="`+id+`" id="timer` + id + `" for="timer" class="btn sm clear" onclick="javascript:recipeInsertComponents.timerOnClick(this)">타이머</label>
                             </div>
                             
                             <div class="ipt" id="materialDiv` + id +`" style="display: none">
