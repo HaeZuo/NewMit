@@ -55,6 +55,37 @@
                 behavior: 'smooth'
             });
         }
+
+        function decrementTime(timeString) {
+            // HHMMSS 형태의 시간을 초 단위로 변환
+            let hours = parseInt(timeString.slice(0, 2), 10);
+            let minutes = parseInt(timeString.slice(2, 4), 10);
+            let seconds = parseInt(timeString.slice(4, 6), 10);
+            let totalSeconds = hours * 3600 + minutes * 60 + seconds;
+
+            // 1초씩 줄어드는 함수
+            function tick() {
+                if (totalSeconds <= 0) {
+                    console.log('00:00:00');
+                    clearInterval(interval);
+                    return;
+                }
+                totalSeconds -= 1;
+                let hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+                let minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+                let seconds = String(totalSeconds % 60).padStart(2, '0');
+                document.getElementById("hh").innerText = hours;
+                document.getElementById("mm").innerText = minutes;
+                document.getElementById("ss").innerText = seconds;
+            }
+
+            // 1초마다 tick 함수 실행
+            let interval = setInterval(tick, 1000);
+        }
+
+        // 사용 예시
+        decrementTime("000100"); // HHMMSS 형태의 시간
+
     </script>
 </head>
 <body>
@@ -77,9 +108,9 @@
                     </div>
                     <div class="r-step-timer">
                         <p>
-                            <span>00</span>
-                            <span>00</span>
-                            <span>00</span>
+                            <span id="hh">00</span>
+                            <span id="mm">00</span>
+                            <span id="ss">00</span>
                         </p>
                         <ul>
                             <li>
