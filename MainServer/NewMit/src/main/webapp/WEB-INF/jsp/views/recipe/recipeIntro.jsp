@@ -54,8 +54,8 @@
                 </div>
             </div>
             <div class="r-infor">
-                <h2 class="r-title">간단하게 만들 수 있는 탕수육</h2>
-                <p class="r-dscpt">등심으로 만든 맛있는 집탕수육! 중국집 못지 않게 맛있어요. 소고기나 삼겹살을 쓴 게 아니라 등심을 써서 더 경제적이고 가나다</p>
+                <h2 class="r-title"><c:out value="${detailRecipeInfo.RECIPE_NM}" /></h2>
+                <p class="r-dscpt"><c:out value="${detailRecipeInfo.RECIPE_EXPLANATION}" /></p>
                 <div>
                     <ul>
                         <li>
@@ -68,7 +68,7 @@
                         </li>
                         <li>
                             <img src="/images/icons/ic-star-empty.svg" alt="">
-                            <span>4.5 / 5</span>
+                            <span><c:out value="${detailRecipeInfo.RATING}" /> / 5</span>
                         </li>
                     </ul>
                 </div>
@@ -123,7 +123,7 @@
     <footer>
         <ul class="btn-wrap">
             <li><a href="" class="btn white">저장하기</a></li>
-            <li><a href="/recipe/recipe.html" class="btn primary">시작하기</a></li>
+            <li><a href="/recipe/viewRecipe?recipeNo=<c:out value="${detailRecipeInfo.RECIPE_NO}" />" class="btn primary">시작하기</a></li>
         </ul>
     </footer>
 </div>

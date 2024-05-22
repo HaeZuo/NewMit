@@ -14,7 +14,7 @@
 
 </head>
 
-        <div class="list-useByDate" onload="javascript:alert('test')">
+        <div class="list-useByDate" id="useByDateDiv">
             <h2><span>소비기한 임박 식자재</span></h2>
             <ul id="useByDateUl">
 
@@ -27,17 +27,21 @@
 
                 const data = await success.json();
 
-                for(let curExpirationDateImminent of data['expirationDateImminentList']) {
+                if(data['expirationDateImminentList'].length != 0) {
+                    for(let curExpirationDateImminent of data['expirationDateImminentList']) {
 
-                    document.getElementById("useByDateUl").insertAdjacentHTML('beforeend', `
-                        <li>
-                            <a href="#">
-                                <span><span>` + curExpirationDateImminent['REMAINING_EXPIRATION_DATE'] + `</span>일</span>
-                                <img src="data:image/jpeg;base64,` + curExpirationDateImminent['bannerImage'] + `" alt="">
-                                <p>` + curExpirationDateImminent['INGREDIENT_OWNED_NM'] + `</p>
-                            </a>
-                        </li>
-                    `);
+                        document.getElementById("useByDateUl").insertAdjacentHTML('beforeend', `
+                            <li>
+                                <a href="#">
+                                    <span><span>` + curExpirationDateImminent['REMAINING_EXPIRATION_DATE'] + `</span>일</span>
+                                    <img src="data:image/jpeg;base64,` + curExpirationDateImminent['bannerImage'] + `" alt="">
+                                    <p>` + curExpirationDateImminent['INGREDIENT_OWNED_NM'] + `</p>
+                                </a>
+                            </li>
+                        `);
+                    }
+                } else {
+                    document.getElementById("useByDateDiv").style.display = "none";
                 }
 
             }, function(fail) {

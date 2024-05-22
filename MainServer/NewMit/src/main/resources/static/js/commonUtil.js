@@ -144,6 +144,10 @@ commonUtil.enableToHeader = function(flag) {
     }
 }
 
+commonUtil.getHeaderHeight = function() {
+    return document.getElementById("commonHeader").offsetHeight;
+}
+
 commonUtil.getExtensionFromBase64 = function (base64String) {
     // 정규 표현식을 사용하여 데이터 URI에서 확장자 부분 추출
     var regex = /^data:image\/([a-z]+);base64,/;

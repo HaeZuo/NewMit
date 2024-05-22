@@ -70,6 +70,15 @@ public class RecipeController extends BaseService {
         return mav;
     }
 
+    @RequestMapping(value = "/recipe/viewRecipe")
+    public ModelAndView viewRecipe(HttpServletRequest request) throws IOException {
+        ModelAndView mav = new ModelAndView("/recipe/recipe");
+
+        String recipeNo = request.getParameter("recipeNo");
+
+        return mav;
+    }
+
     @RequestMapping(value = "/recipe/insertRecipe", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> insertRecipe(HttpServletRequest request, @RequestBody Map<String, Object> requestBody) {
