@@ -75,6 +75,7 @@ public class RecipeController extends BaseService {
         ModelAndView mav = new ModelAndView("/recipe/recipe");
 
         String recipeNo = request.getParameter("recipeNo");
+        mav.addObject("recipeStepList", convertListMapToJson(recipeService.getRecipeStepList(recipeNo)));
 
         return mav;
     }

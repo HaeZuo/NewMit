@@ -33,17 +33,38 @@
     <script src="/scripts/jquery-2.2.4.min.js"></script>
     <script src="/scripts/slick.min.js"></script>
     <script src="/scripts/scripts.js"></script>
+    <script src="/component/recipeComponents.js"></script>
+    <script src="/js/service-modal.js"></script>
     <script>
+        const recipeStepList = JSON.parse('<c:out value="${recipeStepList}" escapeXml="false" />');
+        let currentStepIndex = 1;
+
         window.onload = function () {
             commonUtil.enableToFooter(false);
 
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+            });
+
             document.getElementById("prevStepBtn").onclick = function () {
-                scrollIntoView(document.getElementById("li1"));
+                if(currentStepIndex > 1)
+                    scrollIntoView(recipeComponents.getStepElementByStepIndex(--currentStepIndex));
             }
 
             document.getElementById("nextStepBtn").onclick = function () {
-                scrollIntoView(document.getElementById("li2"));
+                if(currentStepIndex != recipeStepList.length) {
+                    scrollIntoView(recipeComponents.getStepElementByStepIndex(++currentStepIndex));
+                } else {
+                    serviceModal.reviewStar();
+                }
             }
+
+            for(let currentRecipeStep of recipeStepList) {
+                recipeComponents.stepAdd(currentRecipeStep);
+            }
+
         }
 
         function scrollIntoView(element) {
@@ -56,35 +77,8 @@
             });
         }
 
-        function decrementTime(timeString) {
-            // HHMMSS 형태의 시간을 초 단위로 변환
-            let hours = parseInt(timeString.slice(0, 2), 10);
-            let minutes = parseInt(timeString.slice(2, 4), 10);
-            let seconds = parseInt(timeString.slice(4, 6), 10);
-            let totalSeconds = hours * 3600 + minutes * 60 + seconds;
-
-            // 1초씩 줄어드는 함수
-            function tick() {
-                if (totalSeconds <= 0) {
-                    console.log('00:00:00');
-                    clearInterval(interval);
-                    return;
-                }
-                totalSeconds -= 1;
-                let hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
-                let minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
-                let seconds = String(totalSeconds % 60).padStart(2, '0');
-                document.getElementById("hh").innerText = hours;
-                document.getElementById("mm").innerText = minutes;
-                document.getElementById("ss").innerText = seconds;
-            }
-
-            // 1초마다 tick 함수 실행
-            let interval = setInterval(tick, 1000);
-        }
-
         // 사용 예시
-        decrementTime("000100"); // HHMMSS 형태의 시간
+        //decrementTime("000100"); // HHMMSS 형태의 시간
 
     </script>
 </head>
@@ -92,45 +86,8 @@
 <div class="wrap">
     <section>
         <div class="recipeUse">
-            <ol>
-                <li id="li1">
-                    <img src="/images/recipe/temp.png" alt="">
-                    <div>
-                        <p class="r-step-title">마른표고버섯 5개를 물에 충분히 불립니다.</p>
-                        <p class="r-step-dscpt">표고버섯은 생략 가능합니다.</p>
-                    </div>
-                </li>
-                <li id="li2">
-                    <img src="/images/recipe/temp.png" alt="">
-                    <div>
-                        <p class="r-step-title">마른표고버섯 5개를 물에 충분히 불립니다.</p>
-                        <p class="r-step-dscpt">표고버섯은 생략 가능합니다.</p>
-                    </div>
-                    <div class="r-step-timer">
-                        <p>
-                            <span id="hh">00</span>
-                            <span id="mm">00</span>
-                            <span id="ss">00</span>
-                        </p>
-                        <ul>
-                            <li>
-                                <a href="" class="btn square clear">
-                                    <img src="/images/recipe/timer/ic-pause.svg" alt="">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" class="btn square primary">
-                                    <img src="/images/recipe/timer/ic-start.svg" alt="">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" class="btn square clear">
-                                    <img src="/images/recipe/timer/ic-refresh.svg" alt="">
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+            <ol id="recipeUseOl">
+
             </ol>
         </div>
     </section>
@@ -140,38 +97,6 @@
             <li><a id="nextStepBtn" class="btn primary">다음단계</a></li>
         </ul>
     </footer>
-</div>
-
-<div class="modal">
-    <div class="modal-content">
-        <div class="modal-body">
-            <p>요리를 마치셨네요!</p>
-            <p>이번 레시피는 어떠셨나요?</p>
-            <div class="review-star">
-                <label>
-                    <input type="radio" name="review-star" hidden>
-                </label>
-                <label>
-                    <input type="radio" name="review-star" hidden>
-                </label>
-                <label>
-                    <input type="radio" name="review-star" hidden>
-                </label>
-                <label>
-                    <input type="radio" name="review-star" hidden>
-                </label>
-                <label>
-                    <input type="radio" name="review-star" hidden checked>
-                </label>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <div class="btn-wrap">
-                <a href="" class="btn">취소</a>
-                <a href="" class="btn primary">확인</a>
-            </div>
-        </div>
-    </div>
 </div>
 </body>
 </html>

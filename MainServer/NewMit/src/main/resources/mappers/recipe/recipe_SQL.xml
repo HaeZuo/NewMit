@@ -129,4 +129,16 @@
                  CAST(0.0 AS CHAR)
     </select>
 
+    <select id="selectRecipeStepList" parameterType="string" resultType="map">
+        /* mappers.recipe.selectRecipeStepList */
+        SELECT RECIPE_NO,
+               RECIPE_STEP_NO,
+               RECIPE_STEP_IMAGE_ID,
+               RECIPE_STEP_EXPLANATION,
+               RECIPE_STEP_TIPS,
+               RECIPE_STEP_TIMER
+        FROM TB_COOKING_PROCESS
+        WHERE RECIPE_NO = #{recipeNo}
+    </select>
+
 </mapper>

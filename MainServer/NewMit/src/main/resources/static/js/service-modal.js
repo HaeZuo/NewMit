@@ -1,0 +1,42 @@
+const serviceModal = {};
+
+serviceModal.reviewStar = function () {
+    const modalElement = `
+        <div class="modal" id="reviewStarModal">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>요리를 마치셨네요!</p>
+                    <p>이번 레시피는 어떠셨나요?</p>
+                    <div class="review-star">
+                        <label>
+                            <input type="radio" name="review-star" hidden>
+                        </label>
+                        <label>
+                            <input type="radio" name="review-star" hidden>
+                        </label>
+                        <label>
+                            <input type="radio" name="review-star" hidden>
+                        </label>
+                        <label>
+                            <input type="radio" name="review-star" hidden>
+                        </label>
+                        <label>
+                            <input type="radio" name="review-star" hidden checked>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-wrap">
+                        <a href="" class="btn">취소</a>
+                        <a href="" class="btn primary">확인</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    window.document.getElementsByTagName('body')[0].insertAdjacentHTML('beforeend', modalElement);
+
+    window.document.getElementById("reviewStarModal").style.display = 'block';
+
+}
