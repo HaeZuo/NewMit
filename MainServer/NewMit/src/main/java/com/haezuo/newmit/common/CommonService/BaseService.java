@@ -5,6 +5,7 @@ import com.haezuo.newmit.common.CommonDao.CommonDao;
 import com.haezuo.newmit.common.Util.CommonUtil;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -18,7 +19,8 @@ public class BaseService {
     @Resource(name="commonDao")
     private CommonDao commonDao;
 
-
+    @Value("${directory.fileDir}")
+    private String fileDir;
 
     public String selectDataBaseDate() {
         String result = "";
@@ -59,7 +61,7 @@ public class BaseService {
 
         // 파일로 저장
         String safeFileName = CommonUtil.getSafeFilename(fileNm);
-        String filePath = "C:\\NewMit\\SaveFile\\" + safeFileName + "." + fileExtension;
+        String filePath = fileDir + safeFileName + "." + fileExtension;
 
         try (FileOutputStream fos = new FileOutputStream(filePath)) {
             fos.write(decodedBytes);

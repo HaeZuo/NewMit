@@ -93,3 +93,6 @@ mybatis:
 jwt:
   issuer: HeoZuo
   secret_key: HeoZuo-NewMit
+
+directory:
+  fileDir: C:\NewMit\SaveFile
