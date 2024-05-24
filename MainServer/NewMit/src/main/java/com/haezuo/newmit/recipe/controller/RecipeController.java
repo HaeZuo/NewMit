@@ -41,11 +41,25 @@ public class RecipeController extends BaseService {
 
         Map<String, Object> condition = new HashMap<>();
         condition.put("userId", loginService.ConnectUserInfo(request, userInfo.KEY_USER_ID));
-        condition.put("userNm", loginService.ConnectUserInfo(request, userInfo.KEY_USER_NM));
 
         List<Map<String, Object>> writtenRecipeList = recipeService.getWrittenRecipeList(condition);
 
         result.put("writtenRecipeList", writtenRecipeList);
+
+        return result;
+    }
+
+    @RequestMapping(value = "/recipe/selectOptimalRecipeList", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> selectOptimalRecipeList(HttpServletRequest request) throws IOException {
+        Map<String, Object> result = new HashMap<>();
+
+        Map<String, Object> condition = new HashMap<>();
+        condition.put("userId", loginService.ConnectUserInfo(request, userInfo.KEY_USER_ID));
+
+        List<Map<String, Object>> optimalRecipeList = recipeService.getOptimalRecipeList(condition);
+
+        result.put("optimalRecipeList", optimalRecipeList);
 
         return result;
     }
@@ -78,6 +92,21 @@ public class RecipeController extends BaseService {
         mav.addObject("recipeStepList", convertListMapToJson(recipeService.getRecipeStepList(recipeNo)));
 
         return mav;
+    }
+
+    @RequestMapping(value = "/recipe/insertRecipeReview", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> insertRecipeReview(HttpServletRequest request, @RequestBody Map<String, Object> requestBody) {
+        Map<String, Object> result = new HashMap<>();
+
+        Map<String, Object> reviewInfo = new HashMap<>();
+        reviewInfo.put("userId", loginService.ConnectUserInfo(request, userInfo.KEY_USER_ID));
+        reviewInfo.put("recipeNo", requestBody.get("recipeNo"));
+        reviewInfo.put("ratingScore", requestBody.get("ratingScore"));
+
+        recipeService.insertRecipeReview(reviewInfo);
+
+        return result;
     }
 
     @RequestMapping(value = "/recipe/insertRecipe", method = RequestMethod.POST)

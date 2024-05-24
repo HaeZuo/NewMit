@@ -79,15 +79,38 @@
     <select id="selectWrittenRecipeList" parameterType="map" resultType="map">
         /* mappers.recipe.selectWrittenRecipeList */
         SELECT
-                TR.RECIPE_NO,
-                TMI.MB_NM,
-                TR.RECIPE_MAIN_IMAGE_ID,
-                TR.RECIPE_NM,
-                CAST(0.0 AS CHAR) RATING
+            TR.RECIPE_NO,
+            TMI.MB_NM,
+            TR.RECIPE_MAIN_IMAGE_ID,
+            TR.RECIPE_NM,
+            IFNULL(ROUND(AVG(TRR.RECIPE_RATING_SCORE), 1), 0.0) AS RATING
         FROM TB_RECIPE TR
-                INNER JOIN TB_MEMBERS_INFO TMI ON TR.MB_NO = TMI.MB_NO
-             -- INNER JOIN TB_RECIPE_RATING TRR ON TR.RECIPE_NO = TRR.RECIPE_NO
+                 INNER JOIN TB_MEMBERS_INFO TMI ON TR.MB_NO = TMI.MB_NO
+                 LEFT JOIN TB_RECIPE_RATING TRR ON TR.RECIPE_NO = TRR.RECIPE_NO
         WHERE TR.MB_NO = #{userId}
+        GROUP BY TR.RECIPE_NO,
+                 TMI.MB_NM,
+                 TR.RECIPE_MAIN_IMAGE_ID,
+                 TR.RECIPE_NM
+    </select>
+
+    <select id="selectOptimalRecipeList" parameterType="map" resultType="map">
+        /* mappers.recipe.selectOptimalRecipeList */
+        SELECT
+            TR.RECIPE_NO,
+            TMI.MB_NM,
+            TR.RECIPE_MAIN_IMAGE_ID,
+            TR.RECIPE_NM,
+            IFNULL(ROUND(AVG(TRR.RECIPE_RATING_SCORE), 1), 0.0) AS RATING
+        FROM TB_RECIPE TR
+                 INNER JOIN TB_MEMBERS_INFO TMI ON TR.MB_NO = TMI.MB_NO
+                 LEFT JOIN TB_RECIPE_RATING TRR ON TR.RECIPE_NO = TRR.RECIPE_NO
+        WHERE 1=1
+        <!-- AND TR.MB_NO = #{userId} -->
+        GROUP BY TR.RECIPE_NO,
+                 TMI.MB_NM,
+                 TR.RECIPE_MAIN_IMAGE_ID,
+                 TR.RECIPE_NM
     </select>
 
     <select id="selectWrittenRecipeCount" parameterType="map" resultType="string">
@@ -106,7 +129,7 @@
             TR.RECIPE_EXPLANATION, -- 레시피 설명
             TR.RECIPE_CRITERIA_BY_COOKING_SERVING, -- 몇 인분
             TR.RECIPE_CRITERIA_BY_COOKING_TIME, -- 소요시간
-            CAST(0.0 AS CHAR) AS RATING, -- 평점
+            IFNULL(ROUND(AVG(TRR.RECIPE_RATING_SCORE), 1), 0.0) AS RATING, -- 평점
             CASE GROUP_CONCAT(TCP.RECIPE_STEP_INGREDIENTS SEPARATOR ',')
                 WHEN ',' THEN ''
                 ELSE GROUP_CONCAT(TCP.RECIPE_STEP_INGREDIENTS SEPARATOR ',')
@@ -117,16 +140,15 @@
                 END AS RECIPE_STEP_TOOLS -- 도구 문자열
 
         FROM    TB_RECIPE TR
-                    -- INNER JOIN TB_RECIPE_RATING TRR ON TR.RECIPE_NO = TRR.RECIPE_NO
+                    LEFT JOIN TB_RECIPE_RATING TRR ON TR.RECIPE_NO = TRR.RECIPE_NO
                     INNER JOIN TB_COOKING_PROCESS TCP ON TR.RECIPE_NO = TCP.RECIPE_NO
-        WHERE TR.RECIPE_NO = #{recipeNo}
+        WHERE TR.RECIPE_NO = '2'
         GROUP BY TR.RECIPE_NO,
                  TR.RECIPE_MAIN_IMAGE_ID,
                  TR.RECIPE_NM,
                  TR.RECIPE_EXPLANATION,
                  TR.RECIPE_CRITERIA_BY_COOKING_SERVING,
-                 TR.RECIPE_CRITERIA_BY_COOKING_TIME,
-                 CAST(0.0 AS CHAR)
+                 TR.RECIPE_CRITERIA_BY_COOKING_TIME
     </select>
 
     <select id="selectRecipeStepList" parameterType="string" resultType="map">
@@ -140,5 +162,34 @@
         FROM TB_COOKING_PROCESS
         WHERE RECIPE_NO = #{recipeNo}
     </select>
+
+    <select id="selectNextRecipeStepNo" parameterType="string" resultType="string">
+        /* mappers.recipe.selectNextRecipeStepNo */
+        SELECT IFNULL(MAX(RECIPE_RATING_NO), 0) + 1
+        FROM TB_RECIPE_RATING
+        WHERE RECIPE_NO = #{recipeNo}
+    </select>
+
+    <insert id="insertRecipeReview" parameterType="map">
+        /* mappers.recipe.insertRecipeReview */
+        INSERT INTO TB_RECIPE_RATING(RECIPE_NO,
+                                     RECIPE_RATING_NO,
+                                     MB_NO,
+                                     RECIPE_RATING_SCORE,
+                                     RECIPE_RATING_REGISTER_DATE,
+                                     RECIPE_RATING_REGISTER_IP,
+                                     RECIPE_RATING_UPDATE_DATE,
+                                     RECIPE_RATING_UPDATE_IP)
+        VALUES(
+                #{recipeNo},
+                #{recipeRatingNo},
+                #{userId},
+                #{ratingScore},
+                NOW(),
+                #{userIp},
+                NOW(),
+                #{userIp}
+              )
+    </insert>
 
 </mapper>

@@ -65,6 +65,16 @@ public class RecipeService extends BaseService {
         }
     }
 
+    public void insertRecipeReview(Map<String, Object> reviewInfo) {
+        reviewInfo.put("userIp", CommonUtil.getUserIp());
+
+        String recipeNo = (String) reviewInfo.get("recipeNo");
+        String recipeRatingNo = commonDao.selectOne("mappers.recipe.selectNextRecipeStepNo", recipeNo);
+
+        reviewInfo.put("recipeRatingNo", recipeRatingNo);
+        commonDao.insert("mappers.recipe.insertRecipeReview", reviewInfo);
+    }
+
     public List<Map<String, Object>> getWrittenRecipeList(Map<String, Object> condition) throws IOException {
         List<Map<String, Object>> writtenRecipeList;
 
@@ -77,6 +87,20 @@ public class RecipeService extends BaseService {
         }
 
         return writtenRecipeList;
+    }
+
+    public List<Map<String, Object>> getOptimalRecipeList(Map<String, Object> condition) throws IOException {
+        List<Map<String, Object>> optimalRecipeList;
+
+        optimalRecipeList = commonDao.selectList("mappers.recipe.selectOptimalRecipeList", condition);
+
+        for(Map<String, Object> currentOptimalRecipe : optimalRecipeList) {
+            File mainImage = getFileByFileId((String) currentOptimalRecipe.get("RECIPE_MAIN_IMAGE_ID"));
+
+            currentOptimalRecipe.put("mainImage", CommonUtil.convertFileToBase64(mainImage));
+        }
+
+        return optimalRecipeList;
     }
 
     public String getWrittenRecipeCount(Map<String, Object> condition) {

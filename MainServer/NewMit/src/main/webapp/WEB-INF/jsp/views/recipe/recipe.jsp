@@ -53,11 +53,23 @@
                     scrollIntoView(recipeComponents.getStepElementByStepIndex(--currentStepIndex));
             }
 
-            document.getElementById("nextStepBtn").onclick = function () {
+            document.getElementById("nextStepBtn").onclick = async function () {
                 if(currentStepIndex != recipeStepList.length) {
                     scrollIntoView(recipeComponents.getStepElementByStepIndex(++currentStepIndex));
                 } else {
-                    serviceModal.reviewStar();
+                    const review = await serviceModal.reviewStar();
+
+                    if(review) {
+                        const reviewInfo = new Object();
+                        reviewInfo['recipeNo'] = commonUtil.getParameter("recipeNo");
+                        reviewInfo['ratingScore'] = review;
+
+                        httpRequest('POST', '/recipe/insertRecipeReview', JSON.stringify(reviewInfo), function (success) {
+                            location.href = "/home"
+                        }, function (fail) {
+                            alert("등록 실패!")
+                        });
+                    }
                 }
             }
 
@@ -76,9 +88,6 @@
                 behavior: 'smooth'
             });
         }
-
-        // 사용 예시
-        //decrementTime("000100"); // HHMMSS 형태의 시간
 
     </script>
 </head>

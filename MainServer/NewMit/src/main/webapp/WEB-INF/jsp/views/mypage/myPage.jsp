@@ -71,13 +71,13 @@
                 <li>
                     <a href="">
                         <p>저장한 레시피</p>
-                        <span>21</span>
+                        <span>0</span>
                     </a>
                 </li>
                 <li>
                     <a href="">
                         <p>내가 본 레시피</p>
-                        <span>21</span>
+                        <span>0</span>
                     </a>
                 </li>
                 <li>
