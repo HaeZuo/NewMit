@@ -21,16 +21,16 @@
             </ul>
         </div>
         <script>
+            if(userInfo) {
+                document.getElementById("useByDateUl").innerHTML = ``;
+                httpRequest('POST', '/inqredients/selectExpirationDateImminentList', null, async function(success) {
 
-            document.getElementById("useByDateUl").innerHTML = ``;
-            httpRequest('POST', '/inqredients/selectExpirationDateImminentList', null, async function(success) {
+                    const data = await success.json();
 
-                const data = await success.json();
+                    if(data['expirationDateImminentList'].length != 0) {
+                        for(let curExpirationDateImminent of data['expirationDateImminentList']) {
 
-                if(data['expirationDateImminentList'].length != 0) {
-                    for(let curExpirationDateImminent of data['expirationDateImminentList']) {
-
-                        document.getElementById("useByDateUl").insertAdjacentHTML('beforeend', `
+                            document.getElementById("useByDateUl").insertAdjacentHTML('beforeend', `
                             <li>
                                 <a href="#">
                                     <span><span>` + curExpirationDateImminent['REMAINING_EXPIRATION_DATE'] + `</span>일</span>
@@ -39,12 +39,13 @@
                                 </a>
                             </li>
                         `);
+                        }
+                    } else {
+                        document.getElementById("useByDateDiv").style.display = "none";
                     }
-                } else {
-                    document.getElementById("useByDateDiv").style.display = "none";
-                }
 
-            }, function(fail) {
-               alert("에러!");
-            });
+                }, function(fail) {
+                    alert("에러!");
+                });
+            }
         </script>

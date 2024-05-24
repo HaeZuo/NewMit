@@ -62,7 +62,7 @@ spring:
               - account_email
           naver:
             client-id:
-            client-secret: 
+            client-secret:
             scope:
               - name
               - email
@@ -95,4 +95,4 @@ jwt:
   secret_key: HeoZuo-NewMit
 
 directory:
-  fileDir: C:\NewMit\SaveFile
+  fileDir: C:\NewMit\SaveFile\

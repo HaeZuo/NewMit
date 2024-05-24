@@ -18,7 +18,7 @@
                 console.log(userInfo)
                 // document.getElementById("userInfo").setAttribute("value", JSON.stringify(userInfo));
             }, function (fail) {
-
+                location.href = "/login";
             });
         })();
     </script>
