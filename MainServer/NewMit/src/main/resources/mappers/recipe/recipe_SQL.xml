@@ -142,7 +142,7 @@
         FROM    TB_RECIPE TR
                     LEFT JOIN TB_RECIPE_RATING TRR ON TR.RECIPE_NO = TRR.RECIPE_NO
                     INNER JOIN TB_COOKING_PROCESS TCP ON TR.RECIPE_NO = TCP.RECIPE_NO
-        WHERE TR.RECIPE_NO = '2'
+        WHERE TR.RECIPE_NO = #{recipeNo}
         GROUP BY TR.RECIPE_NO,
                  TR.RECIPE_MAIN_IMAGE_ID,
                  TR.RECIPE_NM,

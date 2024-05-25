@@ -94,3 +94,9 @@ dependencyManagement {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+bootWar {
+    archiveBaseName = "NewMit"
+    archiveFileName = "NewMit.war"
+    archiveVersion = "0.0.0"
+}
