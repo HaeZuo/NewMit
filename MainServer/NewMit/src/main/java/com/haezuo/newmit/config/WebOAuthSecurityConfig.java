@@ -7,6 +7,8 @@ import com.haezuo.newmit.config.oauth.OAuth2UserCustomService;
 import com.haezuo.newmit.login.repository.RefreshTokenRepository;
 import com.haezuo.newmit.login.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class WebOAuthSecurityConfig {
+
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     private final OAuth2UserCustomService oAuth2UserCustomService;
     private final TokenProvider tokenProvider;
@@ -79,6 +83,9 @@ public class WebOAuthSecurityConfig {
 
     @Bean
     public OAuth2SuccessHandler oAuth2SuccessHandler() {
+        
+        log.debug("로그 성공");
+        
         // OAuth2 로그인 성공 핸들러 설정
         return new OAuth2SuccessHandler(tokenProvider,
                 refreshTokenRepository,
