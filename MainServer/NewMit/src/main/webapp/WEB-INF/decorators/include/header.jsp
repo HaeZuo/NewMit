@@ -18,7 +18,13 @@
                 console.log(userInfo)
                 // document.getElementById("userInfo").setAttribute("value", JSON.stringify(userInfo));
             }, function (fail) {
-                // location.href = "/login";
+                httpRequest('DELETE','/api/refresh-token', null, function() {
+                    // 로컬 스토리지에 저장된 액세스 토큰을 삭제
+                    localStorage.removeItem('access_token');
+
+                    // 쿠키에 저장된 리프레시 토큰을 삭제
+                    deleteCookie('refresh_token');
+                });
             });
         })();
     </script>
