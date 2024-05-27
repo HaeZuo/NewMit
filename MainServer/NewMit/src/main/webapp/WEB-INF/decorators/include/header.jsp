@@ -24,6 +24,7 @@
 
                     // 쿠키에 저장된 리프레시 토큰을 삭제
                     deleteCookie('refresh_token');
+                    window.location.refresh();
                 });
             });
         })();
