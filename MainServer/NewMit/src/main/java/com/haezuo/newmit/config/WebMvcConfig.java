@@ -2,6 +2,7 @@ package com.haezuo.newmit.config;
 
 import com.haezuo.newmit.config.handler.CustomHandlerInterceptor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
