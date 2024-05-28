@@ -2,6 +2,7 @@ package com.haezuo.newmit.config;
 
 import com.haezuo.newmit.config.jwt.TokenProvider;
 import com.haezuo.newmit.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
+import com.haezuo.newmit.config.oauth.OAuth2FailureHandler;
 import com.haezuo.newmit.config.oauth.OAuth2SuccessHandler;
 import com.haezuo.newmit.config.oauth.OAuth2UserCustomService;
 import com.haezuo.newmit.login.repository.RefreshTokenRepository;
@@ -92,6 +93,12 @@ public class WebOAuthSecurityConfig {
                 oAuth2AuthorizationRequestBasedOnCookieRepository(),
                 userService
         );
+    }
+
+    @Bean
+    public OAuth2FailureHandler oAuth2FailureHandler() {
+        // OAuth2 로그인 실패 핸들러 설정
+        return new OAuth2FailureHandler();
     }
 
     @Bean
