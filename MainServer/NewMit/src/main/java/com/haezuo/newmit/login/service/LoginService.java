@@ -69,6 +69,9 @@ public class LoginService {
     public String ConnectUserInfo(HttpServletRequest request, String key) {
         String token = new TokenUtil().getRequestToken(request);
 
+        if(token == null || token.equals("null"))
+            return null;
+
         String result = "";
 
         switch (key) {

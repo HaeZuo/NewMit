@@ -12,22 +12,22 @@
     <!-- 헤더! <input type="text" id="userInfo"> -->
     <script>
         let userInfo = "";
-        (async function() {
-            await Async.httpRequest('POST', '/api/user/currentUserName', null, async function (success) {
-                userInfo = await JSON.parse(success.response);
-                console.log(userInfo)
-                // document.getElementById("userInfo").setAttribute("value", JSON.stringify(userInfo));
-            }, function (fail) {
-                httpRequest('DELETE','/api/refresh-token', null, function() {
-                    // 로컬 스토리지에 저장된 액세스 토큰을 삭제
-                    localStorage.removeItem('access_token');
+            (async function() {
+                await Async.httpRequest('POST', '/api/user/currentUserName', null, async function (success) {
+                    userInfo = await JSON.parse(success.response);
+                    console.log(userInfo)
+                    // document.getElementById("userInfo").setAttribute("value", JSON.stringify(userInfo));
+                }, function (fail) {
+                    httpRequest('DELETE','/api/refresh-token', null, function() {
+                        // 로컬 스토리지에 저장된 액세스 토큰을 삭제
+                        localStorage.removeItem('access_token');
 
-                    // 쿠키에 저장된 리프레시 토큰을 삭제
-                    deleteCookie('refresh_token');
-                    window.location.refresh();
+                        // 쿠키에 저장된 리프레시 토큰을 삭제
+                        deleteCookie('refresh_token');
+                        window.location.refresh();
+                    });
                 });
-            });
-        })();
+            })();
     </script>
 
     <header id="commonHeader">
