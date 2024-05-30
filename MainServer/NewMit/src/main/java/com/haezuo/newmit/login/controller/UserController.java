@@ -31,7 +31,7 @@ public class UserController {
 
     @PostMapping("/api/user/currentUserName")
     @ResponseBody
-    public Map<String, Object> currentUserName(HttpServletRequest request) {
+    public Map<String, Object> currentUserName(HttpServletRequest request) throws Exception{
         Map<String, Object> result = new HashMap<>();
 
         result.put(userInfo.KEY_USER_NM, loginService.ConnectUserInfo(request, userInfo.KEY_USER_NM));
