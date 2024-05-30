@@ -32,6 +32,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 
+import static com.haezuo.newmit.common.Util.CommonUtil.extractExtension;
+import static com.haezuo.newmit.common.Util.CommonUtil.imageToBase64;
+
 @Service
 public class ingredientsService extends BaseService {
 
@@ -262,7 +265,30 @@ public class ingredientsService extends BaseService {
                         .collect(Collectors.toList()).get(0).get("display_name");
                 detectionInfo.put("detectionClasseName", curDisplayName);
 
-                detectionInfo.put("detectionBannerImage", CommonUtil.convertFileToBase64(CommonUtil.convertMultipartFileToFile(uploadfile)));
+                // -- 이미지 자르기 Begin --
+                int imageWidth = image.getWidth();
+                int imageHeight = image.getHeight();
+
+                // 절대적 픽셀 좌표로 변환
+                int x1 = (int) (detectionBoxes.get(idx).get(0) * imageWidth);
+                int x2 = (int) (detectionBoxes.get(idx).get(1) * imageWidth);
+                int x3 = (int) (detectionBoxes.get(idx).get(2) * imageWidth);
+                int x4 = (int) (detectionBoxes.get(idx).get(3) * imageWidth);
+
+                // 자를 영역 정의 (최소 x, 전체 높이 사용)
+                int cropX = Math.min(Math.min(x1, x2), Math.min(x3, x4));
+                int cropWidth = Math.max(Math.max(x1, x2), Math.max(x3, x4)) - cropX;
+                int cropY = 0; // 이미지의 최상단에서 시작
+                int cropHeight = imageHeight; // 이미지의 전체 높이
+
+                // 이미지 자르기
+                BufferedImage croppedImage = image.getSubimage(cropX, cropY, cropWidth, cropHeight);
+
+                String resuleImage = imageToBase64(croppedImage, extractExtension(uploadfile));
+                // -- 이미지 자르기 End --
+
+                // detectionInfo.put("detectionBannerImage", CommonUtil.convertFileToBase64(CommonUtil.convertMultipartFileToFile(uploadfile)));
+                detectionInfo.put("detectionBannerImage", resuleImage);
 
                 if(detectionResult.size() == 0) {
                     detectionResult.add(detectionInfo);

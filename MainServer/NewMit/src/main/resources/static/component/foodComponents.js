@@ -97,7 +97,7 @@ foodInsertArea.createFoodInsertArea = function(divElement, numId, foodIngredient
 
 foodInsertArea.setBannerImage = function(numId, src) {
     document.getElementById("foodIngredientsImageBanner" + numId).src = src;
-    document.getElementById("foodIngredientsImageBanner" + numId).style.display = ""; // 첨부한 이미지를 보여주도록
+    document.getElementById("foodIngredientsImageBanner" + numId).style.display = "block"; // 첨부한 이미지를 보여주도록
     document.getElementById("imageUploaderLabel" + numId).style.display = "none"; // 첨부할 경우 첨부요청 영역 제거
 }
 

@@ -57,6 +57,7 @@
                     addBtnClick();
 
                     foodInsertArea.setBannerImage(foodInsertAreaSequence, "data:image/jpeg;base64," + curObjectDetection['detectionBannerImage']);
+
                     foodInsertArea.setName(foodInsertAreaSequence, curObjectDetection['detectionClasseName']);
                 }
             }

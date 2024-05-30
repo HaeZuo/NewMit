@@ -126,4 +126,22 @@ public class CommonUtil {
         }
     }
 
+    public static String extractExtension(MultipartFile file) {
+        String originalFilename = file.getOriginalFilename();
+        if (originalFilename != null && !originalFilename.isEmpty()) {
+            int lastIndex = originalFilename.lastIndexOf('.');
+            if (lastIndex >= 0) {
+                return originalFilename.substring(lastIndex + 1);
+            }
+        }
+        return null; // 확장자를 찾을 수 없는 경우
+    }
+
+    public static String imageToBase64(BufferedImage image, String formatName) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(image, formatName, baos);
+        byte[] bytes = baos.toByteArray();
+        return Base64.getEncoder().encodeToString(bytes);
+    }
+
 }
