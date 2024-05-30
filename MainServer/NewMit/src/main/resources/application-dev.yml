@@ -64,8 +64,8 @@ spring:
               - profile_nickname
               - account_email
           naver:
-            client-id:
-            client-secret: 
+            client-id: 8l3bkUgi2aBZqcf4regu
+            client-secret: iSIL1ATOGf
             scope:
               - name
               - email
@@ -104,3 +104,7 @@ jwt:
 
 directory:
   fileDir: /NewMit/SaveFile/
+
+link:
+  object-detection:
+    api-url:

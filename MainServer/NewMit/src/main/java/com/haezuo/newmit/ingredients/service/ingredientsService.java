@@ -1,6 +1,5 @@
 package com.haezuo.newmit.ingredients.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.haezuo.newmit.common.CommonDao.CommonDao;
 import com.haezuo.newmit.common.CommonService.BaseService;
@@ -10,12 +9,12 @@ import com.haezuo.newmit.common.Value.CommonCode;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +39,9 @@ public class ingredientsService extends BaseService {
 
     @Resource(name="commonDao")
     private CommonDao commonDao;
+
+    @Value("${link.object-detection.api-url}")
+    private String objectDetectionApiUrl;
 
     @Autowired
     private JsonLoader jsonLoader;
@@ -192,7 +194,7 @@ public class ingredientsService extends BaseService {
         // Json 문자열 출력
         // System.out.println(studentJson);
 
-        URL url = new URL("http://223.130.138.103:8501/v1/models/newmit_model:predict"); // 호출할 외부 API 를 입력한다.
+        URL url = new URL(objectDetectionApiUrl); // 호출할 외부 API 를 입력한다.
         HttpURLConnection conn = null;
         OutputStreamWriter os = null;
         BufferedReader in = null;

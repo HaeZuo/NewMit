@@ -21,7 +21,7 @@ spring:
 
   # DB Connection Info
   datasource:
-    url:
+    url: 
     username: NMu
     password: 1q2w3e4r!!
     driver-class-name: com.mysql.jdbc.Driver
@@ -104,3 +104,7 @@ jwt:
 
 directory:
   fileDir: C:\NewMit\SaveFile\
+
+link:
+  object-detection:
+    api-url:
