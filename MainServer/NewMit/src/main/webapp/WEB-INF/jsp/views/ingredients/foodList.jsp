@@ -59,7 +59,7 @@
                         let tmpSrc = "data:image/jpeg;base64," + curIngredientsOwned['bannerImage'];
 
                         eleStr += '         <li>';
-                        eleStr += '             <a href="#">';
+                        eleStr += '             <a href="/ingredients/updateView?ingredientOwnedNo=1">';
                         eleStr += '                 <img src="'+tmpSrc+'" alt="">';
                         eleStr += '                 <div>';
                         eleStr += '                     <p><span class="f-name">' + curIngredientsOwned['INGREDIENT_OWNED_NM'] + '</span><span class="f-size">' + curIngredientsOwned['INGREDIENT_OWNED_QOW'] + '</span></p>';

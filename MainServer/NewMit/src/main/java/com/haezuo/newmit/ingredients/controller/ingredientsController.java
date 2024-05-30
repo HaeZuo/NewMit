@@ -76,6 +76,16 @@ public class ingredientsController extends BaseService {
         return mav;
     }
 
+    @RequestMapping(value = "/ingredients/updateView", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView viewIngredientsUpdate() {
+        ModelAndView mav = new ModelAndView("/ingredients/foodUpdate");
+
+        mav.addObject("foodIngredientsTypeCodeList", convertListMapToJson(new CommonCode().getFoodIngredientsTypeCodeList()));
+
+        return mav;
+    }
+
     @RequestMapping(value = "/ingredients/saveInqredients", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> saveInqredients(HttpServletRequest request, @RequestBody List<Map<String, Object>> requestData) {
