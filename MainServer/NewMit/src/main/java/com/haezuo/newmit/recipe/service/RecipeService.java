@@ -32,7 +32,7 @@ public class RecipeService extends BaseService {
         Map<String, Object> recipeMainInfo = new HashMap<>();
         String mbNo = connectUserInfo.get(userInfo.KEY_USER_ID).toString();
         recipeMainInfo.put("mbNo", mbNo);
-        recipeMainInfo.put("recipeNo", commonDao.selectOne("mappers.recipe.selectNextRecipeNo", mbNo));
+        recipeMainInfo.put("recipeNo", commonDao.selectOne("mappers.recipe.selectNextRecipeNo"));
         recipeMainInfo.put("recipeNm", recipeInfo.get("recipeTitle"));
         recipeMainInfo.put("recipeMainImageId", imgId);
         recipeMainInfo.put("recipeExplanation", recipeInfo.get("recipeMainDescription"));

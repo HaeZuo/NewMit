@@ -37,11 +37,10 @@
         )
     </insert>
 
-    <select id="selectNextRecipeNo" parameterType="string" resultType="string">
+    <select id="selectNextRecipeNo" resultType="string">
         /* mappers.recipe.selectNextRecipeNo */
         SELECT IFNULL(MAX(RECIPE_NO), 0) + 1
         FROM TB_RECIPE
-        /*WHERE MB_NO = #{mbNo}*/
     </select>
 
     <insert id="insertCookingProcess" parameterType="map">

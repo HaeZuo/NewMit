@@ -2,6 +2,7 @@ package com.haezuo.newmit.recipe.controller;
 
 
 import com.haezuo.newmit.common.CommonService.BaseService;
+import com.haezuo.newmit.common.Util.CommonUtil;
 import com.haezuo.newmit.common.constants.userInfo;
 import com.haezuo.newmit.login.service.LoginService;
 import com.haezuo.newmit.recipe.service.RecipeService;
@@ -77,7 +78,7 @@ public class RecipeController extends BaseService {
 
         Map<String, Object> condition = new HashMap<>();
         condition.put("recipeNo", request.getParameter("recipeNo"));
-        condition.put("mbNo", request.getParameter("mbNo"));
+        condition.put("mbNo", CommonUtil.isNull(request.getParameter("mbNo")) ? loginService.ConnectUserInfo(request, userInfo.KEY_USER_ID) : request.getParameter("mbNo"));
 
         Map<String, Object> detailRecipeInfo = recipeService.getDetailRecipeInfo(condition);
 

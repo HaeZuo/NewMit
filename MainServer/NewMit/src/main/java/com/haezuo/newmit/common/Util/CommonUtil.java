@@ -144,4 +144,12 @@ public class CommonUtil {
         return Base64.getEncoder().encodeToString(bytes);
     }
 
+    public static boolean isNull(String str) {
+        if("undefined".equals(str) || str == null || "".equals(str)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
