@@ -71,23 +71,47 @@ public class TokenProvider {
 
     // 토큰에서 사용자 아이디 가져오기
     public Long getUserId(String token) {
-        Claims claims = getClaims(token);
+        Claims claims;
+        try {
+            claims = getClaims(token);
+        } catch (Exception e) {
+            claims = null;
+        }
+
         return claims.get(userInfo.KEY_USER_ID, Long.class);
     }
 
     // 토큰에서 사용자 아이디 가져오기
     public String getUserNm(String token) {
-        Claims claims = getClaims(token);
+        Claims claims;
+        try {
+            claims = getClaims(token);
+        } catch (Exception e) {
+            return null;
+        }
+
         return claims.get(userInfo.KEY_USER_NM, String.class);
     }
 
     public String getUserMail(String token) {
-        Claims claims = getClaims(token);
+        Claims claims;
+        try {
+            claims = getClaims(token);
+        } catch (Exception e) {
+            return null;
+        }
+
         return claims.get(userInfo.KEY_USER_MAIL, String.class);
     }
 
     public String getUserOAuthProvider(String token) {
-        Claims claims = getClaims(token);
+        Claims claims;
+        try {
+            claims = getClaims(token);
+        } catch (Exception e) {
+            return null;
+        }
+
         return claims.get(userInfo.KEY_USER_O_AUTH_PROVIDER, String.class);
     }
 

@@ -43,29 +43,15 @@
         window.onload = function () {
             commonUtil.enableToFooter(false);
 
-            addBtnClick();
+            // 초기화
+            document.getElementById("foodInsertAreaList").innerHTML = '';
 
-            // 객체 인식으로 들어왔는지
-            if(Object.getPrototypeOf(parent).constructor.name == 'ModalPopup') {
-
-                // 초기화
-                document.getElementById("foodInsertAreaList").innerHTML = '';
-
-                const objectDetection = parent.data['objectDetection'];
-
-                for(let curObjectDetection of objectDetection) {
-                    addBtnClick();
-
-                    foodInsertArea.setBannerImage(foodInsertAreaSequence, "data:image/jpeg;base64," + curObjectDetection['detectionBannerImage']);
-
-                    foodInsertArea.setName(foodInsertAreaSequence, curObjectDetection['detectionClasseName']);
-                }
-            }
-        }
-
-        function addBtnClick() {
+            const ingredientsDetailInfo = JSON.parse('<c:out value="${ingredientsDetailInfo}" escapeXml="false" />');
 
             foodInsertArea.createFoodInsertArea(document.getElementById("foodInsertAreaList"), ++foodInsertAreaSequence, foodIngredientsTypeCodeList);
+            foodInsertArea.setBannerImage(foodInsertAreaSequence, "data:image/jpeg;base64," + ingredientsDetailInfo['foodIngredientsImageBanner']);
+            foodInsertArea.setName(foodInsertAreaSequence, ingredientsDetailInfo['INGREDIENT_OWNED_NM']);
+            foodInsertArea.setIngredientsType(foodInsertAreaSequence, ingredientsDetailInfo['INGREDIENT_OWNED_TYPE'])
         }
 
         async function saveBtnClick() {
@@ -104,7 +90,6 @@
                     window.location.href = "/home"
                 }
 
-
                 window.parent.modalClose();
             }, function (fail) {
                 alert("저장 실패.");
@@ -119,9 +104,6 @@
         <div id="foodInsertAreaList">
 
         </div>
-        <div>
-            <input type="button" value="addBtn" id="addBtn" onclick="javascript:addBtnClick();">
-        </div>
     </section>
     <footer>
         <ul class="btn-wrap">
@@ -129,19 +111,7 @@
             <li><a href="#" class="btn primary" onclick="javascript:saveBtnClick();">저장</a></li>
         </ul>
     </footer>
-<div class="modal">
-    <div class="modal-content">
-        <div class="modal-body">
-            <p>이미지를 삭제하시겠습니까?</p>
-        </div>
-        <div class="modal-footer">
-            <div class="btn-wrap">
-                <a href="" class="btn">취소</a>
-                <a href="" class="btn primary">확인</a>
-            </div>
-        </div>
-    </div>
-</div>
+
 <div class="modal">
     <div class="modal-content">
         <div class="modal-body">

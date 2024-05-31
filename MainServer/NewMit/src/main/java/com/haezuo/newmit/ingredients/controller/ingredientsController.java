@@ -78,9 +78,15 @@ public class ingredientsController extends BaseService {
 
     @RequestMapping(value = "/ingredients/updateView", method = RequestMethod.GET)
     @ResponseBody
-    public ModelAndView viewIngredientsUpdate() {
+    public ModelAndView viewIngredientsUpdate(HttpServletRequest request) throws IOException {
         ModelAndView mav = new ModelAndView("/ingredients/foodUpdate");
 
+        Map<String, Object> condition = new HashMap<>();
+        condition.put("userId", loginService.ConnectUserInfo(request, userInfo.KEY_USER_ID));
+        condition.put("ingredientOwnedNo", request.getParameter("ingredientOwnedNo"));
+        Map<String, Object> ingredientsDetailInfo = ingredientsService.getIngredientsDetailInfo(condition);
+
+        mav.addObject("ingredientsDetailInfo", convertListMapToJson(ingredientsDetailInfo));
         mav.addObject("foodIngredientsTypeCodeList", convertListMapToJson(new CommonCode().getFoodIngredientsTypeCodeList()));
 
         return mav;

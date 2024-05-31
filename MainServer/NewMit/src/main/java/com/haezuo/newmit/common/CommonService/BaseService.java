@@ -44,6 +44,16 @@ public class BaseService {
         }
     }
 
+    public String convertListMapToJson(Map<String, Object> map) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.writeValueAsString(map);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public List<Map<String, Object>> getFoodIngredientsTypeCodeList() {
         List<Map<String, Object>> result = new ArrayList<>();
 

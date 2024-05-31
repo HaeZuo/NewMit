@@ -94,4 +94,20 @@
         ]]>
     </select>
 
+    <select id="selectIngredientsDetailInfo" parameterType="map" resultType="map">
+        /* mappers.ingredients.selectIngredientsDetailInfo */
+        SELECT MB_NO,
+               INGREDIENT_OWNED_NO,
+               INGREDIENT_OWNED_NM,
+               INGREDIENT_OWNED_TYPE,
+               INGREDIENT_OWNED_QOW,
+               INGREDIENT_OWNED_BUY_DATE,
+               INGREDIENT_OWNED_EXPIRATION_DATE,
+               INGREDIENT_OWNED_IMAGE_ID
+        FROM TB_INGREDIENTS_OWNED
+        WHERE   1=1
+          AND MB_NO = #{userId}
+          AND INGREDIENT_OWNED_NO = #{ingredientOwnedNo}
+    </select>
+
 </mapper>

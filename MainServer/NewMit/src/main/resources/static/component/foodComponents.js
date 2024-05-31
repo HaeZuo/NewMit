@@ -1,7 +1,7 @@
 const foodInsertArea = {};
 
 foodInsertArea.setFoodIngredientsTypeDataList = function(foodIngredientsTypeDataList, numId) {
-        let foodIngredientsTypeElement = `<select id=foodIngredientsType` + numId + `" name="foodIngredientsType">`;
+        let foodIngredientsTypeElement = `<select id="foodIngredientsType` + numId + `" name="foodIngredientsType">`;
 
         for(let currentFoodIngredientsTypeData of foodIngredientsTypeDataList) {
             foodIngredientsTypeElement += `<option value="` + currentFoodIngredientsTypeData['COMMON_CODE_CD'] + `">`+ currentFoodIngredientsTypeData['COMMON_CODE_NM'] + `</option>`;
@@ -101,6 +101,47 @@ foodInsertArea.setBannerImage = function(numId, src) {
     document.getElementById("imageUploaderLabel" + numId).style.display = "none"; // 첨부할 경우 첨부요청 영역 제거
 }
 
+/**
+ * 식자재 이름 설정
+ * @param numId
+ * @param nm
+ */
 foodInsertArea.setName = function(numId, nm) {
     document.getElementById("foodIngredientsName" + numId).value = nm;
+}
+
+/**
+ * 식자재 구분 설정
+ * @param numId
+ * @param ingredientsType
+ */
+foodInsertArea.setIngredientsType = function(numId, ingredientsType) {
+    document.getElementById("foodIngredientsType" + numId).value = ingredientsType;
+}
+
+/**
+ * 수량/무게 설정
+ * @param numId
+ * @param ingredientsCntOrFw
+ */
+foodInsertArea.setIngredientsCntOrFw = function(numId, ingredientsCntOrFw) {
+    document.getElementById("foodIngredientsCntOrFw" + numId).value = ingredientsCntOrFw;
+}
+
+/**
+ * 구입일자 설정
+ * @param numId
+ * @param buyDate
+ */
+foodInsertArea.setBuyDate = function(numId, buyDate) {
+    document.getElementById("buyDate" + numId).value = buyDate;
+}
+
+/**
+ * 소비기한 설정
+ * @param numId
+ * @param expiryDate
+ */
+foodInsertArea.setExpiryDate = function(numId, expiryDate) {
+    document.getElementById("expiryDate" + numId).value = expiryDate;
 }

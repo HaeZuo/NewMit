@@ -174,6 +174,24 @@ public class ingredientsService extends BaseService {
         return result;
     }
 
+    /**
+     *
+     * @param condition
+     * userId : 유저 id
+     * ingredientOwnedNo : 식자재 넘버
+     * @return Map<String, Object> getIngredientsDetailInfo
+     */
+    public Map<String, Object> getIngredientsDetailInfo(Map<String, Object> condition) throws IOException {
+        Map<String, Object> result;
+
+        result = commonDao.selectOne("mappers.ingredients.selectIngredientsDetailInfo", condition);
+
+        File bannerImg = getFileByFileId((String) result.get("INGREDIENT_OWNED_IMAGE_ID"));
+        result.put("foodIngredientsImageBanner", CommonUtil.convertFileToBase64(bannerImg));
+
+        return result;
+    }
+
     public List<Map<String, Object>> getObjectDetectionByImage(MultipartFile uploadfile) throws IOException {
 
         List<Map<String, Object>> detectionResult = new ArrayList<>();
