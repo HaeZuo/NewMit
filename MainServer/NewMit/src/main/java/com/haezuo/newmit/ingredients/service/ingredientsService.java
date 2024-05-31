@@ -194,7 +194,11 @@ public class ingredientsService extends BaseService {
 
 
     public void updateInqredientsInfo(Map<String, Object> inqredientsInfo) {
-        String fileId = saveFileAsBase64((String) inqredientsInfo.get("foodIngredientsImageBanner"), (String) inqredientsInfo.get("foodIngredientsImageBannerFileName"), CommonUtil.getExtensionFromBase64((String) inqredientsInfo.get("foodIngredientsImageBanner")));
+        String fileExtension = CommonUtil.getExtensionFromBase64((String) inqredientsInfo.get("foodIngredientsImageBanner"));
+        if(fileExtension == null) {
+            fileExtension = (String) inqredientsInfo.get("foodIngredientsImageBannerFileType");
+        }
+        String fileId = saveFileAsBase64((String) inqredientsInfo.get("foodIngredientsImageBanner"), (String) inqredientsInfo.get("foodIngredientsImageBannerFileName"), fileExtension);
 
         inqredientsInfo.put("ingredientOwendImageId", fileId);
 

@@ -75,9 +75,11 @@ public class RecipeController extends BaseService {
     public ModelAndView viewDetailRecipe(HttpServletRequest request) throws IOException {
         ModelAndView mav = new ModelAndView("/recipe/recipeIntro");
 
-        String recipeNo = request.getParameter("recipeNo");
+        Map<String, Object> condition = new HashMap<>();
+        condition.put("recipeNo", request.getParameter("recipeNo"));
+        condition.put("mbNo", request.getParameter("mbNo"));
 
-        Map<String, Object> detailRecipeInfo = recipeService.getDetailRecipeInfo(recipeNo);
+        Map<String, Object> detailRecipeInfo = recipeService.getDetailRecipeInfo(condition);
 
         mav.addObject("detailRecipeInfo", detailRecipeInfo);
 
@@ -88,8 +90,11 @@ public class RecipeController extends BaseService {
     public ModelAndView viewRecipe(HttpServletRequest request) throws IOException {
         ModelAndView mav = new ModelAndView("/recipe/recipe");
 
-        String recipeNo = request.getParameter("recipeNo");
-        mav.addObject("recipeStepList", convertListMapToJson(recipeService.getRecipeStepList(recipeNo)));
+        Map<String, Object> condition = new HashMap<>();
+        condition.put("recipeNo", request.getParameter("recipeNo"));
+        condition.put("mbNo", request.getParameter("mbNo"));
+
+        mav.addObject("recipeStepList", convertListMapToJson(recipeService.getRecipeStepList(condition)));
 
         return mav;
     }

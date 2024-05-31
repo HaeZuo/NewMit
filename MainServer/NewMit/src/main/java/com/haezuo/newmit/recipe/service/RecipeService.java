@@ -111,10 +111,10 @@ public class RecipeService extends BaseService {
         return result;
     }
 
-    public Map<String, Object> getDetailRecipeInfo(String recipeNo) throws IOException {
+    public Map<String, Object> getDetailRecipeInfo(Map<String, Object> condition) throws IOException {
         Map<String, Object> DetailRecipeInfo;
 
-        DetailRecipeInfo = commonDao.selectOne("mappers.recipe.selectDetailRecipeInfo", recipeNo);
+        DetailRecipeInfo = commonDao.selectOne("mappers.recipe.selectDetailRecipeInfo", condition);
         File mainImage = getFileByFileId((String) DetailRecipeInfo.get("RECIPE_MAIN_IMAGE_ID"));
 
         DetailRecipeInfo.put("mainImage", CommonUtil.convertFileToBase64(mainImage));
@@ -128,10 +128,10 @@ public class RecipeService extends BaseService {
         return DetailRecipeInfo;
     }
 
-    public List<Map<String, Object>> getRecipeStepList(String recipeNo) throws IOException {
+    public List<Map<String, Object>> getRecipeStepList(Map<String, Object> condition) throws IOException {
         List<Map<String, Object>> recipeStepList;
 
-        recipeStepList = commonDao.selectList("mappers.recipe.selectRecipeStepList", recipeNo);
+        recipeStepList = commonDao.selectList("mappers.recipe.selectRecipeStepList", condition);
         for(Map<String, Object> currentRecipeStep : recipeStepList) {
             File mainImage = getFileByFileId((String) currentRecipeStep.get("RECIPE_STEP_IMAGE_ID"));
 

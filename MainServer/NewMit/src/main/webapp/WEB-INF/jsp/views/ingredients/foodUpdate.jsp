@@ -72,7 +72,7 @@
                 formObject['foodIngredientsImageBannerFileType'] = file['type'];
             } else if(foodIngredientsImageBannerImgElement.src != "") {
                 formObject['foodIngredientsImageBanner'] = foodIngredientsImageBannerImgElement.src.toString().replace("data:image/jpeg;base64,", "");
-                formObject['foodIngredientsImageBannerFileName'] = "Update_Image";
+                formObject['foodIngredientsImageBannerFileName'] = "Update_Image." + commonUtil.getExtensionFromBase64(foodIngredientsImageBannerImgElement.src.toString());
                 formObject['foodIngredientsImageBannerFileType'] = commonUtil.getExtensionFromBase64(foodIngredientsImageBannerImgElement.src.toString());
             }
 

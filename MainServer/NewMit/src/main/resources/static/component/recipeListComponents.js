@@ -12,7 +12,7 @@ recipeListComponents.insertStep = function (recipeInfo) {
 recipeListComponents.getRecipeInfoElement = function(id, recipeInfo) {
     let recipeInfoElement = `
                     <li>
-                        <a href="/recipe/viewDetailRecipe?recipeNo=` + recipeInfo['RECIPE_NO'] + `">
+                        <a href="/recipe/viewDetailRecipe?recipeNo=` + recipeInfo['RECIPE_NO'] + `&mbNo=` + recipeInfo['MB_NO'] + `">
                             <img src="data:image/jpeg;base64,` + recipeInfo['mainImage'] + `" alt="">
                             <div>
                                 <p class="r-chef"><span>` + recipeInfo['MB_NM'] + `</span> 요리사님</p>

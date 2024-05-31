@@ -41,7 +41,7 @@
         /* mappers.recipe.selectNextRecipeNo */
         SELECT IFNULL(MAX(RECIPE_NO), 0) + 1
         FROM TB_RECIPE
-        WHERE MB_NO = #{mbNo}
+        /*WHERE MB_NO = #{mbNo}*/
     </select>
 
     <insert id="insertCookingProcess" parameterType="map">
@@ -99,6 +99,7 @@
         SELECT
             TR.RECIPE_NO,
             TMI.MB_NM,
+            TMI.MB_NO,
             TR.RECIPE_MAIN_IMAGE_ID,
             TR.RECIPE_NM,
             IFNULL(ROUND(AVG(TRR.RECIPE_RATING_SCORE), 1), 0.0) AS RATING
@@ -109,6 +110,7 @@
         <!-- AND TR.MB_NO = #{userId} -->
         GROUP BY TR.RECIPE_NO,
                  TMI.MB_NM,
+                 TMI.MB_NO,
                  TR.RECIPE_MAIN_IMAGE_ID,
                  TR.RECIPE_NM
     </select>
@@ -120,9 +122,10 @@
         WHERE TR.MB_NO = #{userId}
     </select>
 
-    <select id="selectDetailRecipeInfo" parameterType="string" resultType="map">
+    <select id="selectDetailRecipeInfo" parameterType="map" resultType="map">
         /* mappers.recipe.selectDetailRecipeInfo */
         SELECT
+            TR.MB_NO,
             TR.RECIPE_NO,
             TR.RECIPE_MAIN_IMAGE_ID,
             TR.RECIPE_NM, -- 레시피 명
@@ -142,7 +145,10 @@
         FROM    TB_RECIPE TR
                     LEFT JOIN TB_RECIPE_RATING TRR ON TR.RECIPE_NO = TRR.RECIPE_NO
                     INNER JOIN TB_COOKING_PROCESS TCP ON TR.RECIPE_NO = TCP.RECIPE_NO
-        WHERE TR.RECIPE_NO = #{recipeNo}
+        WHERE 1=1
+        AND TR.RECIPE_NO = #{recipeNo}
+        AND TR.MB_NO = #{mbNo}
+
         GROUP BY TR.RECIPE_NO,
                  TR.RECIPE_MAIN_IMAGE_ID,
                  TR.RECIPE_NM,
@@ -160,7 +166,8 @@
                RECIPE_STEP_TIPS,
                RECIPE_STEP_TIMER
         FROM TB_COOKING_PROCESS
-        WHERE RECIPE_NO = #{recipeNo}
+        WHERE 1=1
+        AND RECIPE_NO = #{recipeNo}
     </select>
 
     <select id="selectNextRecipeStepNo" parameterType="string" resultType="string">
