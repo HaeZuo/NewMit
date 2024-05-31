@@ -192,6 +192,21 @@ public class ingredientsService extends BaseService {
         return result;
     }
 
+
+    public void updateInqredientsInfo(Map<String, Object> inqredientsInfo) {
+        String fileId = saveFileAsBase64((String) inqredientsInfo.get("foodIngredientsImageBanner"), (String) inqredientsInfo.get("foodIngredientsImageBannerFileName"), CommonUtil.getExtensionFromBase64((String) inqredientsInfo.get("foodIngredientsImageBanner")));
+
+        inqredientsInfo.put("ingredientOwendImageId", fileId);
+
+        commonDao.update("mappers.ingredients.updateIngredientsDetailInfo", inqredientsInfo);
+    }
+
+    public void deleteInqredientsInfo(Map<String, Object> inqredientsInfo) {
+
+        commonDao.delete("mappers.ingredients.deleteIngredients", inqredientsInfo);
+    }
+
+
     public List<Map<String, Object>> getObjectDetectionByImage(MultipartFile uploadfile) throws IOException {
 
         List<Map<String, Object>> detectionResult = new ArrayList<>();

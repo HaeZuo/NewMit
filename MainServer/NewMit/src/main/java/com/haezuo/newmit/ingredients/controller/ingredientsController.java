@@ -92,6 +92,42 @@ public class ingredientsController extends BaseService {
         return mav;
     }
 
+    @RequestMapping(value = "/ingredients/updateInqredients", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> updateInqredients(HttpServletRequest request, @RequestBody Map<String, Object> requestData) throws IOException {
+        Map<String, Object> result = new HashMap<>();
+
+        Map<String, Object> inqredientsInfo = new HashMap<>();
+        inqredientsInfo.put("foodIngredientsName", requestData.get("foodIngredientsName"));
+        inqredientsInfo.put("foodIngredientsType", requestData.get("foodIngredientsType"));
+        inqredientsInfo.put("foodIngredientsCntOrFw", requestData.get("foodIngredientsCntOrFw"));
+        inqredientsInfo.put("buyDate", requestData.get("buyDate"));
+        inqredientsInfo.put("expiryDate", requestData.get("expiryDate"));
+        inqredientsInfo.put("userId", loginService.ConnectUserInfo(request, userInfo.KEY_USER_ID));
+        inqredientsInfo.put("ingredientOwnedno", requestData.get("ingredientOwnedno"));
+        inqredientsInfo.put("foodIngredientsImageBanner", requestData.get("foodIngredientsImageBanner"));
+        inqredientsInfo.put("foodIngredientsImageBannerFileName", requestData.get("foodIngredientsImageBannerFileName"));
+        inqredientsInfo.put("foodIngredientsImageBannerFileType", requestData.get("foodIngredientsImageBannerFileType"));
+
+        ingredientsService.updateInqredientsInfo(inqredientsInfo);
+
+        return result;
+    }
+
+    @RequestMapping(value = "/ingredients/deleteInqredients", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> deleteInqredients(HttpServletRequest request, @RequestBody Map<String, Object> requestData) throws IOException {
+        Map<String, Object> result = new HashMap<>();
+
+        Map<String, Object> codition = new HashMap<>();
+        codition.put("ingredientOwnedno", requestData.get("ingredientOwnedno"));
+        codition.put("userId", loginService.ConnectUserInfo(request, userInfo.KEY_USER_ID));
+
+        ingredientsService.deleteInqredientsInfo(codition);
+
+        return result;
+    }
+
     @RequestMapping(value = "/ingredients/saveInqredients", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> saveInqredients(HttpServletRequest request, @RequestBody List<Map<String, Object>> requestData) {

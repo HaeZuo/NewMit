@@ -51,7 +51,7 @@ foodInsertArea.createFoodInsertArea = function(divElement, numId, foodIngredient
                     <i class="ic-camera"></i>
                     <p>식자재 이미지를 추가해주세요</p>
                 </label>
-                <img id="foodIngredientsImageBanner` + numId + `" style="display: none" /*src="/images/food/temp.png"*/ alt="">
+                <img id="foodIngredientsImageBanner` + numId + `" onclick="javascript:document.getElementById('foodIngredientsImage` + numId + `').click()" style="display: none" /*src="/images/food/temp.png"*/ alt="">
             </div>
             <div class="ipt full">
                 <span>식자재 이름</span>
@@ -134,7 +134,10 @@ foodInsertArea.setIngredientsCntOrFw = function(numId, ingredientsCntOrFw) {
  * @param buyDate
  */
 foodInsertArea.setBuyDate = function(numId, buyDate) {
-    document.getElementById("buyDate" + numId).value = buyDate;
+    if(buyDate.length == 8)
+        document.getElementById("buyDate" + numId).value = buyDate.substr(0, 4) + "-" + buyDate.substr(4, 2) + "-" + buyDate.substr(6, 2);
+    else
+        document.getElementById("buyDate" + numId).value = buyDate;
 }
 
 /**
@@ -143,5 +146,8 @@ foodInsertArea.setBuyDate = function(numId, buyDate) {
  * @param expiryDate
  */
 foodInsertArea.setExpiryDate = function(numId, expiryDate) {
-    document.getElementById("expiryDate" + numId).value = expiryDate;
+    if(expiryDate.length == 8)
+        document.getElementById("expiryDate" + numId).value = expiryDate.substr(0, 4) + "-" + expiryDate.substr(4, 2) + "-" + expiryDate.substr(6, 2);
+    else
+        document.getElementById("expiryDate" + numId).value = expiryDate;
 }

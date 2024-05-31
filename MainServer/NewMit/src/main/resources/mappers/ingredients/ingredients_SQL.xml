@@ -110,4 +110,27 @@
           AND INGREDIENT_OWNED_NO = #{ingredientOwnedNo}
     </select>
 
+    <update id="updateIngredientsDetailInfo" parameterType="map">
+        /* mappers.ingredients.updateIngredientsDetailInfo */
+        UPDATE TB_INGREDIENTS_OWNED
+        SET INGREDIENT_OWNED_NM = #{foodIngredientsName},
+            INGREDIENT_OWNED_TYPE = #{foodIngredientsType},
+            INGREDIENT_OWNED_QOW = #{foodIngredientsCntOrFw},
+            INGREDIENT_OWNED_BUY_DATE = REPLACE(#{buyDate}, '-', ''),
+            INGREDIENT_OWNED_EXPIRATION_DATE = REPLACE(#{expiryDate}, '-', ''),
+            INGREDIENT_OWNED_IMAGE_ID = #{ingredientOwendImageId}
+        WHERE 1=1
+          AND MB_NO = #{userId}
+          AND INGREDIENT_OWNED_NO = #{ingredientOwnedno}
+    </update>
+
+    <update id="deleteIngredients" parameterType="map">
+        /* mappers.ingredients.deleteIngredients */
+        DELETE
+        FROM TB_INGREDIENTS_OWNED
+        WHERE 1=1
+          AND MB_NO = #{userId}
+          AND INGREDIENT_OWNED_NO = #{ingredientOwnedno}
+    </update>
+
 </mapper>

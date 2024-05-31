@@ -34,9 +34,12 @@
     <script src="/scripts/scripts.js"></script>
     <script src="/component/foodComponents.js"></script>
     <script src="/js/ModalPopup.js"></script>
+    <script src="/js/service-modal.js"></script>
     <script>
 
         const foodIngredientsTypeCodeList = JSON.parse('<c:out value="${foodIngredientsTypeCodeList}" escapeXml="false" />');
+
+        const ingredientsDetailInfo = JSON.parse('<c:out value="${ingredientsDetailInfo}" escapeXml="false" />');
 
         let foodInsertAreaSequence = 0;
 
@@ -46,42 +49,36 @@
             // 초기화
             document.getElementById("foodInsertAreaList").innerHTML = '';
 
-            const ingredientsDetailInfo = JSON.parse('<c:out value="${ingredientsDetailInfo}" escapeXml="false" />');
-
             foodInsertArea.createFoodInsertArea(document.getElementById("foodInsertAreaList"), ++foodInsertAreaSequence, foodIngredientsTypeCodeList);
             foodInsertArea.setBannerImage(foodInsertAreaSequence, "data:image/jpeg;base64," + ingredientsDetailInfo['foodIngredientsImageBanner']);
             foodInsertArea.setName(foodInsertAreaSequence, ingredientsDetailInfo['INGREDIENT_OWNED_NM']);
-            foodInsertArea.setIngredientsType(foodInsertAreaSequence, ingredientsDetailInfo['INGREDIENT_OWNED_TYPE'])
+            foodInsertArea.setIngredientsType(foodInsertAreaSequence, ingredientsDetailInfo['INGREDIENT_OWNED_TYPE']);
+            foodInsertArea.setIngredientsCntOrFw(foodInsertAreaSequence, ingredientsDetailInfo['INGREDIENT_OWNED_QOW']);
+            foodInsertArea.setBuyDate(foodInsertAreaSequence, ingredientsDetailInfo['INGREDIENT_OWNED_BUY_DATE']);
+            foodInsertArea.setExpiryDate(foodInsertAreaSequence, ingredientsDetailInfo['INGREDIENT_OWNED_EXPIRATION_DATE']);
         }
 
-        async function saveBtnClick() {
-            const foodInsertAreaCount = document.getElementById("foodInsertAreaList").childElementCount;
+        async function updateBtnClick() {
 
-            const requestData = new Array();
+            const formObject = commonUtil.arrayToObject($(document.getElementById("foodInsertAreaList").children[0]).serializeArray());
 
-            for(let fia of document.getElementById("foodInsertAreaList").children) {
-                if (fia.tagName === 'FORM') { // 폼 요소인지 확인
-                    let formObject = commonUtil.arrayToObject($(fia).serializeArray());
+            const foodIngredientsImageBannerElement = foodInsertArea.getFoodIngredientsImageBannerElement(formObject['createFoodInsertAreaId'])
+            const foodIngredientsImageBannerImgElement = foodInsertArea.getFoodIngredientsImageBannerImgElement(formObject['createFoodInsertAreaId']);
 
-                    const foodIngredientsImageBannerElement = foodInsertArea.getFoodIngredientsImageBannerElement(formObject['createFoodInsertAreaId'])
-                    const foodIngredientsImageBannerImgElement = foodInsertArea.getFoodIngredientsImageBannerImgElement(formObject['createFoodInsertAreaId']);
-
-                    if (foodIngredientsImageBannerElement.files.length > 0) {
-                        const file = foodIngredientsImageBannerElement.files[0];
-                        formObject['foodIngredientsImageBanner'] = await commonUtil.encodeImageToBase64(file);
-                        formObject['foodIngredientsImageBannerFileName'] = file['name'];
-                        formObject['foodIngredientsImageBannerFileType'] = file['type'];
-                    } else if(foodIngredientsImageBannerImgElement.src != "") {
-                        formObject['foodIngredientsImageBanner'] = foodIngredientsImageBannerImgElement.src.toString().replace("data:image/jpeg;base64,", "");
-                        formObject['foodIngredientsImageBannerFileName'] = "Object_Recognition_Image";
-                        formObject['foodIngredientsImageBannerFileType'] = commonUtil.getExtensionFromBase64(foodIngredientsImageBannerImgElement.src.toString());
-                    }
-
-                    requestData.push(formObject);
-                }
+            if (foodIngredientsImageBannerElement.files.length > 0) {
+                const file = foodIngredientsImageBannerElement.files[0];
+                formObject['foodIngredientsImageBanner'] = await commonUtil.encodeImageToBase64(file);
+                formObject['foodIngredientsImageBannerFileName'] = file['name'];
+                formObject['foodIngredientsImageBannerFileType'] = file['type'];
+            } else if(foodIngredientsImageBannerImgElement.src != "") {
+                formObject['foodIngredientsImageBanner'] = foodIngredientsImageBannerImgElement.src.toString().replace("data:image/jpeg;base64,", "");
+                formObject['foodIngredientsImageBannerFileName'] = "Update_Image";
+                formObject['foodIngredientsImageBannerFileType'] = commonUtil.getExtensionFromBase64(foodIngredientsImageBannerImgElement.src.toString());
             }
 
-            httpRequest('POST', '/ingredients/saveInqredients', JSON.stringify(requestData), function (success) {
+            formObject['ingredientOwnedno'] = ingredientsDetailInfo['INGREDIENT_OWNED_NO'];
+
+            httpRequest('POST', '/ingredients/updateInqredients', JSON.stringify(formObject), function (success) {
                 alert("성공적으로 저장 됐습니다.");
 
                 if(Object.getPrototypeOf(parent).constructor.name == 'ModalPopup') {
@@ -90,11 +87,30 @@
                     window.location.href = "/home"
                 }
 
-                window.parent.modalClose();
             }, function (fail) {
                 alert("저장 실패.");
             });
 
+        }
+
+
+        async function deleteBtnClick() {
+
+            const confirmResult = await serviceModal.removeConfirm();
+
+            if(confirmResult) {
+                const formObject = new Object();
+                formObject['ingredientOwnedno'] = ingredientsDetailInfo['INGREDIENT_OWNED_NO'];
+
+                httpRequest('POST', '/ingredients/deleteInqredients', JSON.stringify(formObject), function (success) {
+                    alert("성공적으로 삭제 됐습니다.");
+
+                    window.location.href = '/home';
+
+                }, function (fail) {
+                    alert("삭제 실패.");
+                });
+            }
 
         }
     </script>
@@ -107,23 +123,9 @@
     </section>
     <footer>
         <ul class="btn-wrap">
-            <li><a href="#" class="btn white">삭제</a></li>
-            <li><a href="#" class="btn primary" onclick="javascript:saveBtnClick();">저장</a></li>
+            <li><a href="#" class="btn white" onclick="javascript:deleteBtnClick();">삭제</a></li>
+            <li><a href="#" class="btn primary" onclick="javascript:updateBtnClick();">수정</a></li>
         </ul>
     </footer>
-
-<div class="modal">
-    <div class="modal-content">
-        <div class="modal-body">
-            <p>해당 식자제를 삭제하시겠습니까?</p>
-        </div>
-        <div class="modal-footer">
-            <div class="btn-wrap">
-                <a href="" class="btn">취소</a>
-                <a href="" class="btn primary">확인</a>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
 </html>

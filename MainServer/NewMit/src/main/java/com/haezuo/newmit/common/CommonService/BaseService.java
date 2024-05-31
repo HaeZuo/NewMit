@@ -88,8 +88,9 @@ public class BaseService {
 
             fileid = commonDao.insertAndReturnKey("mappers.common.insertFoodIngredientsImageInfo", fileInfo);
         } catch (IOException e) {
-
             System.err.println("Error while saving the file: " + e.getMessage());
+
+            throw new RuntimeException();
         }
 
         return fileid;
