@@ -49,7 +49,7 @@
                 <div>
                     <ul>
                         <c:if test="${detailRecipeInfo.MB_NO == userInfo.currentUserId}">
-                            <li><a href="/recipe/updateRecipe?recipeNo=<c:out value="${detailRecipeInfo.RECIPE_NO}" />"><img src="/images/icons/ic-edit.svg" alt=""></a></li>
+                            <li><a href="/recipe/viewUpdateRecipe?recipeNo=<c:out value="${detailRecipeInfo.RECIPE_NO}" />"><img src="/images/icons/ic-edit.svg" alt=""></a></li>
                         </c:if>
                         <li><a href=""><img src="/images/icons/ic-bookmark.svg" alt=""></a></li>
                         <li><a href=""><img src="/images/icons/ic-share.svg" alt=""></a></li>

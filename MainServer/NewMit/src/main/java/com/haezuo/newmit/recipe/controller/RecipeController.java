@@ -133,8 +133,8 @@ public class RecipeController extends BaseService {
         return result;
     }
 
-    @RequestMapping(value = "/recipe/updateRecipe", method = RequestMethod.GET)
-    public ModelAndView updateRecipe(HttpServletRequest request) throws IOException {
+    @RequestMapping(value = "/recipe/viewUpdateRecipe", method = RequestMethod.GET)
+    public ModelAndView viewUpdateRecipe(HttpServletRequest request) throws IOException {
         ModelAndView mav = new ModelAndView("/recipe/recipeUpdate");
 
         Map<String, Object> condition = new HashMap<>();
@@ -148,6 +148,14 @@ public class RecipeController extends BaseService {
         mav.addObject("recipeStepList", convertListMapToJson(recipeStepList));
 
         return mav;
+    }
+
+    @RequestMapping(value = "/recipe/updateRecipe", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> updateRecipe(HttpServletRequest request, @RequestBody Map<String, Object> requestBody) throws IOException {
+        Map<String, Object> result= new HashMap<>();
+
+        return result;
     }
 
 }
