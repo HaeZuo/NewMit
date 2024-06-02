@@ -10,7 +10,8 @@ import org.springframework.web.util.WebUtils;
 
 public class OAuth2AuthorizationRequestBasedOnCookieRepository implements AuthorizationRequestRepository<OAuth2AuthorizationRequest> {
 
-    public final static String OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME = "oauth2_auth_request";
+    //public final static String OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME = "oauth2_auth_request";
+    public final static String OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME = "access_token";
     private final static int COOKIE_EXPIRE_SECONDS = 18000;
 
     @Override

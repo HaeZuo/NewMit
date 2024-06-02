@@ -29,6 +29,16 @@ public class UserController {
         return result;
     }
 
+    @PostMapping("/api/user/currentUserId")
+    @ResponseBody
+    public Map<String, Object> currentUserId(HttpServletRequest request) {
+        Map<String, Object> result = new HashMap<>();
+
+        result.put("userId", loginService.getCurrentUserId(request));
+
+        return result;
+    }
+
     @PostMapping("/api/user/currentUserName")
     @ResponseBody
     public Map<String, Object> currentUserName(HttpServletRequest request) throws Exception{

@@ -93,4 +93,8 @@ public class LoginService {
         return result;
     }
 
+    public String getCurrentUserId(HttpServletRequest request) {
+        return this.ConnectUserInfo(request, userInfo.KEY_USER_ID);
+    }
+
 }

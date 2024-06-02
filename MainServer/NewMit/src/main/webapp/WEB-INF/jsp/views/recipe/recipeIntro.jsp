@@ -34,6 +34,7 @@
     <script src="/scripts/slick.min.js"></script>
     <script src="/scripts/scripts.js"></script>
     <script>
+        let currentUserId = null;
         window.onload = function () {
             commonUtil.enableToFooter(false);
         }
@@ -47,7 +48,9 @@
                 <img src="data:image/jpeg;base64,<c:out value="${detailRecipeInfo.mainImage}" />" alt="">
                 <div>
                     <ul>
-                        <li><a href=""><img src="/images/icons/ic-edit.svg" alt=""></a></li>
+                        <c:if test="${detailRecipeInfo.MB_NO == userInfo.currentUserId}">
+                            <li><a href="/recipe/updateRecipe?recipeNo=<c:out value="${detailRecipeInfo.RECIPE_NO}" />"><img src="/images/icons/ic-edit.svg" alt=""></a></li>
+                        </c:if>
                         <li><a href=""><img src="/images/icons/ic-bookmark.svg" alt=""></a></li>
                         <li><a href=""><img src="/images/icons/ic-share.svg" alt=""></a></li>
                     </ul>

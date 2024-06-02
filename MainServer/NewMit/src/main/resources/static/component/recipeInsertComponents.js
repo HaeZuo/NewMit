@@ -135,6 +135,7 @@ recipeInsertComponents.recipeStepImageOnChange = function (e) {
 }
 
 recipeInsertComponents.getStepElement = function(id) {
+
     let elementStr = `
                     <li id="step`+id+`">
                         <form>
@@ -180,35 +181,35 @@ recipeInsertComponents.getStepElement = function(id) {
                                 <label componentId="`+id+`" id="timer` + id + `" for="timer" class="btn sm clear" onclick="javascript:recipeInsertComponents.timerOnClick(this)">타이머</label>
                             </div>
                             
-                            <div class="ipt" id="materialDiv` + id +`" style="display: none">
+                            <div class="ipt" id="materialDiv`+id+`" style="display: none">
                                 <span>재료</span>
                                 <div>
-                                    <input type="text" name="materialStr">
+                                    <input type="text" name="materialStr" id="materialStr`+id+`">
                                 </div>
                             </div>
                             
-                            <div class="ipt" id="toolDiv` + id +`" style="display: none">
+                            <div class="ipt" id="toolDiv`+id+`" style="display: none">
                                 <span>도구</span>
                                 <div>
-                                    <input type="text" name="toolStr">
+                                    <input type="text" name="toolStr" id="toolStr`+id+`">
                                 </div>
                             </div>
                             
-                            <div class="ipt" id="tipDiv` + id +`" style="display: none">
+                            <div class="ipt" id="tipDiv`+id+`" style="display: none">
                                 <span>팁</span>
                                 <div>
-                                    <textarea name="tipStr"></textarea>
+                                    <textarea name="tipStr" id="tipStr`+id+`"></textarea>
                                 </div>
                             </div>
                             
-                            <div class="ipt" id="timerDiv` + id +`" style="display: none">
+                            <div class="ipt" id="timerDiv`+id+`" style="display: none">
                                 <span>타이머</span>
                                 <div>
-                                    <input name="timerHourStr" type="text" maxlength="2" size="2">
+                                    <input name="timerHourStr" id="timerHourStr`+id+`" type="text" maxlength="2" size="2">
                                     <span>:</span>
-                                    <input name="timerMinuteStr" type="text" maxlength="2" size="2">
+                                    <input name="timerMinuteStr" id="timerMinuteStr`+id+`" type="text" maxlength="2" size="2">
                                     <span>:</span>
-                                    <input name="timerSecondStr" type="text" maxlength="2" size="2">
+                                    <input name="timerSecondStr" id="timerSecondStr`+id+`" type="text" maxlength="2" size="2">
                                 </div>
                             </div>
                         </form>
@@ -216,4 +217,49 @@ recipeInsertComponents.getStepElement = function(id) {
     `;
 
     return elementStr;
+}
+
+recipeInsertComponents.setStepImage = function (step, src) {
+    document.getElementById("recipeStepImageBanner" + step).src = src;
+    document.getElementById("recipeStepImageBanner" + step).style.display = "block"; // 첨부한 이미지를 보여주도록
+    document.getElementById("imageUploaderLabel" + step).style.display = "none"; // 첨부할 경우 첨부요청 영역 제거
+}
+
+recipeInsertComponents.setStepDescription = function (step, str) {
+    document.getElementById("recipeDescription" + step).value = str;
+}
+
+recipeInsertComponents.setStepTips = function (step, str) {
+    document.getElementById("recipeDescription" + step).value = str;
+}
+
+recipeInsertComponents.setMaterial = function (step, str) {
+    document.getElementById("material" + step).click();
+    document.getElementById("materialStr" + step).value = str;
+}
+
+recipeInsertComponents.setToolDiv = function (step, str) {
+    document.getElementById("tool" + step).click();
+    document.getElementById("tool" + step).value = str;
+}
+
+recipeInsertComponents.setIip = function (step, str) {
+    document.getElementById("tip" + step).click();
+    document.getElementById("tipStr" + step).value = str;
+}
+
+recipeInsertComponents.setTime = function (step, timeStr) {
+    document.getElementById("timer" + step).click();
+
+    document.getElementById("timerHourStr" + step).value = timeStr.substr(0, 2);
+    document.getElementById("timerMinuteStr" + step).value = timeStr.substr(2, 2);
+    document.getElementById("timerSecondStr" + step).value = timeStr.substr(4, 2);
+}
+
+recipeInsertComponents.getStepIdByStepElement = function (stepEle) {
+    return stepEle.id.replace('step', '');
+}
+
+recipeInsertComponents.getStepImgSrcByStepId = function (stepId) {
+    return document.getElementById("recipeStepImageBanner" + stepId).src;
 }

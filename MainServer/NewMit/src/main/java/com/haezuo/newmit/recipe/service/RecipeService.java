@@ -111,6 +111,16 @@ public class RecipeService extends BaseService {
         return result;
     }
 
+    /**
+     *
+     * @param condition
+     * - recipeNo
+     * - mbNo
+     * @return Map<String, Object> DetailRecipeInfo
+     * - recipeStepIngredientsList
+     * - recipeStepToolsList
+     * @throws IOException
+     */
     public Map<String, Object> getDetailRecipeInfo(Map<String, Object> condition) throws IOException {
         Map<String, Object> DetailRecipeInfo;
 
@@ -128,6 +138,13 @@ public class RecipeService extends BaseService {
         return DetailRecipeInfo;
     }
 
+    /**
+     *
+     * @param condition
+     * - recipeNo
+     * @return List<Map<String, Object>> recipeStepList
+     * @throws IOException
+     */
     public List<Map<String, Object>> getRecipeStepList(Map<String, Object> condition) throws IOException {
         List<Map<String, Object>> recipeStepList;
 

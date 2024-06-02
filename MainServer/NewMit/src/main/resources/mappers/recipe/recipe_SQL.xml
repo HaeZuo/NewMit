@@ -131,6 +131,8 @@
             TR.RECIPE_EXPLANATION, -- 레시피 설명
             TR.RECIPE_CRITERIA_BY_COOKING_SERVING, -- 몇 인분
             TR.RECIPE_CRITERIA_BY_COOKING_TIME, -- 소요시간
+            TR.RECIPE_CATEGORY_BY_OCCASION,
+            TR.RECIPE_CRITERIA_BY_TYPE,
             IFNULL(ROUND(AVG(TRR.RECIPE_RATING_SCORE), 1), 0.0) AS RATING, -- 평점
             CASE GROUP_CONCAT(TCP.RECIPE_STEP_INGREDIENTS SEPARATOR ',')
                 WHEN ',' THEN ''
@@ -163,7 +165,9 @@
                RECIPE_STEP_IMAGE_ID,
                RECIPE_STEP_EXPLANATION,
                RECIPE_STEP_TIPS,
-               RECIPE_STEP_TIMER
+               RECIPE_STEP_TIMER,
+               RECIPE_STEP_TOOLS,
+               RECIPE_STEP_INGREDIENTS
         FROM TB_COOKING_PROCESS
         WHERE 1=1
         AND RECIPE_NO = #{recipeNo}

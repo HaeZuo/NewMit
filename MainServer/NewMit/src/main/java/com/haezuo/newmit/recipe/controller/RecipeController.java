@@ -81,8 +81,11 @@ public class RecipeController extends BaseService {
         condition.put("mbNo", CommonUtil.isNull(request.getParameter("mbNo")) ? loginService.ConnectUserInfo(request, userInfo.KEY_USER_ID) : request.getParameter("mbNo"));
 
         Map<String, Object> detailRecipeInfo = recipeService.getDetailRecipeInfo(condition);
-
         mav.addObject("detailRecipeInfo", detailRecipeInfo);
+
+        Map<String, Object> userInfo = new HashMap<>();
+        userInfo.put("currentUserId", loginService.getCurrentUserId(request));
+        mav.addObject("userInfo", userInfo);
 
         return mav;
     }
@@ -128,6 +131,23 @@ public class RecipeController extends BaseService {
         recipeService.insertRecipe(insertRecipeInfo);
 
         return result;
+    }
+
+    @RequestMapping(value = "/recipe/updateRecipe", method = RequestMethod.GET)
+    public ModelAndView updateRecipe(HttpServletRequest request) throws IOException {
+        ModelAndView mav = new ModelAndView("/recipe/recipeUpdate");
+
+        Map<String, Object> condition = new HashMap<>();
+        condition.put("recipeNo", request.getParameter("recipeNo"));
+        condition.put("mbNo", loginService.getCurrentUserId(request));
+
+        Map<String, Object> detailRecipeInfo = recipeService.getDetailRecipeInfo(condition);
+        List<Map<String, Object>> recipeStepList = recipeService.getRecipeStepList(condition);
+
+        mav.addObject("detailRecipeInfo", convertListMapToJson(detailRecipeInfo));
+        mav.addObject("recipeStepList", convertListMapToJson(recipeStepList));
+
+        return mav;
     }
 
 }
