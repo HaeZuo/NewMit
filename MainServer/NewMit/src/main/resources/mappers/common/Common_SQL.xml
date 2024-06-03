@@ -54,4 +54,11 @@
         WHERE FILE_INFO_NO = #{fileId}
     </select>
 
+    <select id="selectMemberCardInfoByMbNo" parameterType="string" resultType="map">
+        /* mappers.common.selectMemberCardInfoByMbNo */
+        SELECT MB_NM
+        FROM TB_MEMBERS_INFO
+        WHERE MB_NO = #{mbNo}
+    </select>
+
 </mapper>

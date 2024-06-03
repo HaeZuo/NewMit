@@ -1,5 +1,7 @@
 package com.haezuo.newmit.login.controller;
 
+import com.haezuo.newmit.common.CommonService.BaseService;
+import com.haezuo.newmit.common.Util.CommonUtil;
 import com.haezuo.newmit.login.service.LoginService;
 import com.haezuo.newmit.login.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,7 +15,7 @@ import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
-public class UserController {
+public class UserController extends BaseService {
 
     private final LoginService loginService;
 
@@ -65,6 +67,16 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return result;
+    }
+
+    @PostMapping("/user/selectMemberCardInfo")
+    @ResponseBody
+    public Map<String, Object> selectMemberCardInfo(HttpServletRequest request, @RequestBody Map<String, Object> requestData) {
+        Map<String, Object> result = new HashMap<>();
+
+        result = userService.getMemberCardInfoByMbNo(requestData.get("mbNo").toString());
 
         return result;
     }

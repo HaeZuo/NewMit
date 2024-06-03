@@ -133,7 +133,6 @@
             TR.RECIPE_CRITERIA_BY_COOKING_TIME, -- 소요시간
             TR.RECIPE_CATEGORY_BY_OCCASION,
             TR.RECIPE_CRITERIA_BY_TYPE,
-            TMI.MB_NM,
             IFNULL(ROUND(AVG(TRR.RECIPE_RATING_SCORE), 1), 0.0) AS RATING, -- 평점
             CASE GROUP_CONCAT(TCP.RECIPE_STEP_INGREDIENTS SEPARATOR ',')
                 WHEN ',' THEN ''
@@ -147,19 +146,16 @@
         FROM    TB_RECIPE TR
                     LEFT JOIN TB_RECIPE_RATING TRR ON TR.RECIPE_NO = TRR.RECIPE_NO
                     INNER JOIN TB_COOKING_PROCESS TCP ON TR.RECIPE_NO = TCP.RECIPE_NO
-                    LEFT JOIN TB_MEMBERS_INFO TMI ON TRR.MB_NO = TMI.MB_NO
         WHERE 1=1
         AND TR.RECIPE_NO = #{recipeNo}
         AND TR.MB_NO = #{mbNo}
-        AND TMI.MB_NO = #{mbNo}
 
         GROUP BY TR.RECIPE_NO,
                  TR.RECIPE_MAIN_IMAGE_ID,
                  TR.RECIPE_NM,
                  TR.RECIPE_EXPLANATION,
                  TR.RECIPE_CRITERIA_BY_COOKING_SERVING,
-                 TR.RECIPE_CRITERIA_BY_COOKING_TIME,
-                 TMI.MB_NM
+                 TR.RECIPE_CRITERIA_BY_COOKING_TIME
     </select>
 
     <select id="selectRecipeStepList" parameterType="string" resultType="map">

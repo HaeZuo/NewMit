@@ -1,5 +1,6 @@
 package com.haezuo.newmit.login.service;
 
+import com.haezuo.newmit.common.CommonDao.CommonDao;
 import com.haezuo.newmit.common.CommonService.BaseService;
 import com.haezuo.newmit.common.Util.CommonUtil;
 import com.haezuo.newmit.common.Util.ntp;
@@ -7,6 +8,7 @@ import com.haezuo.newmit.config.jwt.TokenProvider;
 import com.haezuo.newmit.login.domain.User;
 import com.haezuo.newmit.login.repository.UserRepository;
 import com.haezuo.newmit.login.util.TokenUtil;
+import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,9 @@ public class UserService extends BaseService{
     private final LoginService loginService;
 
     private final TokenProvider tokenProvider;
+
+    @Resource(name="commonDao")
+    private CommonDao commonDao;
 
     public User findById(Long userId) {
         return userRepository.findById(userId)
@@ -73,6 +78,14 @@ public class UserService extends BaseService{
 
 
         });
+
+        return result;
+    }
+
+    public Map<String, Object> getMemberCardInfoByMbNo(String mbNo) {
+        Map<String, Object> result;
+
+        result = commonDao.selectOne("mappers.common.selectMemberCardInfoByMbNo", mbNo);
 
         return result;
     }

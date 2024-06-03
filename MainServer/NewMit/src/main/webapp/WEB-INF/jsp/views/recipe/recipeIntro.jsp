@@ -33,10 +33,14 @@
     <script src="/scripts/jquery-2.2.4.min.js"></script>
     <script src="/scripts/slick.min.js"></script>
     <script src="/scripts/scripts.js"></script>
+    <script src="/component/class/memberCard.js"></script>
     <script>
         let currentUserId = null;
         window.onload = function () {
             commonUtil.enableToFooter(false);
+
+            const memberCard = new MemberCard(document.getElementById("memberCard"), <c:out value="${detailRecipeInfo.MB_NO}" />);
+            memberCard.create();
         }
     </script>
 </head>
@@ -76,13 +80,8 @@
                     </ul>
                 </div>
             </div>
-            <div class="r-infor-writer">
-                <img class="r-profile" src="/images/user/profile.png" alt="">
-                <div>
-                    <p class="r-writer"><span><c:out value="${detailRecipeInfo.MB_NM}" /></span> 요리사님</p>
-                    <p class="r-writer-dscpt">안녕하세요! 먹는 기쁨을 선사하는 학생입니다~</p>
-                </div>
-                <button class="btn sm primary">팔로우</button>
+            <div id="memberCard">
+
             </div>
             <div class="r-information">
                 <c:if test="${fn:length(detailRecipeInfo.recipeStepIngredientsList) > 0}">
