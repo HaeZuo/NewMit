@@ -7,6 +7,7 @@ import com.haezuo.newmit.common.Util.Tokenize;
 import com.haezuo.newmit.common.constants.userInfo;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,6 +45,11 @@ public class RecipeService extends BaseService {
 
         commonDao.insert("mappers.recipe.insertRecipeInfo", recipeMainInfo);
 
+
+        this.insertRecipeSteps((String) recipeMainInfo.get("recipeNo"), recipeStepInfoList);
+    }
+
+    public void insertRecipeSteps(String recipeNo, List<Map<String, Object>> recipeStepInfoList) {
         for(int idx=0; idx<recipeStepInfoList.size(); idx++) {
             Map<String, Object> currentRecipeStepInfo = recipeStepInfoList.get(idx);
 
@@ -51,7 +57,7 @@ public class RecipeService extends BaseService {
 
             String stepImgId = saveFileAsBase64((String) currentRecipeStepInfo.get("recipeStepImage"), "", CommonUtil.getExtensionFromBase64((String) currentRecipeStepInfo.get("recipeStepImage")));
 
-            currentCookingProcess.put("recipeNo", recipeMainInfo.get("recipeNo"));
+            currentCookingProcess.put("recipeNo", recipeNo);
             currentCookingProcess.put("recipeStepNo", idx+1);
             currentCookingProcess.put("recipeStepImageId", stepImgId);
             currentCookingProcess.put("recipeStepExplanation", currentRecipeStepInfo.get("recipeDescription"));
@@ -156,6 +162,33 @@ public class RecipeService extends BaseService {
         }
 
         return recipeStepList;
+    }
+
+    @Transactional
+    public void updateRecipeInfo(Map<String, Object> recipeUpdateInfo) {
+        Map<String, Object> recipeInfo = (Map<String, Object>) recipeUpdateInfo.get("recipeInfo");
+        List<Map<String, Object>> recipeStepInfoList = (List<Map<String, Object>>) recipeUpdateInfo.get("recipeStepInfoList");
+
+        String recipeNo = (String) recipeInfo.get("recipeNo");
+        String recipeRegistrant = commonDao.selectOne("mappers.recipe.selectRecipeRegistrantByRecipeNo", recipeNo);
+
+        if(!recipeInfo.get("mbNo").equals(recipeRegistrant)) {
+            // 작성자가 아닌경우 에러를 발생
+            throw new RuntimeException();
+        }
+
+        // 레시피 메인정보 수정
+        if(recipeInfo.get("recipeIntroImageFileNm") != null && recipeInfo.get("recipeIntroImageFileExtension") != null) {
+            String recipeMainImageId = saveFileAsBase64((String) recipeInfo.get("recipeIntroImage"), (String) recipeInfo.get("recipeIntroImageFileNm"), (String) recipeInfo.get("recipeIntroImageFileExtension"));
+            recipeInfo.put("recipeMainImageId", recipeMainImageId);
+        }
+
+        commonDao.update("mappers.recipe.updateRecipeInfo", recipeInfo);
+
+        // 레시피 스텝 모두 삭제
+        commonDao.delete("mappers.recipe.deleteRecipeSteps", recipeNo);
+
+        this.insertRecipeSteps(recipeNo, recipeStepInfoList);
     }
 
 }

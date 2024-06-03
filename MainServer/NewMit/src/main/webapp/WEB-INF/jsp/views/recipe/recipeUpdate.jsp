@@ -111,14 +111,20 @@
             const requestData = new Object();
 
             const recipeInfo = await commonUtil.formToObjectWithImage(document.getElementById("recipeInfoForm"));
+            recipeInfo['recipeNo'] = commonUtil.getParameter("recipeNo");
 
             if(document.getElementById("recipeIntroImageInput").files[0] != null) {
                 recipeInfo['recipeIntroImageFileNm'] = document.getElementById("recipeIntroImageInput").files[0].name;
                 recipeInfo['recipeIntroImageFileExtension'] = commonUtil.getExtensionFromBase64(recipeInfo['recipeIntroImage']);
-            } else if(document.getElementById("recipeIntroImageBanner").src != null && document.getElementById("recipeIntroImageBanner").src != "") {
+            } /*else if(document.getElementById("recipeIntroImageBanner").src != null && document.getElementById("recipeIntroImageBanner").src != "") {
+                const recipeIntroImageFileExtension = commonUtil.getExtensionFromBase64(document.getElementById("recipeIntroImageBanner").src)
+                recipeInfo['recipeIntroImageFileNm'] = "Update_Image." + recipeIntroImageFileExtension;
+                recipeInfo['recipeIntroImageFileExtension'] = recipeIntroImageFileExtension;
 
-            }
-
+                if(recipeInfo['recipeIntroImage'] == 'data:application/octet-stream;base64,') {
+                    recipeInfo['recipeIntroImage'] = document.getElementById("recipeIntroImageBanner").src.toString().replace("data:image/jpeg;base64,", "");
+                }
+            }*/
 
             const recipeStepInfoList = new Array();
             for(let currentStep of document.getElementById("recipeInsertStepsOl").children) {
@@ -160,7 +166,7 @@
                                 <i class="ic-camera"></i>
                                 <p>식자재 이미지를 추가해주세요</p>
                             </label>
-                            <img id="recipeIntroImageBanner" src="/images/food/temp.png" style="display: none" alt="">
+                            <img onclick="document.getElementById('recipeIntroImageInput').click()" id="recipeIntroImageBanner" src="/images/food/temp.png" style="display: none" alt="">
                         </div>
                         <div class="ipt">
                             <span>레시피 제목</span>

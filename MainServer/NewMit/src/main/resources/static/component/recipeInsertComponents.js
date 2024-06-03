@@ -166,7 +166,7 @@ recipeInsertComponents.getStepElement = function(id) {
                                     <i class="ic-camera"></i>
                                     <p>식자재 이미지를 추가해주세요</p>
                                 </label>
-                                <img id="recipeStepImageBanner` + id + `" src="/images/food/temp.png" style="display: none" alt="">
+                                <img onclick="document.getElementById('recipeStepImageInput` + id + `').click()" id="recipeStepImageBanner` + id + `" src="/images/food/temp.png" style="display: none" alt="">
                             </div>
                             <div class="ipt">
                                 <span>레시피 설명</span>

@@ -68,7 +68,7 @@
             </div>
             <p class="user-name"><span id="userNm">ㅇㅇㅇ</span> 요리사님</p>
             <ul class="user-recipe">
-                <li>
+                <%--<li>
                     <a href="">
                         <p>저장한 레시피</p>
                         <span>0</span>
@@ -79,7 +79,7 @@
                         <p>내가 본 레시피</p>
                         <span>0</span>
                     </a>
-                </li>
+                </li>--%>
                 <li>
                     <a href="/recipe/viewWrittenRecipeList">
                         <p>작성한 레시피</p>
@@ -88,12 +88,12 @@
                 </li>
             </ul>
             <ul class="list">
-                <li>
+                <%--<li>
                     <a href="/food/foodCalendar.html"><span>식자재 달력</span></a>
                 </li>
                 <li>
                     <a href=""><span>개인정보 수정</span></a>
-                </li>
+                </li>--%>
                 <li>
                     <label>
                         <span>푸시 알림 받기</span>
@@ -106,9 +106,9 @@
                         </div>
                     </label>
                 </li>
-                <li>
+                <%--<li>
                     <a href=""><span>약관 및 개인정보 처리 동의</span></a>
-                </li>
+                </li>--%>
                 <li>
                     <a href=""><span>고객센터</span></a>
                 </li>

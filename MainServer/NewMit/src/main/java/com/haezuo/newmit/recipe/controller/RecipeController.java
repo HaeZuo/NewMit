@@ -155,6 +155,17 @@ public class RecipeController extends BaseService {
     public Map<String, Object> updateRecipe(HttpServletRequest request, @RequestBody Map<String, Object> requestBody) throws IOException {
         Map<String, Object> result= new HashMap<>();
 
+        Map<String, Object> recipeUpdateInfo = new HashMap<>();
+        Map<String, Object> recipeInfo = (Map<String, Object>) requestBody.get("recipeInfo");
+
+        recipeInfo.put("mbNo", loginService.getCurrentUserId(request));
+        recipeInfo.put("userIp", CommonUtil.getUserIp());
+
+        recipeUpdateInfo.put("recipeInfo", recipeInfo);
+        recipeUpdateInfo.put("recipeStepInfoList", requestBody.get("recipeStepInfoList"));
+
+        recipeService.updateRecipeInfo(recipeUpdateInfo);
+
         return result;
     }
 
