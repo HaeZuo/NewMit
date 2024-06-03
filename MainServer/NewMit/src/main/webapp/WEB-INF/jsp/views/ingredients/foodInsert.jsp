@@ -53,13 +53,19 @@
 
                 const objectDetection = parent.data['objectDetection'];
 
-                for(let curObjectDetection of objectDetection) {
+                if(objectDetection.length != 0) {
+                    for(let curObjectDetection of objectDetection) {
+                        addBtnClick();
+
+                        foodInsertArea.setBannerImage(foodInsertAreaSequence, "data:image/jpeg;base64," + curObjectDetection['detectionBannerImage']);
+
+                        foodInsertArea.setName(foodInsertAreaSequence, curObjectDetection['detectionClasseName']);
+                    }
+                } else {
+                    alert("인식된 식자재가 없습니다.");
                     addBtnClick();
-
-                    foodInsertArea.setBannerImage(foodInsertAreaSequence, "data:image/jpeg;base64," + curObjectDetection['detectionBannerImage']);
-
-                    foodInsertArea.setName(foodInsertAreaSequence, curObjectDetection['detectionClasseName']);
                 }
+
             }
         }
 
