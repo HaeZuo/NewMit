@@ -84,7 +84,7 @@
                 if(Object.getPrototypeOf(parent).constructor.name == 'ModalPopup') {
                     parent.modalClose();
                 } else {
-                    window.location.href = "/home"
+                    window.location.href = "/ingredients/listView";
                 }
 
             }, function (fail) {
@@ -105,7 +105,7 @@
                 httpRequest('POST', '/ingredients/deleteInqredients', JSON.stringify(formObject), function (success) {
                     alert("성공적으로 삭제 됐습니다.");
 
-                    window.location.href = '/home';
+                    window.location.href = "/ingredients/listView";
 
                 }, function (fail) {
                     alert("삭제 실패.");
