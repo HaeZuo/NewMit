@@ -32,6 +32,10 @@ VALUES  ('3', '식자재 구분', '1', '곡물류'),
         ('3', '식자재 구분', '14', '자연식품'),
         ('3', '식자재 구분', '15', '빙과류');
 
+INSERT INTO TB_COMMON_CODE(COMMON_CODE_GROUP_CD, COMMON_CODE_GROUP_CD_NM, COMMON_CODE_CD, COMMON_CODE_NM)
+VALUES  ('4', '회원 역할', '0', '관리자'),
+        ('4', '회원 역할', '1', '일반 회원');
+
 -- 회원정보 테이블
 CREATE TABLE TB_MEMBERS_INFO (
     MB_NO INT(10) COMMENT '회원 넘버' PRIMARY KEY,
