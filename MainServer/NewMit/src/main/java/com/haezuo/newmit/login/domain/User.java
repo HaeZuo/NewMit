@@ -1,7 +1,5 @@
 package com.haezuo.newmit.login.domain;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -27,6 +25,9 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MB_NO", updatable = false)
     private Long id;
+
+    @Column(name = "MB_ROLE", updatable = false)
+    private String mbRole;
 
     @Column(name = "MB_EMAIL", nullable = false, unique = true)
     private String email;
@@ -59,8 +60,9 @@ public class User implements UserDetails {
     private String mbUpdateIp;
 
     @Builder
-    public User(Long id, String email, String oauthProvider, String nickname, String mbBirthDate, String mbGender, String mbPhoneNumber, String mbRegisterDate, String mbRegisterIp, String mbUpdateDate, String mbUpdateIp) {
+    public User(Long id, String mbRole, String email, String oauthProvider, String nickname, String mbBirthDate, String mbGender, String mbPhoneNumber, String mbRegisterDate, String mbRegisterIp, String mbUpdateDate, String mbUpdateIp) {
         this.id = id;
+        this.mbRole = mbRole;
         this.email = email;
         this.oauthProvider = oauthProvider;
         this.mbNm = nickname;
@@ -89,12 +91,6 @@ public class User implements UserDetails {
         this.mbUpdateDate = (String) info.get(userInfo.KEY_USER_INFO_UPDATE_DATE);
 
         return this;
-    }
-
-    public Map<String, Object> GetUserInfoObject() {
-        Map<String, Object> result = new HashMap<>();
-
-        return result;
     }
 
     @Override

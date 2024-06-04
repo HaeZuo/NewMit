@@ -38,6 +38,7 @@ public class LoginService {
         String token = new TokenUtil().getRequestToken(request);
 
         result.put(userInfo.KEY_USER_ID, tokenProvider.getUserId(token));
+        result.put(userInfo.KEY_USER_ROLE, tokenProvider.getUserRole(token));
         result.put(userInfo.KEY_USER_NM, tokenProvider.getUserNm(token));
         result.put(userInfo.KEY_USER_MAIL, tokenProvider.getUserMail(token));
         result.put(userInfo.KEY_USER_O_AUTH_PROVIDER, tokenProvider.getUserOAuthProvider(token));
@@ -52,6 +53,7 @@ public class LoginService {
 
         java.util.Optional<User> customerUserInfo = userRepository.findById((Long) connectUserInfo.get(userInfo.KEY_USER_ID));
         result.put("userNm", customerUserInfo.get().getMbNm());
+        result.put("userRole", customerUserInfo.get().getMbRole());
         result.put("userBirthDate", customerUserInfo.get().getMbBirthDate());
         result.put("userMail", customerUserInfo.get().getEmail());
         result.put("userPhoneNumber", customerUserInfo.get().getMbPhoneNumber());
@@ -87,7 +89,9 @@ public class LoginService {
             case userInfo.KEY_USER_O_AUTH_PROVIDER:
                 result = tokenProvider.getUserOAuthProvider(token);
                 break;
-
+            case userInfo.KEY_USER_ROLE:
+                result = tokenProvider.getUserRole(token);
+                break;
         }
 
         return result;

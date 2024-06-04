@@ -112,6 +112,11 @@
                 <li>
                     <a href=""><span>고객센터</span></a>
                 </li>
+                <c:if test="${userRole == '0'}">
+                    <li>
+                        <a href="/admin/viewFoodIngredientsManagement"><span>(관리자) 식자재 구분 관리</span></a>
+                    </li>
+                </c:if>
             </ul>
         </div>
     </section>

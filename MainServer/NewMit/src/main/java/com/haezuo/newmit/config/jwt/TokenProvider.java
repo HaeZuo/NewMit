@@ -42,6 +42,7 @@ public class TokenProvider {
                 .claim(userInfo.KEY_USER_ID, user.getId())
                 .claim(userInfo.KEY_USER_NM, user.getMbNm())
                 .claim(userInfo.KEY_USER_MAIL, user.getEmail())
+                .claim(userInfo.KEY_USER_ROLE, user.getMbRole())
                 .claim(userInfo.KEY_USER_O_AUTH_PROVIDER, user.getOauthProvider())
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
                 .compact();
@@ -102,6 +103,17 @@ public class TokenProvider {
         }
 
         return claims.get(userInfo.KEY_USER_MAIL, String.class);
+    }
+
+    public String getUserRole(String token) {
+        Claims claims;
+        try {
+            claims = getClaims(token);
+        } catch (Exception e) {
+            return null;
+        }
+
+        return claims.get(userInfo.KEY_USER_ROLE, String.class);
     }
 
     public String getUserOAuthProvider(String token) {

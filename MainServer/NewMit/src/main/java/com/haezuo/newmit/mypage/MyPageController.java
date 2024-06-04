@@ -36,6 +36,8 @@ public class MyPageController {
 
             mav.addObject("writtenRecipeCount", recipeService.getWrittenRecipeCount(condition));
 
+            mav.addObject("userRole", loginService.ConnectUserInfo(request, userInfo.KEY_USER_ROLE));
+
             mav.setViewName("/mypage/myPage");
         } else {
             mav.setViewName("redirect:/login");
