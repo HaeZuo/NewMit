@@ -37,22 +37,21 @@
 <div class="wrap">
     <section>
         <div class="notice">
-            <ul>
-                <li class="food new">
-                    <a href="">
-                        <p><span>식자재 관리</span><span>6일 전</span></p>
-                        <p>식자재 김치 외 3종의 소비기한이 ##일 남았습니다 남았습니다.</p>
-                    </a>
-                </li>
-            </ul>
-            <ul>
-                <li class="food">
-                    <a href="">
-                        <p><span>식자재 관리</span><span>6일 전</span></p>
-                        <p>식자재 김치 외 3종의 소비기한이 ##일 남았습니다 남았습니다.</p>
-                    </a>
-                </li>
-            </ul>
+            <c:forEach var="userNoticeInfo" items="${userNoticeInfoList}">
+                <ul>
+                    <c:if test="${userNoticeInfo.USER_NOTICE_VIEW_YN == 'Y'}">
+                        <li class="food">
+                    </c:if>
+                    <c:if test="${userNoticeInfo.USER_NOTICE_VIEW_YN != 'Y'}">
+                        <li class="food new">
+                    </c:if>
+                        <a href="#">
+                            <p><span><c:out value="${userNoticeInfo.COMMON_CODE_NM}" /></span><span><c:out value="${userNoticeInfo.RECEIVED_DATE}" /></span></p>
+                            <p><c:out value="${userNoticeInfo.USER_NOTICE_CONTENTS}" /></p>
+                        </a>
+                    </li>
+                </ul>
+            </c:forEach>
         </div>
     </section>
 </div>

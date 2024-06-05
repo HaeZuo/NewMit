@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mappers.mypage">
+
+    <select id="selectSoonToExpireFoodList" resultType="map">
+        /* mappers.mypage.selectSoonToExpireFoodList */
+        <![CDATA[
+        SELECT t1.MB_NO,
+               COUNT(*)-1 AS CNT,
+               MIN(t1.INGREDIENT_OWNED_NM) AS INGREDIENT_OWNED_NM
+        FROM TB_INGREDIENTS_OWNED t1
+        WHERE 1=1
+                AND LENGTH(t1.INGREDIENT_OWNED_BUY_DATE) = 8
+                AND LENGTH(t1.INGREDIENT_OWNED_EXPIRATION_DATE) = 8
+                AND (t1.INGREDIENT_OWNED_EXPIRATION_DATE - DATE_FORMAT(NOW(), '%Y%m%d')) <= 3
+        GROUP BY t1.MB_NO
+        ]]>
+    </select>
+
+    <insert id="insertUserNoticeInfo" parameterType="map">
+        /* mappers.mypage.insertUserNoticeInfo */
+        INSERT INTO TB_USER_NOTICE(
+            MB_NO,
+            USER_NOTICE_NO,
+            USER_NOTICE_TYPE,
+            USER_NOTICE_CONTENTS,
+            USER_NOTICE_REGISTER_DATE,
+            USER_NOTICE_VIEW_YN
+        )
+        SELECT
+            #{MB_NO},
+            IFNULL(MAX(USER_NOTICE_NO) + 1, 1),
+            #{noticeType},
+            #{noticeContents},
+            NOW(),
+            'N'
+        FROM TB_USER_NOTICE
+        WHERE MB_NO = #{MB_NO}
+    </insert>
+
+    <select id="selectUserNoticeInfoListByMbNo" parameterType="string" resultType="map">
+        /* mappers.mypage.selectUserNoticeInfoListByMbNo */
+        SELECT TUN.MB_NO,
+               TUN.USER_NOTICE_NO,
+               TUN.USER_NOTICE_TYPE,
+               TUN.USER_NOTICE_CONTENTS,
+               CASE (DATE_FORMAT(NOW(), '%Y%m%d') - TUN.USER_NOTICE_REGISTER_DATE)
+                   WHEN '0'
+                       THEN '오늘'
+                   ELSE DATE_FORMAT(NOW(), '%Y%m%d') - TUN.USER_NOTICE_REGISTER_DATE || '일 전'
+                   END RECEIVED_DATE,
+               TUN.USER_NOTICE_VIEW_YN,
+               TCC.COMMON_CODE_NM
+        FROM  TB_USER_NOTICE TUN INNER JOIN TB_COMMON_CODE TCC ON TCC.COMMON_CODE_CD = TUN.USER_NOTICE_TYPE
+        WHERE 1=1
+          AND TUN.MB_NO = #{mbNo}
+          AND TCC.COMMON_CODE_GROUP_CD = '5'
+        GROUP BY TUN.MB_NO,
+                 TUN.USER_NOTICE_NO,
+                 TUN.USER_NOTICE_TYPE,
+                 TUN.USER_NOTICE_CONTENTS,
+                 TUN.USER_NOTICE_REGISTER_DATE,
+                 TUN.USER_NOTICE_VIEW_YN,
+                 TCC.COMMON_CODE_NM
+    </select>
+
+</mapper>
