@@ -21,9 +21,9 @@ spring:
 
   # DB Connection Info
   datasource:
-    url: 
-    username: NMu
-    password: 1q2w3e4r!!
+    url:
+    username:
+    password:
     driver-class-name: com.mysql.jdbc.Driver
 
   # JPA Info
@@ -87,11 +87,6 @@ spring:
 # Server Info
 server:
   port: 8080  # Specifies the port on which the server will run
-  tomcat:
-    basedir: .
-    accesslog:
-      enabled: true
-      pattern: '%{yyyy-MM-dd HH:mm:ss}t\t%s\t%r\t%{User-Agent}i\t%{Referer}i\t%a\t%b'
 
   # MyBatis Configuration
   # Locations of MyBatis mapper XML files
@@ -104,6 +99,7 @@ jwt:
 
 directory:
   fileDir: C:\NewMit\SaveFile\
+  tmpDir: C:\NewMit\temp\
 
 link:
   object-detection:

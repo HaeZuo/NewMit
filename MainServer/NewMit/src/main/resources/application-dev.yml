@@ -22,8 +22,8 @@ spring:
   # DB Connection Info
   datasource:
     url:
-    username: NMu
-    password: 1q2w3e4r!!
+    username:
+    password: 
     driver-class-name: com.mysql.jdbc.Driver
 
   # JPA Info
@@ -64,8 +64,8 @@ spring:
               - profile_nickname
               - account_email
           naver:
-            client-id: 8l3bkUgi2aBZqcf4regu
-            client-secret: iSIL1ATOGf
+            client-id:
+            client-secret:
             scope:
               - name
               - email
@@ -104,6 +104,7 @@ jwt:
 
 directory:
   fileDir: /NewMit/SaveFile/
+  tempDir: /NewMit/temp/
 
 link:
   object-detection:
