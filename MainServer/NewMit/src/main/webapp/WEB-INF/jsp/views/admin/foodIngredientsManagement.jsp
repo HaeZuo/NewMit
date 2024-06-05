@@ -34,15 +34,61 @@
     <script src="/scripts/scripts.js"></script>
     <script>
         window.onload = function () {
+            document.getElementById("addBtn").onclick = function () {
+                const newUlElement = `
+                    <form>
+                        <ul>
+                            <hr/>
+                            <li>공통코드: <input type="text" name="commonCodeCd" /></li>
+                            <li>공통코드명: <input type="text" name="commonCodeNm" /></li>
+                            <hr/>
+                        </ul>
+                    </form>
+                `;
+                document.getElementById("listSection").insertAdjacentHTML('beforeend', newUlElement);
+            }
 
+            document.getElementById("saveBtn").onclick = function () {
+                const foodIngredientsTypeCodeList = new Array();
+                for(let currentForm of document.getElementById("listSection").children) {
+                    const currentFoodIngredientsTypeCode = commonUtil.formToObject(currentForm);
+
+                    foodIngredientsTypeCodeList.push(currentFoodIngredientsTypeCode);
+                }
+                const requestBody = new Object();
+                requestBody['foodIngredientsTypeCodeList'] = foodIngredientsTypeCodeList;
+
+                httpRequest('POST', '/admin/saveFoodIngredientsTypeCodeList', JSON.stringify(requestBody), function (success) {
+                    alert("성공");
+                    window.location.reload();
+                }, function (fail) {
+                    alert("실패");
+                });
+            }
+        }
+
+        function deleteUl(e) {
+            e.parentElement.remove()
         }
     </script>
 </head>
 <body>
 <div class="wrap">
-    <section>
-
+    <section id="listSection">
+        <c:forEach var="fitcl" items="${foodIngredientsTypeCodeList}">
+            <form>
+                <ul>
+                    <hr/>
+                    <li>공통코드: <input type="text" name="commonCodeCd" value='<c:out value="${fitcl.COMMON_CODE_CD}" />' /></li>
+                    <li>공통코드명: <input type="text" name="commonCodeNm" value='<c:out value="${fitcl.COMMON_CODE_NM}" />' /></li>
+                    <input type="button" onclick="javascript:deleteUl(this);" value="삭제">
+                    <hr/>
+                </ul>
+            </form>
+        </c:forEach>
     </section>
+    <input type="button" id="addBtn" value="추가">
+    <input type="button" id="saveBtn" value="저장">
 </div>
 </body>
 </html>

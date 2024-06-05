@@ -86,7 +86,7 @@
 
             const tabFilterTable = document.getElementById("tabFilterTableBody");
 
-            const rowCount = Math.ceil(foodIngredientsTypeCodeList.length / 4);
+            const rowCount = Math.ceil(foodIngredientsTypeCodeList.length+1 / 4);
 
             for(let curRowIdx=1; curRowIdx<=rowCount; curRowIdx++) {
                 tabFilterTable.insertAdjacentHTML('beforeend', `
@@ -113,6 +113,7 @@
                     curColIdx = 0;
                     ++curRowIdx;
                 }
+
                 document.getElementById("tabFilterRow" + curRowIdx).insertAdjacentHTML('beforeend', `
                     <td onclick="javascript:tabFilterOnClick(this)" code="` + foodIngredientsTypeCode['COMMON_CODE_CD'] + `">
                         <a href="#">` + foodIngredientsTypeCode['COMMON_CODE_NM'] + `</a>

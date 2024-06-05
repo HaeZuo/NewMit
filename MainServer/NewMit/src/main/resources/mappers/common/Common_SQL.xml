@@ -61,4 +61,36 @@
         WHERE MB_NO = #{mbNo}
     </select>
 
+    <select id="selectFoodIngredientsTypeCodeList" resultType="map">
+        /* mappers.common.selectFoodIngredientsTypeCodeList */
+        SELECT COMMON_CODE_CD,
+               COMMON_CODE_NM
+        FROM TB_COMMON_CODE
+        WHERE COMMON_CODE_GROUP_CD = '3'
+        ORDER BY COMMON_CODE_CD*1
+    </select>
+
+    <delete id="deleteFoodIngredientsTypeCodeList">
+        /* mappers.common.deleteFoodIngredientsTypeCodeList */
+        DELETE
+        FROM TB_COMMON_CODE
+        WHERE COMMON_CODE_GROUP_CD = '3'
+    </delete>
+
+    <insert id="insertFoodIngredientsTypeCode" parameterType="map">
+        /* mappers.common.insertFoodIngredientsTypeCode */
+        INSERT INTO TB_COMMON_CODE (
+            COMMON_CODE_GROUP_CD,
+            COMMON_CODE_GROUP_CD_NM,
+            COMMON_CODE_CD,
+            COMMON_CODE_NM
+        )
+        VALUES (
+            '3',
+            '식자재 구분',
+            #{commonCodeCd},
+            #{commonCodeNm}
+        )
+    </insert>
+
 </mapper>

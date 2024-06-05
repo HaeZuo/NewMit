@@ -52,6 +52,10 @@ public class CommonDao {
         return sqlSession.update(queryId, parameterObject);
     }
 
+    public int delete(String queryId){
+        return sqlSession.delete(queryId);
+    }
+
     public int delete(String queryId, Object parameterObject){
         return sqlSession.delete(queryId, parameterObject);
     }
