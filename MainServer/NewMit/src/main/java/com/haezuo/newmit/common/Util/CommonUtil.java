@@ -1,6 +1,10 @@
 package com.haezuo.newmit.common.Util;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -15,7 +19,11 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Component
 public class CommonUtil {
+
+    @Value("${directory.tempDir}")
+    private static String tempDir;
 
     public static String getRemoteAddr(HttpServletRequest request){
         return (null != request.getHeader("X-FORWARDED-FOR")) ? request.getHeader("X-FORWARDED-FOR") : request.getRemoteAddr();
@@ -150,6 +158,40 @@ public class CommonUtil {
         } else {
             return false;
         }
+    }
+
+    public static File getResourceFile(String path) {
+        File file = null;
+
+        // 리소스 파일의 경로
+        String resourcePath = path;
+
+        // 클래스패스 리소스를 로드
+        Resource resource = new ClassPathResource(resourcePath);
+
+        // 클래스패스 리소스의 InputStream 얻기
+        try {
+            InputStream inputStream = resource.getInputStream();
+
+            file = writeInputStreamToFile(inputStream, tempDir + "tmp");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return file;
+    }
+
+    public static File writeInputStreamToFile(InputStream inputStream, String filePath) throws IOException {
+        File file = new File(filePath);
+        OutputStream outputStream = new FileOutputStream(file);
+        byte[] buffer = new byte[1024];
+        int length;
+        while ((length = inputStream.read(buffer)) > 0) {
+            outputStream.write(buffer, 0, length);
+        }
+        outputStream.close();
+        inputStream.close();
+        return file;
     }
 
 }

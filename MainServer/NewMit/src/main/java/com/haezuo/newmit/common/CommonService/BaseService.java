@@ -6,6 +6,7 @@ import com.haezuo.newmit.common.Util.CommonUtil;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -99,15 +100,16 @@ public class BaseService {
     public File getFileByFileId(String fileId) {
         Map<String, Object> fileInfo = commonDao.selectOne("mappers.common.selectFileInfoByFileId", fileId);
 
+        if (fileInfo == null) {
+            throw new IllegalArgumentException("No file found for the provided fileId: " + fileId);
+        }
+
         File file = new File((String) fileInfo.get("FILE_INFO_DIR"));
 
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                //System.out.println(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!file.exists()) {
+
+            // 클래스패스 리소스를 로드
+            file = CommonUtil.getResourceFile("static/error/fileNotFound.png");
         }
 
         return file;
