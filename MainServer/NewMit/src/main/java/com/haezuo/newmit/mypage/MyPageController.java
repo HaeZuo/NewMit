@@ -46,4 +46,11 @@ public class MyPageController {
         return mav;
     }
 
+    @RequestMapping(value = "/myPage/viewNotice", method = RequestMethod.GET)
+    public ModelAndView viewNotice(HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("/mypage/notice");
+
+        return mav;
+    }
+
 }

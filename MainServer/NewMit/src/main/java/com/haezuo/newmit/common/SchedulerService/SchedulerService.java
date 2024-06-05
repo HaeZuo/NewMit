@@ -14,23 +14,18 @@ import java.util.Map;
 @Service
 public class SchedulerService extends BaseService {
 
-    /*
-    @Scheduled(cron = "0/5 * * * * *", zone = "Asia/Seoul") // 5초마다 실행
-    public void runs() {
-        Map<String, Object> test = new HashMap<>();
-        test.put("test1", "test11");
-        test.put("test2", "test22");
-        new RankInfo().setRecipeRankInfo(test);
-
-        System.out.println(new RankInfo().getRecipeRankInfo());
-    }
-    */
-
     @Scheduled(cron = "0 0 0/1 * * *", zone = "Asia/Seoul") // 1시간 마다
     public void setFoodIngredientsTypeCodeList() {
         new CommonCode().setFoodIngredientsTypeCodeList(getFoodIngredientsTypeCodeList());
 
         System.out.println(new CommonCode().getFoodIngredientsTypeCodeList());
     }
+
+    @Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul") // 매일 0시에
+    public void noticeService() {
+        
+    }
+
+
 
 }

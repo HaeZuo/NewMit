@@ -46,6 +46,7 @@
     <header id="commonHeader">
         <h1><a href="/home"><img src="/images/logo-brand.png" alt=""></a></h1>
         <ul>
+            <li class="active"><a href="/myPage/viewNotice"><img src="/images/icons/ic-bell.svg" alt=""></a></li>
             <li><a href=""><img src="/images/icons/ic-search.svg" alt=""></a></li>
         </ul>
     </header>
