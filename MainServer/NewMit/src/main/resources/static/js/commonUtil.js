@@ -112,7 +112,7 @@ commonUtil.enableToRegBtn = function(flag, clickEvent) {
         flag = true;
 
     if(flag) {
-        document.getElementById("regBtnDiv").style.display = "";
+        document.getElementById("regBtnDiv").style.display = "block";
 
         if(typeof clickEvent === 'function')
             document.getElementById("regBtnDiv").onclick = clickEvent;

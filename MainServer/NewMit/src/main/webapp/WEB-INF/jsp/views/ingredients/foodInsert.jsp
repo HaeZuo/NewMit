@@ -45,6 +45,10 @@
 
             addBtnClick();
 
+            commonUtil.enableToRegBtn(true, function () {
+                addBtnClick();
+            })
+
             // 객체 인식으로 들어왔는지
             if(Object.getPrototypeOf(parent).constructor.name == 'ModalPopup') {
 
@@ -127,15 +131,17 @@
         <div id="foodInsertAreaList">
 
         </div>
-        <div>
-            <input type="button" value="addBtn" id="addBtn" onclick="javascript:addBtnClick();">
-        </div>
     </section>
     <footer>
         <ul class="btn-wrap">
             <li><a href="#" class="btn white">삭제</a></li>
             <li><a href="#" class="btn primary" onclick="javascript:saveBtnClick();">저장</a></li>
         </ul>
+        <div id="addBtn" onclick="javascript:addBtnClick();" class="floating" >
+            <a class="btn sm square primary">
+                <img src="/images/icons/ic-plus.svg" alt="">
+            </a>
+        </div>
     </footer>
 <div class="modal">
     <div class="modal-content">
