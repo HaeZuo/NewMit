@@ -38,6 +38,29 @@ public class MyPageService extends BaseService {
         commonDao.update("mappers.mypage.updateUserProfileImageId", profileImageUpdateInfo);
     }
 
+    public void insertMemberBookmark(String recipeNo, String mbNo) {
+        Map<String, Object> bookmarkInfo = new HashMap<>();
+        bookmarkInfo.put("mbNo", mbNo);
+        bookmarkInfo.put("recipeNo", recipeNo);
+        bookmarkInfo.put("userIp", CommonUtil.getUserIp());
 
+        commonDao.insert("mappers.mypage.insertMemberBookmark", bookmarkInfo);
+    }
+
+    public void deleteMemberBookmark(String recipeNo, String mbNo) {
+        Map<String, Object> bookmarkInfo = new HashMap<>();
+        bookmarkInfo.put("mbNo", mbNo);
+        bookmarkInfo.put("recipeNo", recipeNo);
+
+        commonDao.delete("mappers.mypage.deleteMemberBookmark", bookmarkInfo);
+    }
+
+    public String getMemberBookmarkAddYn(String recipeNo, String mbNo) {
+        Map<String, Object> bookmarkInfo = new HashMap<>();
+        bookmarkInfo.put("mbNo", mbNo);
+        bookmarkInfo.put("recipeNo", recipeNo);
+
+        return commonDao.selectOne("mappers.mypage.selectMemberBookmarkAddYn", bookmarkInfo);
+    }
 
 }

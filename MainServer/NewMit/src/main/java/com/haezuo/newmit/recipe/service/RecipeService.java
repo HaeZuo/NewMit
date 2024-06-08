@@ -116,6 +116,25 @@ public class RecipeService extends BaseService {
 
         return result;
     }
+    public String getBookmarkCountByMbNo(String mbNo) {
+        String result;
+
+        result = commonDao.selectOne("mappers.recipe.selectBookmarkCountByMbNo", mbNo);
+
+        return result;
+    }
+
+    public List<Map<String, Object>> getBookmarkRecipeListByMbNo(String mbNo) throws IOException {
+        List<Map<String, Object>> bookmarkRecipeListByMbNo = commonDao.selectList("selectBookmarkRecipeListByMbNo", mbNo);
+
+        for(Map<String, Object> currentBookmarkRecipe : bookmarkRecipeListByMbNo) {
+            File mainImage = getFileByFileId((String) currentBookmarkRecipe.get("RECIPE_MAIN_IMAGE_ID"));
+
+            currentBookmarkRecipe.put("mainImage", CommonUtil.convertFileToBase64(mainImage));
+        }
+
+        return bookmarkRecipeListByMbNo;
+    }
 
     /**
      *

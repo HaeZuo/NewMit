@@ -41,6 +41,33 @@
 
             const memberCard = new MemberCard(document.getElementById("memberCard"), <c:out value="${detailRecipeInfo.MB_NO}" />);
             memberCard.create();
+
+            if('<c:out value="${bookmarkAddYn}" />' == 'Y') {
+                document.getElementById("bookmarkLi").classList.add("active")
+            }
+
+        }
+
+        function bookmarkBtnClick(recipeNo) {
+            if(!document.getElementById("bookmarkLi").classList.contains("active")) {
+                const requestData = new Object();
+                requestData['recipeNo'] = recipeNo;
+
+                httpRequest('POST', '/myPage/addBookmark', JSON.stringify(requestData), function (success) {
+                    document.getElementById("bookmarkLi").classList.add("active");
+                }, function (fail) {
+                    alert("북마크 주가 실패!");
+                });
+            } else {
+                const requestData = new Object();
+                requestData['recipeNo'] = recipeNo;
+
+                httpRequest('POST', '/myPage/removeBookmark', JSON.stringify(requestData), function (success) {
+                    document.getElementById("bookmarkLi").classList.remove("active");
+                }, function (fail) {
+                    alert("북마크 제거 실패!");
+                });
+            }
         }
     </script>
 </head>
@@ -55,7 +82,9 @@
                         <c:if test="${detailRecipeInfo.MB_NO == userInfo.currentUserId}">
                             <li><a href="/recipe/viewUpdateRecipe?recipeNo=<c:out value="${detailRecipeInfo.RECIPE_NO}" />"><img src="/images/icons/ic-edit.svg" alt=""></a></li>
                         </c:if>
-                        <li class="bookmark"><a href=""></a></li>
+                        <li id="bookmarkLi" onclick='javascript:bookmarkBtnClick("<c:out value="${detailRecipeInfo.RECIPE_NO}" />")' class="bookmark">
+                            <a href="#"></a>
+                        </li>
                         <li><a href=""><img src="/images/icons/ic-share.svg" alt=""></a></li>
                     </ul>
                 </div>

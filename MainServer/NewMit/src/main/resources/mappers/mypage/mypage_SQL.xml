@@ -79,4 +79,39 @@
         WHERE MB_NO = #{mbNo}
     </update>
 
+    <insert id="insertMemberBookmark" parameterType="map">
+        /* mappers.mypage.insertMemberBookmark */
+        INSERT TB_USER_BOOKMARK(
+                        MB_NO,
+                        USER_BOOKMARK_NO,
+                        RECIPE_NO,
+                        USER_BOOKMARK_REGISTER_DATE,
+                        USER_BOOKMARK_REGISTER_IP
+                        )
+        SELECT #{mbNo}, IFNULL(MAX(USER_BOOKMARK_NO) + 1, 1), #{recipeNo}, NOW(), #{userIp}
+        FROM TB_USER_BOOKMARK
+        WHERE MB_NO = #{mbNo};
+    </insert>
+
+    <delete id="deleteMemberBookmark" parameterType="map">
+        /* mappers.mypage.deleteMemberBookmark */
+        DELETE
+        FROM TB_USER_BOOKMARK
+        WHERE 1=1
+        AND MB_NO = #{mbNo}
+        AND RECIPE_NO = #{recipeNo}
+    </delete>
+
+    <select id="selectMemberBookmarkAddYn" parameterType="map" resultType="string">
+        SELECT CASE(COUNT(*))
+                   WHEN '0'
+                       THEN 'N'
+                   ELSE 'Y'
+                   END YN
+        FROM TB_USER_BOOKMARK
+        WHERE 1=1
+          AND MB_NO = #{mbNo}
+          AND RECIPE_NO = #{recipeNo}
+    </select>
+
 </mapper>

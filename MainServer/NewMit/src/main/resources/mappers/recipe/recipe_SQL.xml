@@ -121,6 +121,13 @@
         WHERE TR.MB_NO = #{userId}
     </select>
 
+    <select id="selectBookmarkCountByMbNo" parameterType="string" resultType="string">
+        /* mappers.recipe.selectBookmarkCountByMbNo */
+        SELECT COUNT(*)
+        FROM TB_USER_BOOKMARK
+        WHERE MB_NO = #{mbNo}
+    </select>
+
     <select id="selectDetailRecipeInfo" parameterType="map" resultType="map">
         /* mappers.recipe.selectDetailRecipeInfo */
         SELECT
@@ -233,6 +240,20 @@
         SELECT MB_NO
         FROM TB_RECIPE
         WHERE RECIPE_NO = #{recipeNo}
+    </select>
+
+    <select id="selectBookmarkRecipeListByMbNo" parameterType="string" resultType="map">
+        SELECT TR.RECIPE_NO,
+               TMI.MB_NO,
+               TR.RECIPE_MAIN_IMAGE_ID,
+               TR.RECIPE_NM,
+               IFNULL(ROUND(AVG(TRR.RECIPE_RATING_SCORE), 1), 0.0) AS RATING
+        FROM TB_USER_BOOKMARK TUB
+                 INNER JOIN TB_RECIPE TR ON TUB.RECIPE_NO = TR.RECIPE_NO
+                 INNER JOIN TB_MEMBERS_INFO TMI on TR.MB_NO = TMI.MB_NO
+                 INNER JOIN TB_RECIPE_RATING TRR ON TR.RECIPE_NO = TRR.RECIPE_NO
+        WHERE TUB.MB_NO = #{mbNo}
+        GROUP BY TR.RECIPE_NO, TMI.MB_NO, TR.RECIPE_MAIN_IMAGE_ID, TR.RECIPE_NM
     </select>
 
 </mapper>

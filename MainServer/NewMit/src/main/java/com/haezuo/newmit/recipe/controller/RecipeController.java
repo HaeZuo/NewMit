@@ -5,6 +5,7 @@ import com.haezuo.newmit.common.CommonService.BaseService;
 import com.haezuo.newmit.common.Util.CommonUtil;
 import com.haezuo.newmit.common.constants.userInfo;
 import com.haezuo.newmit.login.service.LoginService;
+import com.haezuo.newmit.mypage.Service.MyPageService;
 import com.haezuo.newmit.recipe.service.RecipeService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,8 @@ public class RecipeController extends BaseService {
     private final RecipeService recipeService;
 
     private final LoginService loginService;
+
+    private final MyPageService myPageService;
 
     @RequestMapping(value = "/recipe/viewWrittenRecipeList")
     public ModelAndView viewWrittenRecipeList(HttpServletRequest request) {
@@ -86,6 +89,8 @@ public class RecipeController extends BaseService {
         Map<String, Object> userInfo = new HashMap<>();
         userInfo.put("currentUserId", loginService.getCurrentUserId(request));
         mav.addObject("userInfo", userInfo);
+
+        mav.addObject("bookmarkAddYn", myPageService.getMemberBookmarkAddYn(((String) request.getParameter("recipeNo")), ((String) request.getParameter("mbNo"))));
 
         return mav;
     }

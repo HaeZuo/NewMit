@@ -9,10 +9,7 @@ import com.haezuo.newmit.recipe.service.RecipeService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
@@ -44,6 +41,8 @@ public class MyPageController extends BaseService {
             condition.put("userId", currentUserId);
 
             mav.addObject("writtenRecipeCount", recipeService.getWrittenRecipeCount(condition));
+
+            mav.addObject("bookmarkCount", recipeService.getBookmarkCountByMbNo(currentUserId));
 
             mav.addObject("userRole", loginService.ConnectUserInfo(request, userInfo.KEY_USER_ROLE));
 
@@ -88,6 +87,40 @@ public class MyPageController extends BaseService {
         imageInfo.put("profileImageNm", (String) requestBody.get("profileImageNm"));
 
         myPageService.saveProfileImage(imageInfo, loginService.getCurrentUserId(request));
+
+        return result;
+    }
+
+    @RequestMapping(value="/myPage/{type}Bookmark", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> addBookmark(HttpServletRequest request, @RequestBody Map<String, Object> requestBody, @PathVariable("type") String reqType) {
+        Map<String, Object> result = new HashMap<>();
+
+        String recipeNo = (String) requestBody.get("recipeNo");
+        String mbNo = loginService.getCurrentUserId(request);
+
+        if("add".equals(reqType)) {
+            myPageService.insertMemberBookmark(recipeNo, mbNo);
+        } else if("remove".equals(reqType)) {
+            myPageService.deleteMemberBookmark(recipeNo, mbNo);
+        }
+
+        return result;
+    }
+
+    @GetMapping(value = "/myPage/viewBookmarkRecipeList")
+    public ModelAndView viewBookmarkRecipeList(HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("/recipe/bookmarkRecipeList");
+
+        return mav;
+    }
+
+    @PostMapping(value = "/mypage/selectBookmarkRecipeList")
+    @ResponseBody
+    public Map<String, Object> selectBookmarkRecipeList(HttpServletRequest request) throws IOException {
+        Map<String, Object> result = new HashMap<>();
+
+        result.put("bookmarkRecipeList", recipeService.getBookmarkRecipeListByMbNo(loginService.getCurrentUserId(request)));
 
         return result;
     }

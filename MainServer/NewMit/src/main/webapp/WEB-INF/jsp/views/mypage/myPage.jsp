@@ -112,9 +112,9 @@
             <p class="user-name"><span id="userNm"></span> 요리사님</p>
             <ul class="user-recipe">
                 <li>
-                    <a href="">
+                    <a href="/myPage/viewBookmarkRecipeList">
                         <p>저장한 레시피</p>
-                        <span>0</span>
+                        <span><c:out value="${bookmarkCount}" /></span>
                     </a>
                 </li>
                 <%--<li>
