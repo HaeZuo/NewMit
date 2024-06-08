@@ -125,7 +125,7 @@ public class RecipeService extends BaseService {
     }
 
     public List<Map<String, Object>> getBookmarkRecipeListByMbNo(String mbNo) throws IOException {
-        List<Map<String, Object>> bookmarkRecipeListByMbNo = commonDao.selectList("selectBookmarkRecipeListByMbNo", mbNo);
+        List<Map<String, Object>> bookmarkRecipeListByMbNo = commonDao.selectList("mappers.recipe.selectBookmarkRecipeListByMbNo", mbNo);
 
         for(Map<String, Object> currentBookmarkRecipe : bookmarkRecipeListByMbNo) {
             File mainImage = getFileByFileId((String) currentBookmarkRecipe.get("RECIPE_MAIN_IMAGE_ID"));

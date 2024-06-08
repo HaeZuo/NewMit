@@ -243,7 +243,9 @@
     </select>
 
     <select id="selectBookmarkRecipeListByMbNo" parameterType="string" resultType="map">
+        /* mappers.recipe.selectBookmarkRecipeListByMbNo */
         SELECT TR.RECIPE_NO,
+               TMI.MB_NM,
                TMI.MB_NO,
                TR.RECIPE_MAIN_IMAGE_ID,
                TR.RECIPE_NM,
