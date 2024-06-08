@@ -28,7 +28,7 @@
             content="식자재 관리와 요리의 즐거움을 일깨워 주는 서비스인 뉴밋은 레시피 공유, 식자재 관리등을 개성있게 할 수 있는 서비스 입니다."
     >
     <link rel="stylesheet" href="/styles/slick.css">
-    <link rel="stylesheet" href="/styles/noticestyles.css">
+    <link rel="stylesheet" href="/styles/styles.css">
     <script src="/scripts/jquery-2.2.4.min.js"></script>
     <script src="/scripts/slick.min.js"></script>
     <script src="/scripts/scripts.js"></script>

@@ -19,6 +19,7 @@
                         console.log(userInfo)
 
                         if(userInfo['userNm'] == null && (localStorage.getItem("access_token") != null || getCookie("refresh_token") != null)) {
+                            console.log("토큰을 제거1");
                             // 로컬 스토리지에 저장된 액세스 토큰을 삭제
                             localStorage.removeItem('access_token');
 
@@ -30,6 +31,7 @@
                         // document.getElementById("userInfo").setAttribute("value", JSON.stringify(userInfo));
                     }, function (fail) {
                         httpRequest('DELETE','/api/refresh-token', null, function() {
+                            console.log("토큰을 제거2");
                             // 로컬 스토리지에 저장된 액세스 토큰을 삭제
                             localStorage.removeItem('access_token');
 

@@ -78,15 +78,16 @@ foodInsertArea.createFoodInsertArea = function(divElement, numId, foodIngredient
             <div class="ipt">
                 <span>구입일자</span>
                 <div>
-                    <input type="date" id="buyDate` + numId + `" name="buyDate">
+                    <input type="date" id="buyDate` + numId + `" name="buyDate" value="`+new Date().toISOString().split('T')[0]+`">
                 </div>
             </div>
             <div class="ipt">
                 <span>소비기한</span>
                 <div>
-                    <input type="date" id="expiryDate` + numId + `" name="expiryDate">
+                    <input type="date" id="expiryDate` + numId + `" name="expiryDate" value="`+new Date().toISOString().split('T')[0]+`">
                 </div>
             </div>
+            <input type="button" class="btn white full" value="삭제" />
         </div>
         </form>
         `;

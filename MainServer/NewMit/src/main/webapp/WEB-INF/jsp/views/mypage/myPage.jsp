@@ -39,8 +39,51 @@
 
             if(userInfo["userNm"] != null) {
                 document.getElementById("userNm").innerText = userInfo["userNm"];
+
+                (function() {
+                    const userProfileImage = '<c:out value="${userProfileImage}" />';
+
+                    if(userProfileImage != "" && userProfileImage != null) {
+                        document.getElementById("profileImage").src = "data:image/jpeg;base64," + userProfileImage;
+                        document.getElementById("imageUploaderLabel").style.display = "none";
+                        document.getElementById("profileImage").style.display = "block";
+                    }
+                })();
             } else {
                 window.location.href = "/login";
+            }
+
+            document.getElementById("profileImage").onclick = function () {
+                document.getElementById("imageUploaderLabel").click();
+            }
+
+            profileImageInputOnChange = function (e) {
+                const file = e.files[0]; // 선택된 파일
+
+                // FileReader 객체 생성
+                const reader = new FileReader();
+
+                // 파일을 읽기 시작할 때 실행되는 이벤트 핸들러
+                reader.onload = function(handler) {
+                    // 읽은 데이터를 img 요소의 src 속성에 설정하여 이미지를 표시
+                    document.getElementById("profileImage").src = handler.target.result; // 첨부한 이미지를 보여주도록
+                    document.getElementById("imageUploaderLabel").style.display = "none";
+                    document.getElementById("profileImage").style.display = "block";
+
+                    const requestBody = new Object();
+                    requestBody['profileImage'] = document.getElementById("profileImage").src;
+                    requestBody['profileImageNm'] = document.getElementById("profileImageInput").files[0].name;
+
+                    httpRequest('POST', '/myPage/saveProfileImage', JSON.stringify(requestBody), function (success) {
+
+                    }, function (fail) {
+                        alert("변경 실패");
+                    })
+
+                };
+
+                // 파일을 읽기
+                reader.readAsDataURL(file);
             }
 
         }
@@ -59,22 +102,22 @@
     <section>
         <div class="profile">
             <div class="imageUploader">
-                <label>
-                    <input type="file" accept="image/*" hidden>
+                <label id="imageUploaderLabel">
+                    <input id="profileImageInput" onchange="javascript:profileImageInputOnChange(this)" type="file" accept="image/*" hidden>
                     <i class="ic-camera"></i>
-                    <p>식자재 이미지를 추가해주세요</p>
+                    <p>프로필 이미지를 추가해주세요</p>
                 </label>
-                <img class="imageUploaderImg" src="/images/food/temp.png" alt="">
+                <img id="profileImage" class="imageUploaderImg" src="/images/food/temp.png" alt="">
             </div>
-            <p class="user-name"><span id="userNm">ㅇㅇㅇ</span> 요리사님</p>
+            <p class="user-name"><span id="userNm"></span> 요리사님</p>
             <ul class="user-recipe">
-                <%--<li>
+                <li>
                     <a href="">
                         <p>저장한 레시피</p>
                         <span>0</span>
                     </a>
                 </li>
-                <li>
+                <%--<li>
                     <a href="">
                         <p>내가 본 레시피</p>
                         <span>0</span>

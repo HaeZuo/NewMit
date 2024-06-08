@@ -10,6 +10,7 @@
 
         if (token) {
             localStorage.setItem("access_token", token)
+            document.cookie = "refresh_token=" + token;
         }
 
         function searchParam(key) {

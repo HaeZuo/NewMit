@@ -65,4 +65,18 @@
                  TCC.COMMON_CODE_NM
     </select>
 
+    <select id="selectUserProfileImageIdByMbNo" parameterType="string" resultType="string">
+        /* mappers.mypage.selectUserProfileImageIdByMbNo */
+        SELECT MB_PROFILE_IMAGE_ID
+        FROM TB_MEMBERS_INFO
+        WHERE MB_NO = #{mbNo}
+    </select>
+
+    <update id="updateUserProfileImageId" parameterType="map">
+        /* mappers.mypage.updateUserProfileImageId */
+        UPDATE TB_MEMBERS_INFO
+        SET MB_PROFILE_IMAGE_ID = #{mbProfileImageId}
+        WHERE MB_NO = #{mbNo}
+    </update>
+
 </mapper>

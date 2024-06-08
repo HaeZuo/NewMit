@@ -60,6 +60,8 @@
                         foodInsertArea.setBannerImage(foodInsertAreaSequence, "data:image/jpeg;base64," + curObjectDetection['detectionBannerImage']);
 
                         foodInsertArea.setName(foodInsertAreaSequence, curObjectDetection['detectionClasseName']);
+
+                        foodInsertArea.setIngredientsCntOrFw(foodInsertAreaSequence, curObjectDetection['cnt']);
                     }
                 } else {
                     alert("인식된 식자재가 없습니다.");

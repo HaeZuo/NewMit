@@ -53,21 +53,22 @@
 <body>
 <div class="wrap">
     <section>
-        <div class="banner">
-            <ul>
-                <li><a href=""><img src="/images/banner/temp.png" alt=""></a></li>
-                <li><a href=""><img src="/images/banner/temp.png" alt=""></a></li>
-            </ul>
-        </div>
+        <div class="home">
+            <div class="banner">
+                <ul>
+                    <li><a href=""><img src="/images/banner/temp2.png" alt=""></a></li>
+                </ul>
+            </div>
 
-        <jsp:include page="../ingredients/commonView-useByDate.jsp"></jsp:include>
+            <jsp:include page="../ingredients/commonView-useByDate.jsp"></jsp:include>
 
-        <div class="list-recipe">
-            <h2><span>간편하게 식탁을 책임져줄 레시피 모음</span><a href="" class="btn-more">더보기</a></h2>
-            <p>고민되는 한 끼! 이런 요리는 어떠세요?</p>
-            <ul id="listRecipeUl">
+            <div class="list-recipe">
+                <h2><span>간편하게 식탁을 책임져줄 레시피 모음</span><a href="" class="btn-more">더보기</a></h2>
+                <p>고민되는 한 끼! 이런 요리는 어떠세요?</p>
+                <ul id="listRecipeUl">
 
-            </ul>
+                </ul>
+            </div>
         </div>
     </section>
 </div>

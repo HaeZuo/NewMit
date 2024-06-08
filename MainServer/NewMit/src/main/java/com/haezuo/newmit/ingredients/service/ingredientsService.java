@@ -330,6 +330,7 @@ public class ingredientsService extends BaseService {
                 detectionInfo.put("detectionBannerImage", resuleImage);
 
                 if(detectionResult.size() == 0) {
+                    detectionInfo.put("cnt", 1);
                     detectionResult.add(detectionInfo);
                 } else {
                     // 동일한 재료는 넣지 않도록 체크
@@ -338,7 +339,10 @@ public class ingredientsService extends BaseService {
                             .collect(Collectors.toList());
 
                     if(tmpCurDetectionResultList.size() == 0) {
+                        detectionInfo.put("cnt", 1);
                         detectionResult.add(detectionInfo);
+                    } else {
+                        tmpCurDetectionResultList.get(0).put("cnt", ((int) tmpCurDetectionResultList.get(0).get("cnt")) + 1);
                     }
                 }
             }

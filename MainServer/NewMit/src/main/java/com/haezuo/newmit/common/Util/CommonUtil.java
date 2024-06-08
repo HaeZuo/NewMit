@@ -145,6 +145,23 @@ public class CommonUtil {
         return null; // 확장자를 찾을 수 없는 경우
     }
 
+    public static String removeBase64ImagePrefix(String base64ImageData) {
+        if (base64ImageData == null) {
+            throw new IllegalArgumentException("Input cannot be null");
+        }
+        // Base64 데이터의 시작 부분을 찾아 제거
+        if (base64ImageData.startsWith("data:image")) {
+            int commaIndex = base64ImageData.indexOf(",");
+            if (commaIndex != -1) {
+                return base64ImageData.substring(commaIndex + 1);
+            } else {
+                throw new IllegalArgumentException("Invalid base64 image data");
+            }
+        } else {
+            return base64ImageData; // 이미 prefix가 없는 경우
+        }
+    }
+
     public static String imageToBase64(BufferedImage image, String formatName) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(image, formatName, baos);

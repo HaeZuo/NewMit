@@ -58,7 +58,7 @@ recipeInsertComponents.materialOnClick = function(e) {
     if(!e.classList.contains("active")) {
         e.classList.add("active")
 
-        document.getElementById("materialDiv" + componentId).style.display = "";
+        document.getElementById("materialDiv" + componentId).style.display = "block";
     } else {
         e.classList.remove("active")
 
@@ -72,7 +72,7 @@ recipeInsertComponents.toolOnClick = function(e) {
     if(!e.classList.contains("active")) {
         e.classList.add("active")
 
-        document.getElementById("toolDiv" + componentId).style.display = "";
+        document.getElementById("toolDiv" + componentId).style.display = "block";
     } else {
         e.classList.remove("active")
 
@@ -86,7 +86,7 @@ recipeInsertComponents.tipOnClick = function(e) {
     if(!e.classList.contains("active")) {
         e.classList.add("active")
 
-        document.getElementById("tipDiv" + componentId).style.display = "";
+        document.getElementById("tipDiv" + componentId).style.display = "block";
     } else {
         e.classList.remove("active")
 
@@ -100,7 +100,7 @@ recipeInsertComponents.timerOnClick = function(e) {
     if(!e.classList.contains("active")) {
         e.classList.add("active")
 
-        document.getElementById("timerDiv" + componentId).style.display = "";
+        document.getElementById("timerDiv" + componentId).style.display = "block";
     } else {
         e.classList.remove("active")
 
