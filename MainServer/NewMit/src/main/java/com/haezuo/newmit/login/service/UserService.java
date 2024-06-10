@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.haezuo.newmit.common.constants.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -82,10 +83,11 @@ public class UserService extends BaseService{
         return result;
     }
 
-    public Map<String, Object> getMemberCardInfoByMbNo(String mbNo) {
+    public Map<String, Object> getMemberCardInfoByMbNo(String mbNo) throws IOException {
         Map<String, Object> result;
 
         result = commonDao.selectOne("mappers.common.selectMemberCardInfoByMbNo", mbNo);
+        result.put("profileImage", CommonUtil.convertFileToBase64(getFileByFileId(result.get("MB_PROFILE_IMAGE_ID").toString())));
 
         return result;
     }

@@ -17,7 +17,7 @@ class MemberCard {
 
             self.divElement.innerHTML = `
                 <div class="r-infor-writer">
-                    <img class="r-profile" src="/images/user/profile.png" alt="">
+                    <img class="r-profile" src="data:image/jpeg;base64,${memberCardInfo['profileImage']}" alt="">
                     <div>
                         <p class="r-writer"><span>${memberCardInfo['MB_NM']}</span> 요리사님</p>
                         <!--<p class="r-writer-dscpt">안녕하세요! 먹는 기쁨을 선사하는 학생입니다~</p>-->

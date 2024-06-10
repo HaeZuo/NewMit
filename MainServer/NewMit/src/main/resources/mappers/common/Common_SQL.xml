@@ -56,7 +56,7 @@
 
     <select id="selectMemberCardInfoByMbNo" parameterType="string" resultType="map">
         /* mappers.common.selectMemberCardInfoByMbNo */
-        SELECT MB_NM
+        SELECT MB_NM, MB_PROFILE_IMAGE_ID
         FROM TB_MEMBERS_INFO
         WHERE MB_NO = #{mbNo}
     </select>

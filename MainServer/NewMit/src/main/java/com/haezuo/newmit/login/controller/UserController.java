@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.haezuo.newmit.common.constants.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -73,7 +74,7 @@ public class UserController extends BaseService {
 
     @PostMapping("/user/selectMemberCardInfo")
     @ResponseBody
-    public Map<String, Object> selectMemberCardInfo(HttpServletRequest request, @RequestBody Map<String, Object> requestData) {
+    public Map<String, Object> selectMemberCardInfo(HttpServletRequest request, @RequestBody Map<String, Object> requestData) throws IOException {
         Map<String, Object> result = new HashMap<>();
 
         result = userService.getMemberCardInfoByMbNo(requestData.get("mbNo").toString());
