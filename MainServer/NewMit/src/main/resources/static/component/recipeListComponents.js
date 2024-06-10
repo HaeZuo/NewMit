@@ -37,12 +37,12 @@ recipeListComponents.getRecipeInfoElement = function(id, recipeInfo) {
                                     </ul>
                                     <span>` + rating + `</span>
                                 </div>
-                                <div class="list-tag">
+                                <!--<div class="list-tag">
                                     <ul>
                                         <li>#칼칼한</li>
                                         <li>#깊은</li>
                                     </ul>
-                                </div>
+                                </div>-->
                             </div>
                         </a>
                     </li>

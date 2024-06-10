@@ -33,7 +33,7 @@
     <script src="/scripts/jquery-2.2.4.min.js"></script>
     <script src="/scripts/slick.min.js"></script>
     <script src="/scripts/scripts.js"></script>
-    <script src="/component/class/memberCard.js"></script>
+    <script src="/component/class/MemberCard.js"></script>
     <script>
         let currentUserId = null;
         window.onload = function () {
@@ -153,7 +153,7 @@
     </section>
     <footer>
         <ul class="btn-wrap">
-            <li><a href="" class="btn white">저장하기</a></li>
+            <%--<li><a href="" class="btn white">저장하기</a></li>--%>
             <li><a href="/recipe/viewRecipe?recipeNo=<c:out value="${detailRecipeInfo.RECIPE_NO}" />&mbNo=<c:out value="${detailRecipeInfo.MB_NO}" />" class="btn primary">시작하기</a></li>
         </ul>
     </footer>
