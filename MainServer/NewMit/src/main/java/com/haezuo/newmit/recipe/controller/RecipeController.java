@@ -86,11 +86,11 @@ public class RecipeController extends BaseService {
         Map<String, Object> detailRecipeInfo = recipeService.getDetailRecipeInfo(condition);
         mav.addObject("detailRecipeInfo", detailRecipeInfo);
 
+        mav.addObject("bookmarkAddYn", myPageService.getMemberBookmarkAddYn(((String) request.getParameter("recipeNo")), loginService.ConnectUserInfo(request, userInfo.KEY_USER_ID)));
+
         Map<String, Object> userInfo = new HashMap<>();
         userInfo.put("currentUserId", loginService.getCurrentUserId(request));
         mav.addObject("userInfo", userInfo);
-
-        mav.addObject("bookmarkAddYn", myPageService.getMemberBookmarkAddYn(((String) request.getParameter("recipeNo")), ((String) request.getParameter("mbNo"))));
 
         return mav;
     }
@@ -175,7 +175,7 @@ public class RecipeController extends BaseService {
     }
 
     @RequestMapping(value = "/recipe/viewSearchRecipeList", method = RequestMethod.GET)
-    public ModelAndView viewSearchRecipeList(HttpServletRequest request) {
+    public ModelAndView viewSearchRecipeList(HttpServletRequest request) throws IOException {
         ModelAndView mav = new ModelAndView("/recipe/searchRecipeList");
 
         Map<String, Object> condition = new HashMap<>();
@@ -184,6 +184,8 @@ public class RecipeController extends BaseService {
         condition.put("recipeCategoryByOccasion", request.getParameter("recipeCategoryByOccasion"));
         condition.put("recipeCriteriaByCookingServing", request.getParameter("recipeCriteriaByCookingServing"));
         condition.put("recipeCriteriaByCookingTime", request.getParameter("recipeCriteriaByCookingTime"));
+
+        mav.addObject("recipeList", convertListMapToJson(recipeService.getRecipeList(condition)));
 
         return mav;
     }

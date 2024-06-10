@@ -210,4 +210,17 @@ public class RecipeService extends BaseService {
         this.insertRecipeSteps(recipeNo, recipeStepInfoList);
     }
 
+    public List<Map<String, Object>> getRecipeList(Map<String, Object> condition) throws IOException {
+
+        List<Map<String, Object>> writtenRecipeList = commonDao.selectList("mappers.recipe.selectRecipeList", condition);
+
+        for(Map<String, Object> currentWrittenRecipe : writtenRecipeList) {
+            File mainImage = getFileByFileId((String) currentWrittenRecipe.get("RECIPE_MAIN_IMAGE_ID"));
+
+            currentWrittenRecipe.put("mainImage", CommonUtil.convertFileToBase64(mainImage));
+        }
+
+        return writtenRecipeList;
+    }
+
 }

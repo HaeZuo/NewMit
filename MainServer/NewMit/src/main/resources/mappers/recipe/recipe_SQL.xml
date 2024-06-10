@@ -258,4 +258,31 @@
         GROUP BY TR.RECIPE_NO, TMI.MB_NO, TR.RECIPE_MAIN_IMAGE_ID, TR.RECIPE_NM
     </select>
 
+    <select id="selectRecipeList" parameterType="map" resultType="map">
+        /* mappers.recipe.selectOptimalRecipeList */
+        SELECT
+            TR.RECIPE_NO,
+            TMI.MB_NM,
+            TMI.MB_NO,
+            TR.RECIPE_MAIN_IMAGE_ID,
+            TR.RECIPE_NM,
+            IFNULL(ROUND(AVG(TRR.RECIPE_RATING_SCORE), 1), 0.0) AS RATING
+        FROM TB_RECIPE TR
+                 INNER JOIN TB_MEMBERS_INFO TMI ON TR.MB_NO = TMI.MB_NO
+                 LEFT JOIN TB_RECIPE_RATING TRR ON TR.RECIPE_NO = TRR.RECIPE_NO
+        WHERE 1=1
+          <if test='recipeTitle != "" and recipeTitle != null'>
+              AND TR.RECIPE_NM LIKE CONCAT('%',#{recipeTitle},'%')
+          </if>
+          AND TR.RECIPE_CRITERIA_BY_COOKING_TIME = #{recipeCriteriaByCookingTime}
+          AND TR.RECIPE_CRITERIA_BY_COOKING_SERVING = #{recipeCriteriaByCookingServing}
+          AND TR.RECIPE_CATEGORY_BY_OCCASION = #{recipeCategoryByOccasion}
+          AND TR.RECIPE_CRITERIA_BY_TYPE = #{recipeCategoryByType}
+        GROUP BY TR.RECIPE_NO,
+                 TMI.MB_NM,
+                 TMI.MB_NO,
+                 TR.RECIPE_MAIN_IMAGE_ID,
+                 TR.RECIPE_NM
+    </select>
+
 </mapper>

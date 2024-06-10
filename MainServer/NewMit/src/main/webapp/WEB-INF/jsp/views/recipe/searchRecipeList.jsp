@@ -35,19 +35,11 @@
     <script src="/component/recipeListComponents.js"></script>
     <script>
         window.onload = function() {
+            const recipeList = JSON.parse('<c:out value="${recipeList}" escapeXml="false" />');
 
-            httpRequest('POST', '/recipe/selectWrittenRecipeList', null, async function (success) {
-                const data = await success.json();
-
-                const writtenRecipeList = data['writtenRecipeList'];
-
-                for(let currentWrittenRecipeInfo of writtenRecipeList) {
-                    recipeListComponents.insertStep(currentWrittenRecipeInfo);
-                }
-
-            }, function (fail) {
-
-            })
+            for(let currentRecipeInfo of recipeList) {
+                recipeListComponents.insertStep(currentRecipeInfo);
+            }
         }
     </script>
 </head>
