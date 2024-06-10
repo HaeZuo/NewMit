@@ -96,11 +96,11 @@
                     <ul>
                         <li>
                             <img src="/images/icons/ic-profile.svg" alt="">
-                            <span>2인분</span>
+                            <span><c:out value="${detailRecipeInfo.RECIPE_CRITERIA_BY_COOKING_SERVING_NM}" /></span>
                         </li>
                         <li>
                             <img src="/images/icons/ic-time.svg" alt="">
-                            <span>40분 이내</span>
+                            <span><c:out value="${detailRecipeInfo.RECIPE_CRITERIA_BY_COOKING_TIME_NM}" /></span>
                         </li>
                         <li>
                             <img src="/images/icons/ic-star-empty.svg" alt="">
