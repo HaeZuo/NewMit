@@ -87,7 +87,9 @@ public class UserService extends BaseService{
         Map<String, Object> result;
 
         result = commonDao.selectOne("mappers.common.selectMemberCardInfoByMbNo", mbNo);
-        result.put("profileImage", CommonUtil.convertFileToBase64(getFileByFileId(result.get("MB_PROFILE_IMAGE_ID").toString())));
+        if(result.get("MB_PROFILE_IMAGE_ID") != null && "".equals(result.get("MB_PROFILE_IMAGE_ID"))) {
+            result.put("profileImage", CommonUtil.convertFileToBase64(getFileByFileId(result.get("MB_PROFILE_IMAGE_ID").toString())));
+        }
 
         return result;
     }

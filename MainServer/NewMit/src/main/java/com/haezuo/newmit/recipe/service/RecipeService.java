@@ -223,4 +223,15 @@ public class RecipeService extends BaseService {
         return writtenRecipeList;
     }
 
+    public boolean getNewNoticeCheck(String mbNo) {
+        boolean result = false;
+
+        int newNoticeCount = commonDao.selectOne("mappers.mypage.selectNewNoticeCount", mbNo);
+        if(0 < newNoticeCount) {
+            result = true;
+        }
+
+        return result;
+    }
+
 }

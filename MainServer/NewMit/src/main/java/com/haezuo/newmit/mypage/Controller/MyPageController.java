@@ -125,4 +125,14 @@ public class MyPageController extends BaseService {
         return result;
     }
 
+    @PostMapping(value = "/myPage/newNoticeCheck")
+    @ResponseBody
+    public Map<String, Object> selectNewNoticeCheck(HttpServletRequest request) throws IOException {
+        Map<String, Object> result = new HashMap<>();
+
+        result.put("exist", recipeService.getNewNoticeCheck(loginService.getCurrentUserId(request)));
+
+        return result;
+    }
+
 }

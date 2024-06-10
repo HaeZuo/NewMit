@@ -57,9 +57,21 @@
     <header id="commonHeader">
         <h1><a href="/home"><img src="/images/logo-brand.png" alt=""></a></h1>
         <ul>
-            <li class="active"><a href="/myPage/viewNotice"><img src="/images/icons/ic-bell.svg" alt=""></a></li>
+            <li id="noticeLi"><a href="/myPage/viewNotice"><img src="/images/icons/ic-bell.svg" alt=""></a></li>
             <li><a onclick="javascript:recipeSearch()"><img src="/images/icons/ic-search.svg" alt=""></a></li>
         </ul>
     </header>
+
+    <script>
+        httpRequest('POST', '/myPage/newNoticeCheck', null, async function (success) {
+            const data = await success.json();
+
+            if(data['exist']) {
+                document.getElementById("noticeLi").classList.add("active");
+            }
+        }, function (fail) {
+            alert("알림체크실패")
+        });
+    </script>
 </body>
 </html>

@@ -103,6 +103,7 @@
     </delete>
 
     <select id="selectMemberBookmarkAddYn" parameterType="map" resultType="string">
+        /* mappers.mypage.selectMemberBookmarkAddYn */
         SELECT CASE(COUNT(*))
                    WHEN '0'
                        THEN 'N'
@@ -112,6 +113,15 @@
         WHERE 1=1
           AND MB_NO = #{mbNo}
           AND RECIPE_NO = #{recipeNo}
+    </select>
+
+    <select id="selectNewNoticeCount" parameterType="string" resultType="int">
+        /* mappers.mypage.selectNewNoticeCount */
+        SELECT COUNT(1)
+        FROM TB_USER_NOTICE
+        WHERE 1=1
+          AND MB_NO = #{mbNo}
+          AND USER_NOTICE_VIEW_YN = 'N'
     </select>
 
 </mapper>
