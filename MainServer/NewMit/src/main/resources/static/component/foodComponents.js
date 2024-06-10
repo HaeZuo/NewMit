@@ -1,4 +1,8 @@
-const foodInsertArea = {};
+import { serviceModal } from '/js/service-modal.js';
+
+export let foodInsertArea = {};
+
+foodInsertArea.serviceModal = serviceModal;
 
 foodInsertArea.setFoodIngredientsTypeDataList = function(foodIngredientsTypeDataList, numId) {
         let foodIngredientsTypeElement = `<select id="foodIngredientsType` + numId + `" name="foodIngredientsType">`;
@@ -42,7 +46,7 @@ foodInsertArea.createFoodInsertArea = function(divElement, numId, foodIngredient
         const foodIngredientsTypeElement = this.setFoodIngredientsTypeDataList(foodIngredientsTypeDataList, numId);
 
         let foodInsertArea = `
-        <form>
+        <form id="foodInsertArea${numId}">
         <input name="createFoodInsertAreaId" value="` + numId + `" hidden>
         <div class="foodInsertArea">
             <div class="imageUploader full">
@@ -87,7 +91,13 @@ foodInsertArea.createFoodInsertArea = function(divElement, numId, foodIngredient
                     <input type="date" id="expiryDate` + numId + `" name="expiryDate" value="`+new Date().toISOString().split('T')[0]+`">
                 </div>
             </div>
-            <input type="button" class="btn white full" value="삭제" />
+        `;
+
+        if(commonUtil.getParameter("ingredientOwnedNo") == null) {
+            foodInsertArea += `<input type="button" class="btn white full" value="삭제" onclick="javascript:foodInsertArea.removeFoodInsertArea(${numId})" style="cursor: pointer" />`;
+        }
+
+        foodInsertArea += `
         </div>
         </form>
         `;
@@ -95,6 +105,14 @@ foodInsertArea.createFoodInsertArea = function(divElement, numId, foodIngredient
         divElement.insertAdjacentHTML('beforeend', foodInsertArea);
 
     }
+
+foodInsertArea.removeFoodInsertArea = async function (numId, trueEvent) {
+    const confirmResult = await serviceModal.removeConfirm();
+
+    if(confirmResult) {
+        document.getElementById("foodInsertArea" + numId).remove();
+    }
+}
 
 foodInsertArea.setBannerImage = function(numId, src) {
     document.getElementById("foodIngredientsImageBanner" + numId).src = src;

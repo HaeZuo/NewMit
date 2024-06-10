@@ -32,9 +32,11 @@
     <script src="/scripts/jquery-2.2.4.min.js"></script>
     <script src="/scripts/slick.min.js"></script>
     <script src="/scripts/scripts.js"></script>
-    <script src="/component/foodComponents.js"></script>
+    <script type="module">
+        import { foodInsertArea } from '/component/foodComponents.js';
+        window.foodInsertArea = foodInsertArea;
+    </script>
     <script src="/js/ModalPopup.js"></script>
-    <script src="/js/service-modal.js"></script>
     <script>
 
         const foodIngredientsTypeCodeList = JSON.parse('<c:out value="${foodIngredientsTypeCodeList}" escapeXml="false" />');
@@ -96,7 +98,7 @@
 
         async function deleteBtnClick() {
 
-            const confirmResult = await serviceModal.removeConfirm();
+            const confirmResult = await foodInsertArea.serviceModal.removeConfirm();
 
             if(confirmResult) {
                 const formObject = new Object();

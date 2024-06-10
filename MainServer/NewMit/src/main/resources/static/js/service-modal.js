@@ -1,4 +1,4 @@
-const serviceModal = {};
+export let serviceModal = {};
 
 serviceModal.reviewStar = async function () {
     const modalElement = `
@@ -82,4 +82,66 @@ serviceModal.removeConfirm = async function () {
             document.getElementById("removeConfirmModal").remove();
         });
     });
+}
+
+serviceModal.recipeSearch = function() {
+    let recipeSearchModalElement = `
+        <form method="get" action="/recipe/viewSearchRecipeList">
+            <div class="modal" id="recipeSearchModal">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="ipt-wrap" style="width: 100%;">
+                            <div class="ipt">
+                                <span>레시피 제목</span>
+                                <div>
+                                    <input type="text" placeholder="레시피 제목">
+                                </div>
+                            </div>
+                            <div class="ipt">
+                                <span>레시피 카테고리</span>
+                                <div>
+                                    <select name="" id="">
+                                        <option value="">종류별</option>
+                                        <option value="">육류</option>
+                                    </select>
+                                    <select name="" id="">
+                                        <option value="">상황별</option>
+                                        <option value="">파티용</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ipt">
+                                <span>요리기준</span>
+                                <div>
+                                    <select name="" id="">
+                                        <option value="">1인분</option>
+                                        <option value="">2인분</option>
+                                    </select>
+                                    <select name="" id="">
+                                        <option value="">15분소요</option>
+                                        <option value="">30분소요</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btn-wrap">
+                            <a id="recipeSearchModalCloseBtn" class="btn">취소</a>
+                            <a class="btn primary">확인</a>
+                            <input type="submit"
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    `;
+
+    window.document.body.insertAdjacentHTML('beforeend', recipeSearchModalElement);
+
+    document.getElementById("recipeSearchModalCloseBtn").onclick = function () {
+        document.getElementById("recipeSearchModal").remove();
+    }
+
+    document.getElementById("recipeSearchModal").style.display = 'block';
 }

@@ -32,7 +32,10 @@
     <script src="/scripts/jquery-2.2.4.min.js"></script>
     <script src="/scripts/slick.min.js"></script>
     <script src="/scripts/scripts.js"></script>
-    <script src="/component/foodComponents.js"></script>
+    <script type="module">
+        import { foodInsertArea } from '/component/foodComponents.js';
+        window.foodInsertArea = foodInsertArea;
+    </script>
     <script src="/js/ModalPopup.js"></script>
     <script>
 
@@ -76,7 +79,6 @@
         }
 
         function addBtnClick() {
-
             foodInsertArea.createFoodInsertArea(document.getElementById("foodInsertAreaList"), ++foodInsertAreaSequence, foodIngredientsTypeCodeList);
         }
 
@@ -147,19 +149,6 @@
     <div class="modal-content">
         <div class="modal-body">
             <p>이미지를 삭제하시겠습니까?</p>
-        </div>
-        <div class="modal-footer">
-            <div class="btn-wrap">
-                <a href="" class="btn">취소</a>
-                <a href="" class="btn primary">확인</a>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal">
-    <div class="modal-content">
-        <div class="modal-body">
-            <p>해당 식자제를 삭제하시겠습니까?</p>
         </div>
         <div class="modal-footer">
             <div class="btn-wrap">

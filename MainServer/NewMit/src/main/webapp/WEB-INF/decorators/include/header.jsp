@@ -7,6 +7,15 @@
     <title>Insert title here</title>
     <script src="/js/requestUtil.js"></script>
     <script src="/js/commonUtil.js"></script>
+    <script type="module">
+        import { serviceModal } from '/js/service-modal.js';
+        window.serviceModal = serviceModal;
+    </script>
+    <script>
+        recipeSearch = function () {
+            serviceModal.recipeSearch();
+        }
+    </script>
 </head>
 <body>
     <!-- 헤더! <input type="text" id="userInfo"> -->
@@ -49,7 +58,7 @@
         <h1><a href="/home"><img src="/images/logo-brand.png" alt=""></a></h1>
         <ul>
             <li class="active"><a href="/myPage/viewNotice"><img src="/images/icons/ic-bell.svg" alt=""></a></li>
-            <li><a href=""><img src="/images/icons/ic-search.svg" alt=""></a></li>
+            <li><a onclick="javascript:recipeSearch()"><img src="/images/icons/ic-search.svg" alt=""></a></li>
         </ul>
     </header>
 </body>
