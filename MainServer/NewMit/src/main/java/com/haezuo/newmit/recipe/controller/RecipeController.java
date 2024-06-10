@@ -174,4 +174,18 @@ public class RecipeController extends BaseService {
         return result;
     }
 
+    @RequestMapping(value = "/recipe/viewSearchRecipeList", method = RequestMethod.GET)
+    public ModelAndView viewSearchRecipeList(HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("/recipe/searchRecipeList");
+
+        Map<String, Object> condition = new HashMap<>();
+        condition.put("recipeTitle", request.getParameter("recipeTitle"));
+        condition.put("recipeCategoryByType", request.getParameter("recipeCategoryByType"));
+        condition.put("recipeCategoryByOccasion", request.getParameter("recipeCategoryByOccasion"));
+        condition.put("recipeCriteriaByCookingServing", request.getParameter("recipeCriteriaByCookingServing"));
+        condition.put("recipeCriteriaByCookingTime", request.getParameter("recipeCriteriaByCookingTime"));
+
+        return mav;
+    }
+
 }

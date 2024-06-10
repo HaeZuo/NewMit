@@ -94,32 +94,32 @@ serviceModal.recipeSearch = function() {
                             <div class="ipt">
                                 <span>레시피 제목</span>
                                 <div>
-                                    <input type="text" placeholder="레시피 제목">
+                                    <input type="text" name="recipeTitle" placeholder="레시피 제목">
                                 </div>
                             </div>
                             <div class="ipt">
                                 <span>레시피 카테고리</span>
                                 <div>
-                                    <select name="" id="">
-                                        <option value="">종류별</option>
-                                        <option value="">육류</option>
+                                    <select name="recipeCategoryByType">
+                                        <option value="0">종류별</option>
+                                        <option value="1">육류</option>
                                     </select>
-                                    <select name="" id="">
-                                        <option value="">상황별</option>
-                                        <option value="">파티용</option>
+                                    <select name="recipeCategoryByOccasion">
+                                        <option value="0">상황별</option>
+                                        <option value="1">파티용</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="ipt">
                                 <span>요리기준</span>
                                 <div>
-                                    <select name="" id="">
-                                        <option value="">1인분</option>
-                                        <option value="">2인분</option>
+                                    <select name="recipeCriteriaByCookingServing">
+                                        <option value="1">1인분</option>
+                                        <option value="2">2인분</option>
                                     </select>
-                                    <select name="" id="">
-                                        <option value="">15분소요</option>
-                                        <option value="">30분소요</option>
+                                    <select name="recipeCriteriaByCookingTime">
+                                        <option value="1">15분소요</option>
+                                        <option value="2">30분소요</option>
                                     </select>
                                 </div>
                             </div>
@@ -128,8 +128,7 @@ serviceModal.recipeSearch = function() {
                     <div class="modal-footer">
                         <div class="btn-wrap">
                             <a id="recipeSearchModalCloseBtn" class="btn">취소</a>
-                            <a class="btn primary">확인</a>
-                            <input type="submit"
+                            <input class="btn primary" type="submit" value="확인" style="cursor: pointer;">
                         </div>
                     </div>
                 </div>
