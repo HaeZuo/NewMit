@@ -74,7 +74,7 @@
                     document.getElementById("listFoodDiv").insertAdjacentHTML('beforeend', eleStr);
                 }
             }, function(fail) {
-                //debugger;
+
             });
         }
         window.onload = function () {
@@ -83,7 +83,7 @@
             });
 
             const foodIngredientsTypeCodeList = JSON.parse('<c:out value="${foodIngredientsTypeCodeList}" escapeXml="false" />');
-
+            
             const tabFilterTable = document.getElementById("tabFilterTableBody");
 
             const rowCount = Math.ceil(foodIngredientsTypeCodeList.length+1 / 4);
