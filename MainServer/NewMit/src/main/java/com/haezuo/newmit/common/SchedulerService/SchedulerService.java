@@ -29,8 +29,6 @@ public class SchedulerService extends BaseService {
     public void noticeService() {
         List<Map<String, Object>> soonToExpireFoodList = commonDao.selectList("mappers.mypage.selectSoonToExpireFoodList");
 
-        // 식자재 관련
-        String noticeType = "1";
 
         for(Map<String, Object> memberNoticeInfo : soonToExpireFoodList) {
             memberNoticeInfo.put("noticeType", "1");
@@ -39,6 +37,17 @@ public class SchedulerService extends BaseService {
 
             commonDao.insert("mappers.mypage.insertUserNoticeInfo", memberNoticeInfo);
         }
+
+
+        List<Map<String, Object>> randRecipeList = commonDao.selectList("mappers.mypage.selectRandRecipe");
+
+        for(Map<String, Object> randRecipeInfo : randRecipeList) {
+            randRecipeInfo.put("noticeType", "2");
+            randRecipeInfo.put("noticeContents", randRecipeInfo.get("RECIPE_EXPLANATION"));
+
+            commonDao.insert("mappers.mypage.insertUserNoticeInfo", randRecipeInfo);
+        }
+
     }
 
 

@@ -15,8 +15,8 @@ public class MyContextRefreshedListener implements ApplicationListener<ContextRe
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         // 애플리케이션 컨텍스트가 초기화된 후
-        schedulerService.setFoodIngredientsTypeCodeList();
+        //schedulerService.setFoodIngredientsTypeCodeList();
 
-        // schedulerService.noticeService();
+        //schedulerService.noticeService();
     }
 }

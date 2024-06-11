@@ -124,4 +124,31 @@
           AND USER_NOTICE_VIEW_YN = 'N'
     </select>
 
+    <select id="selectRandRecipe" resultType="map">
+        /* mappers.mypage.selectRandRecipe */
+        SELECT TMI.MB_NO MB_NO,
+               RECIPE.MB_NO RECIPE_REGISTRANT,
+               RECIPE_NO,
+               RECIPE_NM,
+               RECIPE_MAIN_IMAGE_ID,
+               RECIPE_EXPLANATION,
+               RECIPE_CRITERIA_BY_COOKING_TIME,
+               RECIPE_CRITERIA_BY_COOKING_SERVING,
+               RECIPE_CATEGORY_BY_OCCASION,
+               RECIPE_CRITERIA_BY_TYPE
+        FROM TB_MEMBERS_INFO TMI, (
+            SELECT MB_NO,
+                   RECIPE_NO,
+                   RECIPE_NM,
+                   RECIPE_MAIN_IMAGE_ID,
+                   RECIPE_EXPLANATION,
+                   RECIPE_CRITERIA_BY_COOKING_TIME,
+                   RECIPE_CRITERIA_BY_COOKING_SERVING,
+                   RECIPE_CATEGORY_BY_OCCASION,
+                   RECIPE_CRITERIA_BY_TYPE
+            FROM TB_RECIPE TR
+            ORDER BY RAND() LIMIT 1
+        ) RECIPE
+    </select>
+
 </mapper>
