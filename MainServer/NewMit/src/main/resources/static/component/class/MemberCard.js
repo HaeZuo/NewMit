@@ -22,7 +22,7 @@ class MemberCard {
                     if(memberCardInfo['profileImage'] != null) {
                         memberCardElement += `<img class="r-profile" src="data:image/jpeg;base64,${memberCardInfo['profileImage']}" alt="">`;
                     } else {
-                        memberCardElement += `<img class="r-profile" src="/images/user/profile.png" alt="">`;
+                        memberCardElement += `<img class="r-profile" src="/images/user/defaultProfileImg.png" alt="">`;
                     }
                     memberCardElement += `
                     
