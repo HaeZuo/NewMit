@@ -190,14 +190,13 @@ public class RecipeController extends BaseService {
         return mav;
     }
 
-    @RequestMapping(value = "/recipe/getChatGptRecipe", method = RequestMethod.GET)
-    @ResponseBody
-    public Map<String, Object> getChatGptRecipe(HttpServletRequest request) throws IOException {
-        Map<String, Object> result = new HashMap<>();
+    @RequestMapping(value = "/recipe/viewClovaRecipeIntro", method = RequestMethod.GET)
+    public ModelAndView getClovaRecipe(HttpServletRequest request) throws IOException {
+        ModelAndView mav = new ModelAndView("/recipe/clovaRecipeIntro");
 
-        Map<String, Object> recipeInfo = recipeService.getClovaRecipeService();
+        mav.addObject("recipeInfo", recipeService.getClovaRecipeService(loginService.ConnectUserInfo(request, userInfo.KEY_USER_ID)));
 
-        return result;
+        return mav;
     }
 
 }

@@ -39,6 +39,10 @@
             commonUtil.enableToFooter(false);
 
             stepInsert();
+
+            document.getElementById("recipeIntroImageBanner").onclick = function() {
+                document.getElementById("imageUploaderLabel").click();
+            }
         }
 
         function recipeIntroImageOnChange(e) {

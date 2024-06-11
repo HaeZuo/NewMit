@@ -243,12 +243,15 @@ public class RecipeService extends BaseService {
         return result;
     }
 
-    public Map<String, Object> getClovaRecipeService() throws IOException {
+    public Map<String, Object> getClovaRecipeService(String mbNo) throws IOException {
         Map<String, Object> recipeInfo = null;
 
         Map<String, Object> requestData = new HashMap<>();
 
         List<Map<String, Object>> roleList = new ArrayList<>();
+
+        // jackson objectmapper 객체 생성
+        ObjectMapper objectMapper = new ObjectMapper();
 
         Map<String, Object> role = new HashMap<>();
         role.put("role", "system");
@@ -275,10 +278,12 @@ public class RecipeService extends BaseService {
                 "}");
         roleList.add(role);
 
+        List<String> ingredients = commonDao.selectList("mappers.ingredients.selectIngredientsListByMbNo", mbNo);
+
         role = new HashMap<>();
         role.put("role", "user");
         role.put("content", "{" +
-                "ingredients: [\"스파게티면\", \"미트볼\", \"삼겹살\", \"양파\"]," +
+                "ingredients: " + objectMapper.writeValueAsString(ingredients) + "," +
                 "except_recipe: []" +
                 "}");
         roleList.add(role);
@@ -294,8 +299,6 @@ public class RecipeService extends BaseService {
         requestData.put("includeAiFilters", true);
         requestData.put("seed", 0);
 
-        // jackson objectmapper 객체 생성
-        ObjectMapper objectMapper = new ObjectMapper();
         // Map -> Json 문자열
         String studentJson = objectMapper.writeValueAsString(requestData);
         // Json 문자열 출력

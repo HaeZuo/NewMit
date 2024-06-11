@@ -133,4 +133,12 @@
           AND INGREDIENT_OWNED_NO = #{ingredientOwnedno}
     </update>
 
+    <select id="selectIngredientsListByMbNo" parameterType="string" resultType="string">
+        /* mappers.ingredients.selectIngredientsListByMbNo */
+        SELECT INGREDIENT_OWNED_NM
+        FROM TB_INGREDIENTS_OWNED
+        WHERE 1=1
+          AND MB_NO = #{mbNo}
+    </select>
+
 </mapper>

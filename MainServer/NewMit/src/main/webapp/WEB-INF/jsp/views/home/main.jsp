@@ -66,7 +66,17 @@
                 <h2><span>간편하게 식탁을 책임져줄 레시피 모음</span><a href="" class="btn-more">더보기</a></h2>
                 <p>고민되는 한 끼! 이런 요리는 어떠세요?</p>
                 <ul id="listRecipeUl">
-
+                    <c:if test="${mbNo != null}">
+                        <li>
+                            <a href="/recipe/viewClovaRecipeIntro">
+                                <img src="/images/clovaLogo.jpg" alt="">
+                                <div>
+                                    <p class="r-chef"><span>클로바</span></p>
+                                    <p class="r-title">AI레시피</p>
+                                </div>
+                            </a>
+                        </li>
+                    </c:if>
                 </ul>
             </div>
         </div>
