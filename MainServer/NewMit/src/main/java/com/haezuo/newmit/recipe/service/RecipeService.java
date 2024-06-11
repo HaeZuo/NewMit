@@ -1,26 +1,35 @@
 package com.haezuo.newmit.recipe.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.haezuo.newmit.common.CommonDao.CommonDao;
 import com.haezuo.newmit.common.CommonService.BaseService;
 import com.haezuo.newmit.common.Util.CommonUtil;
 import com.haezuo.newmit.common.Util.Tokenize;
 import com.haezuo.newmit.common.constants.userInfo;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
-import java.io.IOException;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 @Service
 public class RecipeService extends BaseService {
 
     @Resource(name="commonDao")
     private CommonDao commonDao;
+
+    @Value("${link.clova-recipe.api-url}")
+    private String clovaRecipeApiUrl;
 
     public void insertRecipe(Map<String, Object> insertRecipeInfo) {
 
@@ -183,7 +192,7 @@ public class RecipeService extends BaseService {
         return recipeStepList;
     }
 
-    @Transactional
+    //@Transactional // 임시 주석
     public void updateRecipeInfo(Map<String, Object> recipeUpdateInfo) {
         Map<String, Object> recipeInfo = (Map<String, Object>) recipeUpdateInfo.get("recipeInfo");
         List<Map<String, Object>> recipeStepInfoList = (List<Map<String, Object>>) recipeUpdateInfo.get("recipeStepInfoList");
@@ -232,6 +241,142 @@ public class RecipeService extends BaseService {
         }
 
         return result;
+    }
+
+    public Map<String, Object> getClovaRecipeService() throws IOException {
+        Map<String, Object> recipeInfo = null;
+
+        Map<String, Object> requestData = new HashMap<>();
+
+        List<Map<String, Object>> roleList = new ArrayList<>();
+
+        Map<String, Object> role = new HashMap<>();
+        role.put("role", "system");
+        role.put("content", "## 소개 요리 레시피를 알려주는 AI입니다. 요구사항에 맞춰 적절한 레시피를 추천합니다. " +
+                "요구사항 ingredients에 명시된 재료가 최대한 포함되는 레시피를 추천해주세요.except_recipe에 명시된 레시피는 제외하고 비슷하거나 유사한 레시피도 제외합니다. " +
+                "## 제공되는 형식재료와 추천 제외 요리는 아래와 같이 JSON 형식으로 제공됩니다. " +
+                "{ingredients: [\"양파\", \"파\", \"삼겹살\"]," +
+                "except_recipe: [\"양파 조림\"]" +
+                "}" +
+                "" +
+                "" +
+                "## 제공하는 형식" +
+                "위와 같은 형식으로 제공받을 경우 아래와 같이 JSON 형태로 답안을 제공해줍니다." +
+                "" +
+                "{" +
+                "recipe_name: \"삼겹살 덮밥\"," +
+                "recipe_ingredients: [\"양파\", \"파\", \"삼겹살\", \"통깨\", \"쌀\", \"간장\", \"설탕\", \"맛술\", \"굴소스\", \"간장\", \"물엿\", \"다진마늘\", \"물\", \"생강가루\", \"후춧가루\"]," +
+                "recipes: [" +
+                "\"양파는 얇게 채를 썬 후 찬물에 담갔다가 체에 밭쳐 물기를 빼고 쪽파는 송송 썰어주세요. 볼에 간장 소스 재료를 넣고 섞어주세요.\"," +
+                "\"달군 팬에 삼겹살을 올려 앞뒤로 노릇하게 굽고 한입 크기로 썰어주세요.\"," +
+                "\"팬에 삼겹살을 굽고 나온 기름을 닦아 낸 후 간장 소스를 넣고 중약불에서 윤기 나게 조려가며 익혀주세요.\"," +
+                "\"그릇에 따뜻한 밥을 담은 후 채를 썬 양파를 올리고 삼겹살을 돌려 담아주세요. 삼겹살에 팬에 남은 소스를 얹은 후 실파와 통깨를 뿌려 맛있게 즐겨주세요. (기호에 따라 가운데 달걀노른자와 연겨자를 올려 드시면 더욱 맛있게 드실 수 있답니다.)\"" +
+                "]" +
+                "}");
+        roleList.add(role);
+
+        role = new HashMap<>();
+        role.put("role", "user");
+        role.put("content", "{" +
+                "ingredients: [\"스파게티면\", \"미트볼\", \"삼겹살\", \"양파\"]," +
+                "except_recipe: []" +
+                "}");
+        roleList.add(role);
+
+        requestData.put("messages", roleList);
+
+        requestData.put("topP", 0.8);
+        requestData.put("topK", 0);
+        requestData.put("maxTokens", 1024);
+        requestData.put("temperature", 0.5);
+        requestData.put("repeatPenalty", 5.0);
+        requestData.put("stopBefore", new ArrayList<>());
+        requestData.put("includeAiFilters", true);
+        requestData.put("seed", 0);
+
+        // jackson objectmapper 객체 생성
+        ObjectMapper objectMapper = new ObjectMapper();
+        // Map -> Json 문자열
+        String studentJson = objectMapper.writeValueAsString(requestData);
+        // Json 문자열 출력
+        System.out.println(studentJson);
+
+        URL url = new URL(clovaRecipeApiUrl); // 호출할 외부 API 를 입력한다.
+        HttpURLConnection conn = null;
+        OutputStreamWriter os = null;
+        BufferedReader in = null;
+
+        try {
+            conn = (HttpURLConnection) url.openConnection(); // header에 데이터 통신 방법을 지정한다.
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("X-NCP-CLOVASTUDIO-API-KEY", "NTA0MjU2MWZlZTcxNDJiYzhNauN3QcMPCe/pSB6JvvMYG6MUHfBN4mfwrg+EYNx7");
+            conn.setRequestProperty("X-NCP-APIGW-API-KEY", "JttI6yQo5uMUviRAf4S5IiHXFFtTk2HYaiSJSb0c");
+            conn.setRequestProperty("X-NCP-CLOVASTUDIO-REQUEST-ID", "79d3b734-5df6-4c41-ba16-5f809be0647d");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Accept", "text/event-stream");
+
+            // Post인 경우 데이터를 OutputStream으로 넘겨 주겠다는 설정
+            conn.setDoOutput(true);
+
+            // Request body message에 전송
+            os = new OutputStreamWriter(conn.getOutputStream());
+            os.write(studentJson);
+            System.out.println("### 클로바 요청 Begin ###");
+            System.out.println(studentJson);
+            os.flush();
+
+            // 응답 데이터 가져오기
+            in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+            String inputLine;
+            StringBuilder response = new StringBuilder();
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+
+            // 응답 출력
+            System.out.println(response.toString());
+            System.out.println("### 클로바 요청 End ###");
+
+            // 데이터를 줄 단위로 분할
+            String[] lines = response.toString().split("id:");
+
+            // 분할된 데이터를 파싱하여 필요한 정보를 추출
+            List<String> jsonStrings = new ArrayList<>();
+            for (String line : lines) {
+                if (!line.isEmpty()) {
+                    // JSON 형식의 문자열 추출
+                    String jsonString = line.substring(line.indexOf("{"));
+                    jsonStrings.add(jsonString);
+                }
+            }
+
+            // 추출된 JSON 문자열을 출력
+            //for (String jsonString : jsonStrings) {
+            //    System.out.println("JSON String: " + jsonString);
+            //}
+
+            jsonStrings.get(jsonStrings.size()-2);
+
+            String recipeInfoStr = ((Map<String, Object>)objectMapper.readValue(jsonStrings.get(jsonStrings.size()-2), Map.class).get("message")).get("content").toString().replaceAll("\n", "");
+
+            recipeInfo = objectMapper.readValue(CommonUtil.convertToValidJson(recipeInfoStr), Map.class);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            // 리소스 해제
+            if (os != null) {
+                os.close();
+            }
+            if (in != null) {
+                in.close();
+            }
+            if (conn != null) {
+                conn.disconnect();
+            }
+        }
+
+        return recipeInfo;
     }
 
 }

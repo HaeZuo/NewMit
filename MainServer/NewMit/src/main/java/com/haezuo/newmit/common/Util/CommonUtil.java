@@ -211,4 +211,11 @@ public class CommonUtil {
         return file;
     }
 
+    public static String convertToValidJson(String originalData) {
+        // 키와 값을 쌍따옴표로 감싸기
+        originalData = originalData.replaceAll("(\\b\\w+\\b)(\\s*):","\"$1\":");
+
+        return originalData;
+    }
+
 }

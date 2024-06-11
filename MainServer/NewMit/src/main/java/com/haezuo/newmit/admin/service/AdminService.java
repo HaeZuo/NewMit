@@ -24,7 +24,7 @@ public class AdminService extends BaseService {
         return commonDao.selectList("mappers.common.selectFoodIngredientsTypeCodeList");
     }
 
-    @Transactional
+    //@Transactional // 임시 주석
     public void deleteAndInsertFoodIngredientsTypeCodeList(List<Map<String, Object>> foodIngredientsTypeCodeList) {
         commonDao.delete("mappers.common.deleteFoodIngredientsTypeCodeList");
 
