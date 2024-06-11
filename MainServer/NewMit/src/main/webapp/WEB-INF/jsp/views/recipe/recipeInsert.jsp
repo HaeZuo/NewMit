@@ -49,6 +49,9 @@
 
             const file = e.files[0]; // 선택된 파일
 
+            if(file == null)
+                return;
+
             // FileReader 객체 생성
             const reader = new FileReader();
 
