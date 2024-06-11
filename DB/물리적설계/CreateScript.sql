@@ -37,7 +37,8 @@ VALUES  ('4', '회원 역할', '0', '관리자'),
         ('4', '회원 역할', '1', '일반 회원');
 
 INSERT INTO TB_COMMON_CODE(COMMON_CODE_GROUP_CD, COMMON_CODE_GROUP_CD_NM, COMMON_CODE_CD, COMMON_CODE_NM)
-VALUES  ('5', '이슈 유형', '1', '식자재 관련');
+VALUES  ('5', '이슈 유형', '1', '식자재 관련'),
+        ('5', '이슈 유형', '2', '레시피 관련');
 
 INSERT INTO TB_COMMON_CODE(COMMON_CODE_GROUP_CD, COMMON_CODE_GROUP_CD_NM, COMMON_CODE_CD, COMMON_CODE_NM)
 VALUES  ('6', '요리기준-인분', '1', '1인분'),
