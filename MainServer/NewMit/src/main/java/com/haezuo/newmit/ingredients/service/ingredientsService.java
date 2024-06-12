@@ -238,6 +238,8 @@ public class ingredientsService extends BaseService {
 
         try {
             conn = (HttpURLConnection) url.openConnection(); // header에 데이터 통신 방법을 지정한다.
+            conn.setConnectTimeout(180000);
+            conn.setReadTimeout(180000);
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json; utf-8");
 
