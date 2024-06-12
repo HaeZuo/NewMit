@@ -73,7 +73,12 @@ public class RecipeService extends BaseService {
             currentCookingProcess.put("recipeStepIngredients", currentRecipeStepInfo.get("materialStr"));
             currentCookingProcess.put("recipeStepTools", currentRecipeStepInfo.get("toolStr"));
             currentCookingProcess.put("recipeStepTips", currentRecipeStepInfo.get("tipStr"));
-            currentCookingProcess.put("recipeStepTimer", currentRecipeStepInfo.get("timerHourStr") + "" + currentRecipeStepInfo.get("timerMinuteStr") + "" + currentRecipeStepInfo.get("timerSecondStr"));
+
+            String recipeStepTimer = "";
+            recipeStepTimer += CommonUtil.isNull((String) currentRecipeStepInfo.get("timerHourStr")) ? "00" : String.format("%02d", Integer.parseInt((String) currentRecipeStepInfo.get("timerHourStr")));
+            recipeStepTimer += CommonUtil.isNull((String) currentRecipeStepInfo.get("timerMinuteStr")) ? "00" : String.format("%02d", Integer.parseInt((String) currentRecipeStepInfo.get("timerMinuteStr")));
+            recipeStepTimer += CommonUtil.isNull((String) currentRecipeStepInfo.get("timerSecondStr")) ? "00" : String.format("%02d", Integer.parseInt((String) currentRecipeStepInfo.get("timerSecondStr")));
+            currentCookingProcess.put("recipeStepTimer", recipeStepTimer);
             currentCookingProcess.put("userIp", CommonUtil.getUserIp());
 
             commonDao.insert("mappers.recipe.insertCookingProcess", currentCookingProcess);
