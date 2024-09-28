@@ -1,6 +1,6 @@
 # NewMit
 
-## 개요
+> 식자재 관리의 새로운 방법
 
 ## 프로젝트
 
@@ -20,6 +20,28 @@
 
 ### 개발 내용
 
+- (1) UI/UX 디자인 설계
+  * Material Design을 기반으로 전반적인 UI/UX 디자인 수행
+  * 모바일 사용자에 제공을 위한 서비스 디자인 환경 구현
+  * Figma를 통한 UI 가이드라인 규정을 만들어 관리 및 제작
+
+- (2) 웹 서비스 구조 및 설계
+  * UI/UX 디자인 설계 내용을 바탕으로 사용자 편의성 기능 구현
+  * OAuth2를 이용한 소셜 앱 로그인 서비스로 사용자 용이성 확보
+  * 식자재 등록/수정/삭제 기능을 통한 사용자 식자재 관리 기능 구현
+  * 객체인식 서비스와의 연계를 통한 식자재 자동 등록 관리 기능 구현
+  * 레시피 등록/수정/삭제 기능을 이용한 사용자 레시피 공유 서비스 기능 구현
+
+- (3) 객체인식 설계
+  * Object Detection 대상 요소 취합 및 구분
+  * 대상 요소에 따른 관련 이미지 수집 프로그램 작성 및 수집
+  * 대상 요소 식별을 위한 사전 라벨링 수행
+  * TensorFlow 2.15.0.post1 버전 기반 SSD Mobilenet V2 모델 학습
+  * TensorFlow Model Server 2.15.1 버전 기반 Serving 서비스 진행
+
+### 워크플로우
+
+![image](https://github.com/HaeZuo/NewMit/assets/66985977/97037fa8-861b-4ffe-87cf-496890c9e700)
 
 ### 프로젝트 기간
 
@@ -32,5 +54,3 @@
 |<img src='https://avatars.githubusercontent.com/u/23098327?v=4' height=80 width=80px></img>|<img src='https://avatars.githubusercontent.com/u/66985977?v=4' height=80 width=80px></img>|<img src='https://avatars.githubusercontent.com/u/71180175?v=4' height=80 width=80px></img>|
 |:-:|:-:|:-:|
 |[Chance](https://github.com/ahs0432)|[JaeDragon](https://github.com/iJaeDragon)|[Nyoung_Ni](https://github.com/yheun03)|
-
-![image](https://github.com/HaeZuo/NewMit/assets/66985977/97037fa8-861b-4ffe-87cf-496890c9e700)
