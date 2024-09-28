@@ -3,6 +3,11 @@
 ## Member
 
 <table>
+<colgroup>
+<col width="250px" />
+<col width="250px />
+<col width="250px />
+</colgroup>
 <tr>
 <td>      
   
